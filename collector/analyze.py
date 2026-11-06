@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "collector"))
 from settings import DAY_START_HOUR, TIMEZONE  # noqa: E402
+from research import run_all  # noqa: E402
 
 OUT_DIR = ROOT / "docs" / "data"
 
@@ -253,6 +254,7 @@ def build_stats(reviews, cards, today, crt):
         "weekly": weekly,
         "heatmap": heatmap,
         "forecast": forecast,
+        "research": run_all(reviews),
     }
 
 

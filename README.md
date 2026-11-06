@@ -14,6 +14,19 @@ A personal learning-analytics pipeline for [Anki](https://apps.ankiweb.net/). It
 - **Nags** through Web Push notifications and email at 19:00, 21:00, 22:00 and 23:00 if no reviews were logged that day, and celebrates when the streak is saved.
 - **Publishes** a cleaned dataset, `docs/data/reviews.csv`, with one row per review (no card text).
 
+## Research questions
+
+Anki's built-in statistics describe *what* happened. These four analyses (`collector/research.py`) ask *why*, using the raw review log. Each rate comes with its sample size and a 95% Wilson confidence interval, buckets with fewer than 40 answers are greyed out, and a finding is labelled significant only when the confidence intervals of the compared groups don't overlap.
+
+| Question | Method |
+|---|---|
+| **What does a late review cost?** | Recall on review cards grouped by *actual gap ÷ scheduled interval* (on time, ×1.15–1.5, ×1.5–2, ×2–3, ×3+). |
+| **When does a session get too long?** | Reviews split into sessions at pauses over 30 min; recall by the card's position in the session. |
+| **Does hesitation predict forgetting?** | For *correct* answers only: share of cards failed at the *next* review, by answer time. Anki treats a 2-second and a 12-second "Good" the same. |
+| **What does one word cost?** | Median minutes and reviews from a card's first appearance until its interval first reaches 21 days, per deck. |
+
+The methods were validated on a simulated collection with planted effects (a forgetting curve, a fatigue penalty per card in a session). The analysis recovered both, and correctly reported no effect where none was planted.
+
 ## How it works
 
 ```

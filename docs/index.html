@@ -103,6 +103,20 @@ svg text { font-family: inherit; }
 .stack { display: flex; height: 12px; border-radius: 99px; overflow: hidden; background: var(--line); }
 .stack div { height: 100%; }
 
+/* research */
+.finding { font-size: 19px; font-weight: 800; line-height: 1.3; margin: 2px 0 6px; }
+.finding em { font-style: normal; color: var(--flame); }
+.finding.null { color: var(--muted); font-size: 16px; }
+.method { font-size: 12.5px; color: var(--muted); line-height: 1.45; margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
+.tag { display: inline-block; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 99px; margin-bottom: 8px; letter-spacing: .03em; }
+.tag.sig { background: rgba(47,163,107,.14); color: var(--good); }
+.tag.ns { background: var(--line); color: var(--muted); }
+.price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 8px; }
+.price { background: var(--flame-soft); border-radius: 16px; padding: 14px; }
+.price .d { font-weight: 900; }
+.price .big { font-size: 30px; font-weight: 900; color: var(--flame); letter-spacing: -.02em; margin: 4px 0 0; }
+.price .s { font-size: 12.5px; color: var(--muted); font-weight: 700; line-height: 1.4; }
+
 /* setup */
 .steps { margin: 8px 0 0; padding-left: 20px; line-height: 1.5; }
 .steps li { margin-bottom: 6px; }
@@ -178,6 +192,36 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
     <div id="forecast"></div>
   </div>
 
+  <section id="research">
+    <h2>Дослідження</h2>
+    <div class="card chart" id="rOverdue">
+      <div class="chart-title">Ціна запізнення</div>
+      <div id="rOverdueTag"></div>
+      <div class="finding" id="rOverdueFinding"></div>
+      <div id="rOverdueChart"></div>
+      <div class="method">Частка правильних відповідей залежно від того, у скільки разів пізніше за графік Анкі ти повторила картку. Лінії над стовпцями: 95% довірчий інтервал. Блідим позначено групи, де менше <span class="minN"></span> відповідей.</div>
+    </div>
+    <div class="card chart" id="rFatigue">
+      <div class="chart-title">Втома в сесії</div>
+      <div id="rFatigueTag"></div>
+      <div class="finding" id="rFatigueFinding"></div>
+      <div id="rFatigueChart"></div>
+      <div class="method">Сесія: повторення без пауз довших за 30 хвилин. Показано точність на картках повторення залежно від номера картки в сесії.</div>
+    </div>
+    <div class="card chart" id="rHes">
+      <div class="chart-title">Вагання передбачає забування?</div>
+      <div id="rHesTag"></div>
+      <div class="finding" id="rHesFinding"></div>
+      <div id="rHesChart"></div>
+      <div class="method">Беремо лише правильні відповіді і дивимось, як часто ця ж картка наступного разу отримала «Again», залежно від того, скільки секунд ти думала. Анкі цього не враховує: «Good» за 2 секунди і за 12 для неї однакові.</div>
+    </div>
+    <div class="card" id="rPrice">
+      <div class="chart-title">Скільки коштує одне слово</div>
+      <div class="chart-sub">Медіана від першого показу картки до моменту, коли її інтервал уперше досяг 21 дня.</div>
+      <div class="price-grid" id="rPriceGrid"></div>
+    </div>
+  </section>
+
   <h2>Колоди</h2>
   <div id="decks"></div>
 
@@ -245,7 +289,7 @@ function render(s) {
   $('loading').classList.add('hidden');
   $('app').classList.remove('hidden');
   renderHero(s); renderKpis(s); renderInsights(s); renderHeatmap(s);
-  renderWeekly(s); renderHours(s); renderRatings(s); renderForecast(s); renderDecks(s);
+  renderWeekly(s); renderHours(s); renderRatings(s); renderForecast(s); renderDecks(s); renderResearch(s);
   const t = new Date(s.generated_at);
   $('updated').textContent = `Оновлено ${t.toLocaleString('uk-UA', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}`;
   if ('clearAppBadge' in navigator && s.streak.reviewed_today) navigator.clearAppBadge().catch(() => {});
@@ -436,6 +480,83 @@ function renderDecks(s) {
       <div class="legend">${states.filter(([k]) => d.cards[k]).map(([k, n, c]) => `<span><i style="background:var(${c})"></i>${n} ${nf.format(d.cards[k])}</span>`).join('')}</div>
     </div>`;
   }).join('');
+}
+
+/* ---------- research ---------- */
+const p1 = (v) => String(v).replace('.', ',');
+
+function ciChart(buckets, { color = 'var(--flame)', zeroBase = false } = {}) {
+  const W = 340, H = 160, pad = { l: 30, r: 6, t: 16, b: 34 };
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b, bw = iw / buckets.length;
+  const vals = buckets.filter((b) => b.rate != null);
+  if (!vals.length) return '';
+  const top = Math.min(100, Math.ceil((Math.max(...vals.map((b) => b.hi)) + 2) / 5) * 5);
+  const bot = zeroBase ? 0 : Math.max(0, Math.floor((Math.min(...vals.map((b) => b.lo)) - 5) / 10) * 10);
+  const y = (v) => pad.t + ih * (1 - (v - bot) / (top - bot));
+  let g = '';
+  [bot, (bot + top) / 2, top].forEach((v) => {
+    g += `<line x1="${pad.l}" x2="${W - pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/>`;
+    g += `<text x="${pad.l - 5}" y="${y(v) + 3}" font-size="8" text-anchor="end" fill="${css('--muted')}">${Math.round(v)}%</text>`;
+  });
+  buckets.forEach((b, i) => {
+    const cx = pad.l + i * bw + bw / 2;
+    if (b.rate != null) {
+      const op = b.enough ? 1 : .3;
+      g += `<rect x="${cx - bw * .3}" y="${y(b.rate)}" width="${bw * .6}" height="${y(bot) - y(b.rate)}" rx="4" fill="${color}" opacity="${.85 * op}"><title>${b.label}: ${p1(b.rate)}% (95% ДІ ${p1(b.lo)}–${p1(b.hi)}), n=${b.n}</title></rect>`;
+      g += `<g stroke="var(--ink)" stroke-width="1.3" opacity="${.7 * op}"><line x1="${cx}" x2="${cx}" y1="${y(b.hi)}" y2="${y(b.lo)}"/><line x1="${cx - 5}" x2="${cx + 5}" y1="${y(b.hi)}" y2="${y(b.hi)}"/><line x1="${cx - 5}" x2="${cx + 5}" y1="${y(b.lo)}" y2="${y(b.lo)}"/></g>`;
+      g += `<text x="${cx}" y="${y(b.hi) - 4}" font-size="8.5" text-anchor="middle" font-weight="800" fill="${css('--ink')}" opacity="${op}">${Math.round(b.rate)}%</text>`;
+    }
+    g += `<text x="${cx}" y="${H - 18}" font-size="8.5" text-anchor="middle" font-weight="700" fill="${css('--ink')}">${b.label}</text>`;
+    g += `<text x="${cx}" y="${H - 6}" font-size="7.5" text-anchor="middle" fill="${css('--muted')}">n=${nf.format(b.n)}</text>`;
+  });
+  return svg(W, H, g);
+}
+
+function tag(id, sig) {
+  $(id).innerHTML = sig == null ? '' : sig
+    ? '<span class="tag sig">Статистично значуще</span>'
+    : '<span class="tag ns">Різниця в межах похибки</span>';
+}
+
+function finding(id, html) {
+  const el = $(id);
+  el.className = html ? 'finding' : 'finding null';
+  el.innerHTML = html || 'Поки замало даних. Висновок зʼявиться, коли назбирається більше повторень.';
+}
+
+function renderResearch(s) {
+  const r = s.research;
+  if (!r) { $('research').classList.add('hidden'); return; }
+  document.querySelectorAll('.minN').forEach((el) => { el.textContent = r.min_n; });
+
+  const o = r.overdue.finding;
+  tag('rOverdueTag', o && o.significant);
+  finding('rOverdueFinding', o && (o.significant
+    ? `Коли повторюєш картку <em>${o.worst_label}</em> пізніше, згадуєш її в <em>${p1(o.worst)}%</em> випадків замість ${p1(o.base)}%. Мінус ${p1(o.drop_pp)} п.п.`
+    : `Навіть запізнившись (${o.worst_label}), ти згадуєш ${p1(o.worst)}% карток проти ${p1(o.base)}% вчасно. Суттєвої ціни пропусків поки не видно.`));
+  $('rOverdueChart').innerHTML = ciChart(r.overdue.buckets);
+
+  const f = r.fatigue.finding;
+  tag('rFatigueTag', f && f.significant);
+  finding('rFatigueFinding', f && (f.significant
+    ? `На картках <em>№${f.worst_label}</em> у сесії точність <em>${p1(f.worst)}%</em>, а на перших 25 ${p1(f.base)}%. Довгі сесії коштують ${p1(f.drop_pp)} п.п.`
+    : `Довгі сесії тебе не виснажують: на картках №${f.worst_label} точність ${p1(f.worst)}%, на перших 25 ${p1(f.base)}%.`));
+  $('rFatigueChart').innerHTML = ciChart(r.fatigue.buckets);
+
+  const h = r.hesitation.finding;
+  tag('rHesTag', h && h.significant);
+  finding('rHesFinding', h && (h.significant
+    ? `Якщо ти правильно відповіла, але думала <em>${h.slow_label}</em>, наступного разу забуваєш у <em>${p1(h.ratio)} раза</em> частіше (${p1(h.slow)}% проти ${p1(h.fast)}%).`
+    : `Час відповіді не передбачає забування: після швидких правильних відповідей ти забуваєш ${p1(h.fast)}% карток, після повільних ${p1(h.slow)}%.`));
+  $('rHesChart').innerHTML = ciChart(r.hesitation.buckets, { color: 'var(--bad)', zeroBase: true });
+
+  const decks = r.price.decks;
+  if (!decks.length) { $('rPrice').classList.add('hidden'); return; }
+  $('rPriceGrid').innerHTML = decks.map((d) => `<div class="price">
+      <div class="d">${escapeHtml(d.deck)}</div>
+      <div class="big">${d.median_minutes < 1 ? Math.round(d.median_minutes * 60) + ' с' : p1(d.median_minutes) + ' хв'}</div>
+      <div class="s">${d.median_reviews} повторень за ${d.median_days} ${daysWord(d.median_days)}<br>≈ ${p1(d.words_per_hour)} слів за годину навчання<br>n=${nf.format(d.n)}</div>
+    </div>`).join('');
 }
 
 function escapeHtml(t) { return t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }

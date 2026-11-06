@@ -16,7 +16,7 @@
  "goal": {
   "target": 30,
   "done": 0,
-  "due_left": 0,
+  "due_left": null,
   "met": false,
   "cleared_queue": false
  },
@@ -30,7 +30,7 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-06T20:57+00:00",
+ "generated_at": "2026-11-06T21:04+00:00",
  "today": "2026-11-06",
  "streak": {
   "current": 0,
@@ -76,7 +76,7 @@
    }
   },
   {
-   "name": "Deleted cards",
+   "name": "Deleted decks",
    "reviews_total": 1633,
    "reviews_30d": 0,
    "retention_30d": null,
@@ -2475,7 +2475,7 @@
   "price": {
    "decks": [
     {
-     "deck": "Deleted cards",
+     "deck": "Deleted decks",
      "n": 292,
      "median_minutes": 0.7,
      "median_reviews": 3.0,

@@ -1,0 +1,32 @@
+{
+ "today": "",
+ "generated_at": "",
+ "streak": {
+  "current": 12,
+  "longest": 40,
+  "reviewed_today": true,
+  "at_risk": false
+ },
+ "today_stats": {
+  "reviews": 2,
+  "minutes": 1.0
+ },
+ "goal": {
+  "target": 30,
+  "done": 2,
+  "due_left": 48,
+  "met": false
+ },
+ "totals": {
+  "study_days": 120
+ },
+ "settings": {
+  "reminder_hours": [
+   19,
+   21,
+   22,
+   23
+  ],
+  "day_start_hour": 4
+ }
+}

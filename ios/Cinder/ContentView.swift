@@ -13,12 +13,27 @@ struct ContentView: View {
     @AppStorage("autoCountdown") private var autoCountdown = true
     @Environment(\.scenePhase) private var phase
     @State private var hop = false
+    @State private var demoScenario: DemoScenario = .partial
 
     var body: some View {
         ScrollView {
             VStack(spacing: 14) {
+                if Config.isDemo {
+                    VStack(spacing: 8) {
+                        Text("Demo data · set up GitHub to see your own").font(.caption.weight(.heavy)).foregroundStyle(flame)
+                        Picker("Scenario", selection: $demoScenario) {
+                            ForEach(DemoScenario.allCases) { Text($0.rawValue).tag($0) }
+                        }
+                        .pickerStyle(.segmented)
+                        .onChange(of: demoScenario) { _, sc in
+                            stats = Stats.demo(scenario: sc)
+                            hop = false
+                        }
+                    }
+                }
                 if let s = stats {
                     hero(s)
+                        .id(Config.isDemo ? demoScenario.rawValue : "live")
                     evolution(s)
                     controls
                 } else if let error {
@@ -34,7 +49,11 @@ struct ContentView: View {
         .task { await load() }
         .onChange(of: phase) { _, p in if p == .active { Task { await load() } } }
         .sheet(isPresented: $showStats) {
+            if Config.isDemo {
+                Text("Full analytics appear here once the GitHub site is live.").padding().presentationDetents([.medium])
+            } else {
             WebView(url: Config.siteURL).ignoresSafeArea()
+            }
         }
     }
 
@@ -169,7 +188,7 @@ struct ContentView: View {
 
     private func load() async {
         do {
-            let s = try await Stats.fetch()
+            let s = Config.isDemo ? Stats.demo(scenario: demoScenario) : try await Stats.fetch()
             stats = s
             error = nil
             await LiveActivityManager.sync(with: s, autoStart: autoCountdown)

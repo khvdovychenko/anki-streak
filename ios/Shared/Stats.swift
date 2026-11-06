@@ -6,6 +6,8 @@ enum Config {
     static let siteURL = URL(string: "https://YOUR-GITHUB-NAME.github.io/YOUR-REPO/")!
     static var statsURL: URL { siteURL.appendingPathComponent("data/stats.json") }
     static let ankiURL = URL(string: "anki://")!
+    /// Until the real site is set, the app and widget show bundled demo data.
+    static var isDemo: Bool { siteURL.absoluteString.contains("YOUR-GITHUB-NAME") }
 }
 
 // MARK: - The subset of docs/data/stats.json the app needs
@@ -44,11 +46,37 @@ struct Stats: Codable {
     var settings: Settings?
 
     static func fetch() async throws -> Stats {
+        if Config.isDemo { return demo() }
         var request = URLRequest(url: Config.statsURL)
         request.cachePolicy = .reloadIgnoringLocalCacheData
         request.timeoutInterval = 15
         let (data, _) = try await URLSession.shared.data(for: request)
         return try JSONDecoder().decode(Stats.self, from: data)
+    }
+
+    /// Bundled sample data, dated today, used before the GitHub site exists.
+    static func demo(scenario: DemoScenario = .partial) -> Stats {
+        let url = Bundle.main.url(forResource: "demo-stats", withExtension: "json")!
+        var s = try! JSONDecoder().decode(Stats.self, from: Data(contentsOf: url))
+        s.today = CinderLogic.studyDayString(dayStartHour: s.dayStartHour)
+        s.generated_at = ISO8601DateFormatter().string(from: .now)
+        switch scenario {
+        case .lit:
+            s.streak.current = 34; s.streak.reviewed_today = true
+            s.goal?.done = 42; s.goal?.met = true; s.today_stats.reviews = 42
+        case .partial:
+            break
+        case .atRisk:
+            s.streak.reviewed_today = false; s.streak.at_risk = true
+            s.goal?.done = 0; s.today_stats.reviews = 0
+        case .dead:
+            s.streak.current = 0; s.streak.reviewed_today = false
+            s.goal?.done = 0; s.today_stats.reviews = 0
+        case .volcano:
+            s.streak.current = 400; s.streak.longest = 400; s.streak.reviewed_today = true
+            s.goal?.done = 55; s.goal?.met = true; s.today_stats.reviews = 55
+        }
+        return s
     }
 
     /// Is the snapshot from the current study day? If not, today's progress is unknown (0).
@@ -67,6 +95,11 @@ struct Stats: Codable {
         if let due = goal?.due_left, due > 0 { return min(left, due) }
         return left
     }
+}
+
+enum DemoScenario: String, CaseIterable, Identifiable {
+    case lit = "Goal done", partial = "Half done", atRisk = "At risk", dead = "Dead", volcano = "Volcano"
+    var id: String { rawValue }
 }
 
 // MARK: - Cinder's stage and mood, mirroring docs/cinder.js

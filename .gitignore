@@ -1,0 +1,5 @@
+# The downloaded Anki collection contains card text. Never commit it.
+data/anki/
+*.anki2
+__pycache__/
+.DS_Store

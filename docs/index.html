@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anki Streak</title>
+<meta name="description" content="Особистий трекер Анкі: стрік, аналітика повторень і нагадування.">
+<meta name="theme-color" content="#1c1712">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Streak">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbf7f2; --card: #ffffff; --ink: #2a211a; --muted: #8a7d72; --line: #eee4da;
+  --flame: #ff7a1a; --flame-2: #ffb02e; --flame-soft: #fff0e3;
+  --good: #2fa36b; --bad: #e0483e; --hard: #f0a531; --easy: #3d8bfd;
+  --heat0: #efe6dc; --heat1: #ffd7b0; --heat2: #ffae6b; --heat3: #ff7a1a; --heat4: #c94f00;
+  --shadow: 0 1px 0 rgba(42,33,26,.04), 0 6px 20px rgba(42,33,26,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1712; --card: #262019; --ink: #f6eee6; --muted: #a8998b; --line: #3a3128;
+    --flame-soft: #3b2715; --heat0: #33291f; --heat1: #6b3b14; --heat2: #a8521a; --heat3: #ff7a1a; --heat4: #ffb02e;
+    --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1712; --card: #262019; --ink: #f6eee6; --muted: #a8998b; --line: #3a3128;
+  --flame-soft: #3b2715; --heat0: #33291f; --heat1: #6b3b14; --heat2: #a8521a; --heat3: #ff7a1a; --heat4: #ffb02e;
+  --shadow: none;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body {
+  font-family: Nunito, ui-rounded, -apple-system, system-ui, sans-serif;
+  padding: calc(env(safe-area-inset-top) + 12px) 16px calc(env(safe-area-inset-bottom) + 32px);
+  max-width: 720px; margin: 0 auto; -webkit-font-smoothing: antialiased;
+}
+h2 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 28px 4px 10px; font-weight: 800; }
+.card { background: var(--card); border-radius: 22px; padding: 18px; box-shadow: var(--shadow); border: 1px solid var(--line); }
+.card + .card { margin-top: 12px; }
+.muted { color: var(--muted); }
+svg text { font-family: inherit; }
+
+/* hero */
+.hero { text-align: center; padding: 26px 18px 22px; position: relative; overflow: hidden; }
+.flame { width: 92px; height: 112px; margin: 0 auto 4px; display: block; transform-origin: 50% 100%; }
+.hero.alive .flame { animation: flicker 2.4s ease-in-out infinite; }
+.hero.risk .flame { filter: grayscale(.55) opacity(.75); animation: shiver .4s ease-in-out infinite; }
+.hero.dead .flame { filter: grayscale(1) opacity(.35); }
+@keyframes flicker { 0%,100% { transform: scale(1) rotate(0); } 30% { transform: scale(1.04,.97) rotate(-1.5deg); } 60% { transform: scale(.98,1.03) rotate(1.5deg); } }
+@keyframes shiver { 0%,100% { transform: translateX(0); } 50% { transform: translateX(1.5px); } }
+.streak-num { font-size: 76px; font-weight: 900; line-height: .95; letter-spacing: -.03em; }
+.hero.alive .streak-num { color: var(--flame); }
+.streak-label { font-weight: 800; font-size: 18px; margin-top: 2px; }
+.status { display: inline-block; margin-top: 14px; padding: 7px 14px; border-radius: 999px; font-weight: 800; font-size: 14px; }
+.hero.alive .status { background: rgba(47,163,107,.14); color: var(--good); }
+.hero.risk .status { background: rgba(224,72,62,.12); color: var(--bad); }
+.hero.dead .status { background: var(--line); color: var(--muted); }
+.cta {
+  display: block; width: 100%; margin-top: 16px; padding: 15px; border: 0; border-radius: 16px;
+  background: var(--flame); color: #fff; font: 900 17px/1 inherit; font-family: inherit; text-decoration: none;
+  box-shadow: 0 4px 0 #c95a0b; cursor: pointer;
+}
+.cta:active { transform: translateY(3px); box-shadow: 0 1px 0 #c95a0b; }
+.cta.ghost { background: var(--flame-soft); color: var(--flame); box-shadow: none; }
+.meta-row { display: flex; justify-content: center; gap: 22px; margin-top: 14px; font-size: 14px; }
+.meta-row b { font-size: 17px; display: block; }
+
+/* kpis */
+.kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.kpi { padding: 16px; }
+.kpi .v { font-size: 28px; font-weight: 900; letter-spacing: -.02em; }
+.kpi .l { font-size: 13px; color: var(--muted); font-weight: 700; margin-top: 2px; }
+.kpi + .kpi { margin-top: 0; }
+
+/* insights */
+.insights { margin: 0; padding: 0; list-style: none; }
+.insights li { padding: 11px 0 11px 34px; position: relative; font-weight: 600; line-height: 1.35; border-top: 1px solid var(--line); }
+.insights li:first-child { border-top: 0; padding-top: 2px; }
+.insights li:first-child::before { top: 0; }
+.insights li::before { content: attr(data-i); position: absolute; left: 0; top: 9px; font-size: 20px; }
+
+/* charts */
+.chart-title { font-weight: 800; margin-bottom: 2px; }
+.chart-sub { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); font-weight: 700; margin-top: 10px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.heat-wrap { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
+
+/* decks */
+.deck-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.deck-name { font-weight: 900; font-size: 18px; }
+.deck-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+.deck-stats b { display: block; font-size: 20px; font-weight: 900; }
+.deck-stats span { font-size: 12px; color: var(--muted); font-weight: 700; }
+.stack { display: flex; height: 12px; border-radius: 99px; overflow: hidden; background: var(--line); }
+.stack div { height: 100%; }
+
+/* setup */
+.steps { margin: 8px 0 0; padding-left: 20px; line-height: 1.5; }
+.steps li { margin-bottom: 6px; }
+textarea { width: 100%; height: 110px; margin-top: 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: 12px/1.4 ui-monospace, Menlo, monospace; padding: 10px; }
+.small { font-size: 13px; }
+a { color: var(--flame); font-weight: 700; }
+footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 28px; line-height: 1.6; }
+.hidden { display: none !important; }
+.err { color: var(--bad); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div id="loading" class="card" style="margin-top:40px;text-align:center">Завантажую статистику…</div>
+<main id="app" class="hidden">
+  <section id="hero" class="card hero">
+    <svg class="flame" viewBox="0 0 92 112" aria-hidden="true">
+      <defs>
+        <linearGradient id="fg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff5a00"/><stop offset="1" stop-color="#ffb02e"/></linearGradient>
+        <linearGradient id="fi" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffd25a"/><stop offset="1" stop-color="#fff6c9"/></linearGradient>
+      </defs>
+      <path fill="url(#fg)" d="M46 2c6 18 30 30 34 58 4 27-14 50-34 50S8 89 12 64c2-14 10-22 14-32 3 9 3 16 10 20C34 32 38 16 46 2z"/>
+      <path fill="url(#fi)" d="M46 52c4 10 18 18 18 34 0 13-8 22-18 22s-18-9-18-21c0-8 5-13 8-19 2 6 4 9 8 10-1-10 0-18 2-26z"/>
+    </svg>
+    <div class="streak-num" id="streakNum">0</div>
+    <div class="streak-label" id="streakLabel">днів поспіль</div>
+    <div class="status" id="status"></div>
+    <div class="meta-row">
+      <div><b id="todayReviews">0</b><span class="muted">сьогодні</span></div>
+      <div><b id="todayMin">0</b><span class="muted">хвилин</span></div>
+      <div><b id="longest">0</b><span class="muted">рекорд</span></div>
+    </div>
+    <a class="cta" id="openAnki" href="anki://">Відкрити Анкі</a>
+  </section>
+
+  <h2>Підсумки</h2>
+  <div class="kpis" id="kpis"></div>
+
+  <h2>Що кажуть дані</h2>
+  <div class="card"><ul class="insights" id="insights"></ul></div>
+
+  <h2>Рік повторень</h2>
+  <div class="card chart">
+    <div class="chart-title" id="heatTitle"></div>
+    <div class="chart-sub" id="heatSub"></div>
+    <div class="heat-wrap" id="heatmap"></div>
+    <div class="legend" id="heatLegend"></div>
+  </div>
+
+  <h2>Динаміка</h2>
+  <div class="card chart">
+    <div class="chart-title">Повторення по тижнях</div>
+    <div class="chart-sub">Стовпці: кількість повторень. Лінія: retention, частка відповідей не «Again».</div>
+    <div id="weekly"></div>
+    <div class="legend"><span><i style="background:var(--flame)"></i>повторення</span><span><i style="background:var(--good)"></i>retention</span></div>
+  </div>
+
+  <div class="card chart">
+    <div class="chart-title">Коли ти вчишся</div>
+    <div class="chart-sub" id="hoursSub">Повторення за годиною доби, усі дані.</div>
+    <div id="hours"></div>
+  </div>
+
+  <div class="card chart">
+    <div class="chart-title">Твої відповіді за 30 днів</div>
+    <div class="chart-sub">Again, Hard, Good, Easy</div>
+    <div id="ratings"></div>
+  </div>
+
+  <div class="card chart" id="forecastCard">
+    <div class="chart-title">Прогноз на 2 тижні</div>
+    <div class="chart-sub">Скільки повторень чекає щодня</div>
+    <div id="forecast"></div>
+  </div>
+
+  <h2>Колоди</h2>
+  <div id="decks"></div>
+
+  <h2>Сповіщення</h2>
+  <div class="card" id="setup">
+    <div id="notInstalled" class="hidden">
+      <div class="chart-title">Спершу встанови додаток</div>
+      <ol class="steps small">
+        <li>Відкрий цю сторінку в <b>Safari</b></li>
+        <li>Натисни «Поділитися» ⬆️</li>
+        <li>Обери <b>«На екран Додому»</b></li>
+        <li>Відкрий додаток з іконки і повернись сюди</li>
+      </ol>
+    </div>
+    <div id="installed">
+      <div class="chart-title">Пуші з нагадуваннями</div>
+      <p class="small muted" id="pushState">Сповіщення ще не ввімкнені.</p>
+      <button class="cta" id="enablePush">Увімкнути сповіщення</button>
+      <div id="pushResult" class="hidden">
+        <p class="small"><b>Останній крок.</b> Скопіюй цей текст і встав його в GitHub: репозиторій → Settings → Secrets and variables → Actions → New repository secret. Назва: <b>PUSH_CONFIG</b>.</p>
+        <textarea id="pushConfig" readonly></textarea>
+        <button class="cta ghost" id="copyConfig">Скопіювати</button>
+        <p class="small muted">Тут є секретний ключ. Не публікуй його ніде, крім секрету GitHub.</p>
+      </div>
+      <button class="cta ghost" id="testLocal">Перевірити сповіщення на цьому телефоні</button>
+    </div>
+  </div>
+
+  <footer>
+    <div id="updated"></div>
+    <div><a href="data/reviews.csv" download>Завантажити всі дані (CSV)</a></div>
+    <div>Дані з AnkiWeb, оновлюються автоматично. Текст карток не зберігається.</div>
+  </footer>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const nf = new Intl.NumberFormat('uk-UA');
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
+}
+const daysWord = (n) => plural(n, 'день', 'дні', 'днів');
+const pct = (v) => v == null ? '—' : `${String(v).replace('.', ',')}%`;
+const svg = (w, h, inner) => `<svg viewBox="0 0 ${w} ${h}" role="img">${inner}</svg>`;
+const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
+const DAYS_LONG = ['понеділок', 'вівторок', 'середа', 'четвер', 'пʼятниця', 'субота', 'неділя'];
+const MONTHS = ['січ', 'лют', 'бер', 'кві', 'тра', 'чер', 'лип', 'сер', 'вер', 'жов', 'лис', 'гру'];
+
+async function load() {
+  try {
+    const res = await fetch(`data/stats.json?t=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(res.status);
+    render(await res.json());
+  } catch (e) {
+    $('loading').innerHTML = '<span class="err">Даних ще нема.</span><br><span class="small muted">Вони зʼявляться після першого запуску на GitHub.</span>';
+  }
+}
+
+function render(s) {
+  $('loading').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  renderHero(s); renderKpis(s); renderInsights(s); renderHeatmap(s);
+  renderWeekly(s); renderHours(s); renderRatings(s); renderForecast(s); renderDecks(s);
+  const t = new Date(s.generated_at);
+  $('updated').textContent = `Оновлено ${t.toLocaleString('uk-UA', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}`;
+  if ('clearAppBadge' in navigator && s.streak.reviewed_today) navigator.clearAppBadge().catch(() => {});
+}
+
+function renderHero(s) {
+  const st = s.streak, hero = $('hero');
+  $('streakNum').textContent = st.current;
+  $('streakLabel').textContent = `${daysWord(st.current)} поспіль`;
+  $('todayReviews').textContent = nf.format(s.today_stats.reviews);
+  $('todayMin').textContent = nf.format(Math.round(s.today_stats.minutes));
+  $('longest').textContent = st.longest;
+  if (st.reviewed_today) {
+    hero.className = 'card hero alive';
+    $('status').textContent = '✓ Сьогодні зараховано';
+    $('openAnki').classList.add('ghost');
+    $('openAnki').textContent = 'Ще трохи повторити';
+  } else if (st.at_risk) {
+    hero.className = 'card hero risk';
+    $('status').textContent = '⚠️ Стрік під загрозою';
+  } else {
+    hero.className = 'card hero dead';
+    $('status').textContent = 'Почни новий стрік сьогодні';
+  }
+}
+
+function renderKpis(s) {
+  const t = s.totals;
+  const items = [
+    [nf.format(t.reviews), 'повторень усього'],
+    [nf.format(Math.round(t.hours)), 'годин навчання'],
+    [pct(t.retention_30d), 'retention, 30 днів'],
+    [`${t.consistency_90d}%`, 'днів з навчанням, 90 днів'],
+  ];
+  $('kpis').innerHTML = items.map(([v, l]) => `<div class="card kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+}
+
+function renderInsights(s) {
+  const out = [];
+  const enough = s.hours.filter((h) => h.reviews >= 150 && h.retention != null);
+  if (enough.length >= 2) {
+    const best = enough.reduce((a, b) => (b.retention > a.retention ? b : a));
+    const worst = enough.reduce((a, b) => (b.retention < a.retention ? b : a));
+    if (best.retention - worst.retention >= 2) {
+      out.push(['🧠', `Найкраще памʼятаєш о ${best.hour}:00 (${pct(best.retention)}), найгірше о ${worst.hour}:00 (${pct(worst.retention)}).`]);
+    }
+  }
+  const wd = s.weekdays.filter((d) => d.study_days > 0);
+  if (wd.length >= 5) {
+    const top = wd.reduce((a, b) => (b.reviews / b.study_days > a.reviews / a.study_days ? b : a));
+    const allWeeks = Math.max(...s.weekdays.map((d) => d.study_days));
+    const skip = s.weekdays.reduce((a, b) => (b.study_days < a.study_days ? b : a));
+    out.push(['📅', `Найпродуктивніший день: ${DAYS_LONG[top.weekday]}, в середньому ${Math.round(top.reviews / top.study_days)} повторень.`]);
+    if (allWeeks - skip.study_days >= 3) out.push(['😴', `Найчастіше пропускаєш: ${DAYS_LONG[skip.weekday]}.`]);
+  }
+  const w = s.weekly.filter((x) => x.retention != null);
+  if (w.length >= 8) {
+    const avg = (arr) => arr.reduce((a, b) => a + b.retention, 0) / arr.length;
+    const now = avg(w.slice(-4)), before = avg(w.slice(-8, -4));
+    const d = now - before;
+    if (Math.abs(d) >= 1) out.push([d > 0 ? '📈' : '📉', `Retention за останній місяць ${d > 0 ? 'зріс' : 'впав'} на ${Math.abs(d).toFixed(1).replace('.', ',')} п.п. порівняно з попереднім.`]);
+    else out.push(['⚖️', 'Retention стабільний: останній місяць на рівні попереднього.']);
+  }
+  if (s.totals.study_days) {
+    const mins = Math.round(s.totals.hours * 60 / s.totals.study_days);
+    out.push(['⏱️', `У день навчання ти в середньому проводиш в Анкі ${mins} хв і робиш ${s.totals.avg_reviews_per_study_day} повторень.`]);
+  }
+  if (s.forecast && s.forecast[1]) out.push(['📬', `Завтра чекає ${nf.format(s.forecast[1].due)} повторень.`]);
+  const leeches = s.decks.reduce((a, d) => a + d.cards.leeches, 0);
+  if (leeches) out.push(['🧟', `${leeches} карток ти забула 8+ разів. Їх варто переписати або розбити.`]);
+  $('insights').innerHTML = out.map(([i, t]) => `<li data-i="${i}">${t}</li>`).join('') || '<li data-i="🌱">Мало даних для висновків. Повтори картки кілька днів.</li>';
+}
+
+function renderHeatmap(s) {
+  const days = s.heatmap;
+  const first = new Date(days[0].date + 'T12:00:00');
+  const lead = (first.getDay() + 6) % 7; // Monday = 0
+  const nonzero = days.map((d) => d.reviews).filter(Boolean).sort((a, b) => a - b);
+  const q = (p) => nonzero[Math.floor(p * (nonzero.length - 1))] || 1;
+  const cuts = [q(.25), q(.5), q(.75)];
+  const level = (n) => (n === 0 ? 0 : n <= cuts[0] ? 1 : n <= cuts[1] ? 2 : n <= cuts[2] ? 3 : 4);
+  const cell = 11, gap = 2.5, left = 18, top = 14;
+  const cols = Math.ceil((days.length + lead) / 7);
+  let g = '';
+  let lastMonth = -1;
+  days.forEach((d, i) => {
+    const idx = i + lead, c = Math.floor(idx / 7), r = idx % 7;
+    const x = left + c * (cell + gap), y = top + r * (cell + gap);
+    const date = new Date(d.date + 'T12:00:00');
+    if (r === 0 || i === 0) {
+      const m = date.getMonth();
+      if (m !== lastMonth && date.getDate() <= 7) { g += `<text x="${x}" y="9" font-size="8.5" fill="${css('--muted')}" font-weight="700">${MONTHS[m]}</text>`; lastMonth = m; }
+    }
+    const lab = `${date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'short' })}: ${d.reviews} повт., ${d.minutes} хв`;
+    g += `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="2.5" fill="var(--heat${level(d.reviews)})"><title>${lab}</title></rect>`;
+  });
+  [0, 2, 4].forEach((r) => { g += `<text x="0" y="${top + r * (cell + gap) + 8.5}" font-size="8" fill="${css('--muted')}" font-weight="700">${DAYS[r]}</text>`; });
+  const w = left + cols * (cell + gap);
+  $('heatmap').innerHTML = `<div style="min-width:${Math.max(560, 0)}px">${svg(w, top + 7 * (cell + gap), g)}</div>`;
+  $('heatmap').scrollLeft = 9999;
+  const active = days.filter((d) => d.reviews).length;
+  $('heatTitle').textContent = `${active} ${daysWord(active)} з навчанням за рік`;
+  $('heatSub').textContent = 'Кожна клітинка це день. Темніше означає більше повторень.';
+  $('heatLegend').innerHTML = `<span>менше</span>${[0, 1, 2, 3, 4].map((l) => `<span><i style="background:var(--heat${l});margin:0"></i></span>`).join('')}<span>більше</span>`;
+}
+
+function renderWeekly(s) {
+  const data = s.weekly, W = 340, H = 170, pad = { l: 30, r: 30, t: 10, b: 22 };
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
+  const maxR = Math.max(1, ...data.map((d) => d.reviews));
+  const rets = data.map((d) => d.retention).filter((v) => v != null);
+  const rMin = Math.max(0, Math.floor((Math.min(...rets, 100) - 5) / 5) * 5), rMax = 100;
+  const bw = iw / data.length;
+  let g = '';
+  [0, .5, 1].forEach((f) => {
+    const y = pad.t + ih * (1 - f);
+    g += `<line x1="${pad.l}" x2="${W - pad.r}" y1="${y}" y2="${y}" stroke="var(--line)"/>`;
+    g += `<text x="${pad.l - 5}" y="${y + 3}" font-size="8" text-anchor="end" fill="${css('--muted')}">${nf.format(Math.round(maxR * f))}</text>`;
+    g += `<text x="${W - pad.r + 5}" y="${y + 3}" font-size="8" fill="${css('--good')}">${Math.round(rMin + (rMax - rMin) * f)}%</text>`;
+  });
+  data.forEach((d, i) => {
+    const h = ih * d.reviews / maxR, x = pad.l + i * bw;
+    g += `<rect x="${x + bw * .15}" y="${pad.t + ih - h}" width="${bw * .7}" height="${h}" rx="2" fill="var(--flame)" opacity=".85"><title>Тиждень з ${d.week}: ${d.reviews} повт., ${d.minutes} хв, retention ${pct(d.retention)}</title></rect>`;
+    if (i % 6 === 0) {
+      const dt = new Date(d.week + 'T12:00:00');
+      g += `<text x="${x + bw / 2}" y="${H - 6}" font-size="8" text-anchor="middle" fill="${css('--muted')}">${dt.getDate()} ${MONTHS[dt.getMonth()]}</text>`;
+    }
+  });
+  const pts = data.map((d, i) => d.retention == null ? null : [pad.l + i * bw + bw / 2, pad.t + ih * (1 - (d.retention - rMin) / (rMax - rMin))]).filter(Boolean);
+  if (pts.length > 1) {
+    g += `<polyline points="${pts.map((p) => p.join(',')).join(' ')}" fill="none" stroke="var(--good)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const last = pts[pts.length - 1];
+    g += `<circle cx="${last[0]}" cy="${last[1]}" r="3.5" fill="var(--good)"/>`;
+  }
+  $('weekly').innerHTML = svg(W, H, g);
+}
+
+function renderHours(s) {
+  const data = s.hours, W = 340, H = 130, pad = { l: 6, r: 6, t: 8, b: 20 };
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b, bw = iw / 24;
+  const max = Math.max(1, ...data.map((d) => d.reviews));
+  const peak = data.reduce((a, b) => (b.reviews > a.reviews ? b : a));
+  let g = '';
+  data.forEach((d) => {
+    const h = Math.max(d.reviews ? 2 : 0, ih * d.reviews / max), x = pad.l + d.hour * bw;
+    const lateNight = d.hour >= 23 || d.hour < 5;
+    g += `<rect x="${x + 1}" y="${pad.t + ih - h}" width="${bw - 2}" height="${h}" rx="2" fill="${d.hour === peak.hour ? 'var(--flame)' : lateNight ? 'var(--heat2)' : 'var(--heat1)'}"><title>${d.hour}:00: ${d.reviews} повт., retention ${pct(d.retention)}</title></rect>`;
+    if (d.hour % 3 === 0) g += `<text x="${x + bw / 2}" y="${H - 6}" font-size="8" text-anchor="middle" fill="${css('--muted')}">${d.hour}</text>`;
+  });
+  $('hours').innerHTML = svg(W, H, g);
+  if (peak.reviews) $('hoursSub').textContent = `Найчастіше ти вчишся о ${peak.hour}:00. Наведи або натисни на стовпець, щоб побачити retention.`;
+}
+
+function renderRatings(s) {
+  const r = s.ratings_30d, total = Object.values(r).reduce((a, b) => a + b, 0) || 1;
+  const parts = [['again', 'Again', '--bad'], ['hard', 'Hard', '--hard'], ['good', 'Good', '--good'], ['easy', 'Easy', '--easy']];
+  $('ratings').innerHTML = `<div class="stack" style="height:22px">${parts.map(([k, , c]) => `<div style="width:${100 * r[k] / total}%;background:var(${c})"></div>`).join('')}</div>
+    <div class="legend">${parts.map(([k, n, c]) => `<span><i style="background:var(${c})"></i>${n} ${Math.round(100 * r[k] / total)}%</span>`).join('')}</div>`;
+}
+
+function renderForecast(s) {
+  if (!s.forecast) { $('forecastCard').classList.add('hidden'); return; }
+  const data = s.forecast, W = 340, H = 120, pad = { l: 4, r: 4, t: 14, b: 20 };
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b, bw = iw / data.length;
+  const max = Math.max(1, ...data.map((d) => d.due));
+  let g = '';
+  data.forEach((d, i) => {
+    const h = ih * d.due / max, x = pad.l + i * bw, dt = new Date(d.date + 'T12:00:00');
+    g += `<rect x="${x + 2}" y="${pad.t + ih - h}" width="${bw - 4}" height="${h}" rx="3" fill="${i === 0 ? 'var(--flame)' : 'var(--heat1)'}"/>`;
+    g += `<text x="${x + bw / 2}" y="${pad.t + ih - h - 3}" font-size="7.5" text-anchor="middle" fill="${css('--muted')}" font-weight="700">${d.due}</text>`;
+    g += `<text x="${x + bw / 2}" y="${H - 6}" font-size="8" text-anchor="middle" fill="${css('--muted')}">${i === 0 ? 'сьог.' : DAYS[(dt.getDay() + 6) % 7]}</text>`;
+  });
+  $('forecast').innerHTML = svg(W, H, g);
+}
+
+function renderDecks(s) {
+  const states = [['new', 'нові', '--easy'], ['learning', 'вивчаються', '--hard'], ['young', 'молоді', '--heat2'], ['mature', 'зрілі', '--good'], ['suspended', 'призупинені', '--muted']];
+  $('decks').innerHTML = s.decks.filter((d) => d.reviews_total || Object.values(d.cards).some(Boolean)).map((d) => {
+    const total = states.reduce((a, [k]) => a + d.cards[k], 0) || 1;
+    return `<div class="card">
+      <div class="deck-head"><div class="deck-name">${escapeHtml(d.name)}</div><div class="small muted">${nf.format(total)} карток</div></div>
+      <div class="deck-stats">
+        <div><b>${pct(d.retention_30d)}</b><span>retention</span></div>
+        <div><b>${nf.format(d.reviews_30d)}</b><span>повторень, 30 дн.</span></div>
+        <div><b>${d.avg_seconds == null ? '—' : String(d.avg_seconds).replace('.', ',') + ' с'}</b><span>на картку</span></div>
+      </div>
+      <div class="stack">${states.map(([k, , c]) => `<div style="width:${100 * d.cards[k] / total}%;background:var(${c})"></div>`).join('')}</div>
+      <div class="legend">${states.filter(([k]) => d.cards[k]).map(([k, n, c]) => `<span><i style="background:var(${c})"></i>${n} ${nf.format(d.cards[k])}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function escapeHtml(t) { return t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+/* ---------- push notifications ---------- */
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+if (isIOS && !isStandalone) { $('notInstalled').classList.remove('hidden'); $('installed').classList.add('hidden'); }
+
+let swReg = null;
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(async (reg) => {
+    swReg = reg;
+    const sub = reg.pushManager && await reg.pushManager.getSubscription();
+    if (sub) $('pushState').textContent = 'Сповіщення ввімкнені на цьому телефоні ✓ Якщо змінювала телефон, натисни кнопку ще раз.';
+  }).catch(() => {});
+}
+
+const b64url = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+$('enablePush').onclick = async () => {
+  try {
+    if (!('PushManager' in window)) throw new Error('Цей браузер не підтримує пуші. На iPhone потрібен iOS 16.4+ і додаток з екрана Додому.');
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') throw new Error('Сповіщення заборонені. Дозволь їх у Параметрах → Сповіщення → Streak.');
+    const reg = swReg || await navigator.serviceWorker.ready;
+    const old = await reg.pushManager.getSubscription();
+    if (old) await old.unsubscribe();
+    // Your own key pair: the public half goes to Apple, the private half stays in your GitHub secret.
+    const keys = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+    const pub = await crypto.subtle.exportKey('raw', keys.publicKey);
+    const priv = await crypto.subtle.exportKey('jwk', keys.privateKey);
+    const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: new Uint8Array(pub) });
+    const config = { publicKey: b64url(pub), privateKey: priv.d, subscription: sub.toJSON() };
+    $('pushConfig').value = JSON.stringify(config);
+    $('pushResult').classList.remove('hidden');
+    $('pushState').textContent = 'Телефон підписаний ✓';
+  } catch (e) {
+    $('pushState').innerHTML = `<span class="err">${e.message}</span>`;
+  }
+};
+
+$('copyConfig').onclick = async () => {
+  try { await navigator.clipboard.writeText($('pushConfig').value); $('copyConfig').textContent = 'Скопійовано ✓'; }
+  catch { $('pushConfig').select(); document.execCommand('copy'); $('copyConfig').textContent = 'Скопійовано ✓'; }
+};
+
+$('testLocal').onclick = async () => {
+  try {
+    if (Notification.permission !== 'granted') await Notification.requestPermission();
+    const reg = swReg || await navigator.serviceWorker.ready;
+    await reg.showNotification('Це втручання 🚨', { body: 'Перевірка звʼязку. Справжні нагадування будуть злішими.', icon: 'icon-192.png' });
+  } catch (e) { $('pushState').innerHTML = `<span class="err">${e.message}</span>`; }
+};
+
+load();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
+</script>
+</body>
+</html>

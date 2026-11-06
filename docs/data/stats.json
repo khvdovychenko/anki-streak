@@ -5,17 +5,17 @@
   "weakest_deck": null,
   "retention_7d": null,
   "retention_prev_7d": null,
-  "week_cards": 0,
+  "week_cards": 8,
   "last_week_cards": 0,
   "best_day": 145,
-  "last_study_day": "2026-10-19",
-  "last_review": "2026-10-19T17:53+01:00",
+  "last_study_day": "2026-11-06",
+  "last_review": "2026-11-06T21:09+00:00",
   "lost_streak": 1,
   "usual_start_minute": 838
  },
  "goal": {
   "target": 30,
-  "done": 0,
+  "done": 8,
   "due_left": null,
   "met": false,
   "cleared_queue": false
@@ -30,55 +30,55 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-06T21:04+00:00",
+ "generated_at": "2026-11-06T21:18+00:00",
  "today": "2026-11-06",
  "streak": {
-  "current": 0,
+  "current": 1,
   "longest": 31,
-  "reviewed_today": false,
+  "reviewed_today": true,
   "at_risk": false,
   "lost_yesterday": false
  },
  "today_stats": {
-  "reviews": 0,
-  "minutes": 0.0
+  "reviews": 8,
+  "minutes": 1.4
  },
  "totals": {
-  "reviews": 1637,
+  "reviews": 1645,
   "hours": 6.4,
-  "study_days": 40,
+  "study_days": 41,
   "first_day": "2026-07-16",
-  "avg_reviews_per_study_day": 41,
-  "consistency_90d": 18,
+  "avg_reviews_per_study_day": 40,
+  "consistency_90d": 19,
   "retention_30d": null
  },
  "ratings_30d": {
-  "again": 0,
+  "again": 3,
   "hard": 0,
   "good": 4,
-  "easy": 0
+  "easy": 5
  },
  "decks": [
   {
    "name": "Vocabulaire",
-   "reviews_total": 4,
-   "reviews_30d": 4,
+   "reviews_total": 11,
+   "reviews_30d": 11,
    "retention_30d": null,
    "mature_retention_30d": null,
-   "avg_seconds": 20.1,
+   "avg_seconds": 14.6,
    "cards": {
-    "new": 646,
-    "learning": 4,
-    "young": 0,
-    "mature": 0,
+    "new": 643,
+    "learning": 2,
+    "young": 2,
+    "mature": 3,
     "suspended": 0,
     "leeches": 0
    }
   },
   {
    "name": "Deleted decks",
-   "reviews_total": 1633,
-   "reviews_30d": 0,
+   "reviews_total": 1634,
+   "reviews_30d": 1,
    "retention_30d": null,
    "mature_retention_30d": null,
    "avg_seconds": 14.1,
@@ -200,7 +200,7 @@
   },
   {
    "hour": 21,
-   "reviews": 205,
+   "reviews": 213,
    "retention": 80.9
   },
   {
@@ -237,8 +237,8 @@
   },
   {
    "weekday": 4,
-   "reviews": 218,
-   "study_days": 5
+   "reviews": 226,
+   "study_days": 6
   },
   {
    "weekday": 5,
@@ -429,10 +429,10 @@
   },
   {
    "week": "2026-11-02",
-   "reviews": 0,
-   "minutes": 0,
+   "reviews": 8,
+   "minutes": 1,
    "retention": null,
-   "new_cards": 0
+   "new_cards": 3
   }
  ],
  "heatmap": [
@@ -2258,8 +2258,8 @@
   },
   {
    "date": "2026-11-06",
-   "reviews": 0,
-   "minutes": 0.0
+   "reviews": 8,
+   "minutes": 1.4
   }
  ],
  "forecast": [
@@ -2277,7 +2277,7 @@
   },
   {
    "date": "2026-11-09",
-   "due": 0
+   "due": 2
   },
   {
    "date": "2026-11-10",

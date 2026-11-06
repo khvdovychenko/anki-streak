@@ -1,6 +1,8 @@
 {
  "recent": [
-  "save_1h:3"
+  "save_1h:3",
+  "comeback:0",
+  "save_3h:3"
  ],
  "milestones": [],
  "lapse_sent": {
@@ -9,9 +11,12 @@
  "due_yesterday": null,
  "day": "2026-11-06",
  "sent": [
-  "test"
+  "test",
+  "comeback",
+  "save_3h"
  ],
  "nonsave": 0,
- "lapsed": true,
- "due_today": 0
+ "lapsed": false,
+ "due_today": 0,
+ "watching_since": "2026-11-06"
 }

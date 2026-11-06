@@ -10,6 +10,8 @@ variables → Actions → Variables, and add any of these:
   DAY_START_HOUR   when a new study day starts, like in Anki (default 4)
   DAILY_GOAL       reviews per day before reminders stop (default 30);
                    clearing everything due today also counts as done
+  SPICE_MAX        how mean Cinder may get: 1 cheeky, 2 guilt trip, 3 unhinged (default 3)
+  NAME             your first name, used in some messages
 """
 import os
 from zoneinfo import ZoneInfo
@@ -34,3 +36,8 @@ REMINDER_SCHEDULE = {h: level for level, h in enumerate(sorted(_hours), start=1)
 DAILY_GOAL = int(_env("DAILY_GOAL", "30"))
 
 EMAIL_REMINDERS = _env("EMAIL_REMINDERS", "true").lower() != "false"
+
+# 1 = cheeky, 2 = guilt trip, 3 = unhinged (see collector/messages.json)
+SPICE_MAX = int(_env("SPICE_MAX", "3"))
+
+NAME = _env("NAME", "")

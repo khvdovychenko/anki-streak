@@ -210,6 +210,7 @@ def build_stats(reviews, cards, today, crt):
 
     # --- forecast: review cards due in the next 14 days -------------------------
     forecast = None
+    deck_due = Counter()
     if crt:
         crt_day = datetime.fromtimestamp(crt, TIMEZONE)
         today_index = (today - anki_day(crt_day)).days
@@ -219,6 +220,8 @@ def build_stats(reviews, cards, today, crt):
                 offset = max(due - today_index, 0)
                 if offset < 14:
                     due_counts[offset] += 1
+                if offset == 0:
+                    deck_due[deck] += 1
         forecast = [{"date": (today + timedelta(days=i)).isoformat(), "due": due_counts.get(i, 0)} for i in range(14)]
 
     # --- daily goal ------------------------------------------------------------
@@ -232,8 +235,40 @@ def build_stats(reviews, cards, today, crt):
         "cleared_queue": done_today > 0 and due_left == 0,
     }
 
+    # --- what the reminders need ---------------------------------------------------
+    last7 = [r for r in reviews if r["day"] > today - timedelta(days=7)]
+    prev7 = [r for r in reviews if today - timedelta(days=14) < r["day"] <= today - timedelta(days=7)]
+    weak = [(retention([r for r in last7 if r["deck"] == d]), d)
+            for d in {r["deck"] for r in last7}
+            if sum(r["type"] == 1 for r in last7 if r["deck"] == d) >= 20]
+    weak = [w for w in weak if w[0] is not None]
+    # When does a study day usually start? Median first-review time over the last 14 study days,
+    # in minutes after midnight (times before the 4:00 rollover count as late evening).
+    firsts = []
+    for d in study_days[-14:]:
+        first = min(r["ts"] for r in reviews if r["day"] == d)
+        minutes = first.hour * 60 + first.minute
+        firsts.append(minutes + 1440 if first.hour < DAY_START_HOUR else minutes)
+    firsts.sort()
+    last_study = study_days[-1] if study_days else None
+    notify = {
+        "due": forecast[0]["due"] if forecast else None,
+        "deck": deck_due.most_common(1)[0][0] if deck_due else None,
+        "weakest_deck": min(weak)[1] if weak else None,
+        "retention_7d": retention(last7),
+        "retention_prev_7d": retention(prev7),
+        "week_cards": len(last7),
+        "last_week_cards": len(prev7),
+        "best_day": max(per_day.values()) if per_day else 0,
+        "last_study_day": last_study.isoformat() if last_study else None,
+        "last_review": reviews[-1]["ts"].isoformat(timespec="minutes") if reviews else None,
+        "lost_streak": streak_ending(last_study) if last_study else 0,
+        "usual_start_minute": firsts[len(firsts) // 2] % 1440 if firsts else None,
+    }
+
     total_secs = sum(r["secs"] for r in reviews)
     return {
+        "notify": notify,
         "goal": goal,
         "settings": {"reminder_hours": sorted(REMINDER_SCHEDULE), "timezone": TIMEZONE.key, "day_start_hour": DAY_START_HOUR},
         "generated_at": now_local().isoformat(timespec="minutes"),

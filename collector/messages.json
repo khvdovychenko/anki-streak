@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "mascot": "Cinder, a grumpy lump of coal",
+    "secondary_persona": "The Backlog, your pile of overdue cards, talks when you skip",
+    "variables": {
+      "{name}": "user's first name (repository variable NAME)",
+      "{streak}": "current streak in days",
+      "{due}": "cards due right now",
+      "{due_yesterday}": "cards due yesterday at the same check",
+      "{done}": "cards reviewed today",
+      "{goal}": "daily card goal",
+      "{left}": "goal minus done",
+      "{deck}": "deck with the most due cards",
+      "{weakest_deck}": "deck with the lowest retention this week",
+      "{retention}": "7-day retention %",
+      "{week_cards}": "cards in the last 7 days",
+      "{last_week_cards}": "cards in the 7 days before that",
+      "{best_day}": "personal record cards in one day",
+      "{to_best}": "best_day minus done"
+    },
+    "spice": "1 = cheeky, 2 = guilt trip, 3 = unhinged. Set SPICE_MAX (repository variable) to cap it.",
+    "rules": [
+      "Pick randomly inside a bucket, never repeat one of the last 5 sent.",
+      "routine fires about 30 min before the time the user usually studies (learned from the data).",
+      "partial fires only if done > 0 and done < goal, at least 2h after the last review.",
+      "save fires at 3h, 1h and 15 min before midnight local time, only if the goal is not met.",
+      "Max 2 non-save pushes per day. Save pushes are extra.",
+      "lapsed: day 1 = broken, then days 2, 3, 5, 7, then final, then silence except a weekly email.",
+      "Any review resets everything and triggers comeback or milestone if relevant.",
+      "Midnight is the deadline Cinder talks about; like Anki, reviews until 4:00 still count for the day (a quiet grace period)."
+    ]
+  },
+
+  "routine": [
+    { "spice": 1, "title": "Cinder", "body": "I'm cold. You know what warms me up? Flashcards." },
+    { "spice": 1, "title": "It's that time", "body": "Same time as yesterday. Don't make it weird." },
+    { "spice": 1, "title": "{due} cards due", "body": "They're waiting. I'm waiting. We're all just waiting." },
+    { "spice": 1, "title": "Cinder", "body": "10 minutes. I've watched you scroll for longer than that." },
+    { "spice": 2, "title": "Cinder", "body": "Your brain is forgetting things right now. As we speak. That's the forgetting curve." },
+    { "spice": 2, "title": "Hey.", "body": "Just checking you remember Anki exists. Because Anki remembers you." },
+    { "spice": 2, "title": "Cinder", "body": "I'm a lump of coal. I have one job. So do you." },
+    { "spice": 2, "title": "Reminder", "body": "Your {deck} cards asked about you. I said you were busy. I lied for you." },
+    { "spice": 3, "title": "Cinder", "body": "Open Anki. I won't say it nicely twice." },
+    { "spice": 3, "title": "Cinder", "body": "I know where your flashcards live. Would be a shame if they all came due at once." }
+  ],
+
+  "partial": [
+    { "spice": 1, "title": "{done}/{goal}", "body": "That's not a session, that's a warm-up." },
+    { "spice": 1, "title": "Almost", "body": "{left} cards left. You stopped right before the good part." },
+    { "spice": 2, "title": "Half-lit", "body": "I'm glowing on one side only. It's humiliating. Finish the set." },
+    { "spice": 2, "title": "Cinder", "body": "You did {done} cards and left. Bold strategy." },
+    { "spice": 2, "title": "Cinder", "body": "Almost doesn't count in streaks. It doesn't count anywhere, actually." },
+    { "spice": 3, "title": "{done} cards?", "body": "I've seen better effort from a screensaver. {left} more." },
+    { "spice": 3, "title": "Cinder", "body": "You opened Anki, did {done} cards and ghosted me. In this economy?" }
+  ],
+
+  "save_3h": [
+    { "spice": 1, "title": "🔥 {streak} days", "body": "Would be a shame to lose that. Just saying." },
+    { "spice": 2, "title": "Cinder", "body": "I'm starting to smoke. Not the cool kind." },
+    { "spice": 2, "title": "3 hours", "body": "Plenty of time. That's what you said yesterday too, and look how close it got." },
+    { "spice": 3, "title": "Cinder", "body": "I'm not saying I'm dying. I'm saying I've started writing a will." }
+  ],
+
+  "save_1h": [
+    { "spice": 1, "title": "1 hour left", "body": "Your {streak}-day streak ends at midnight. I end with it." },
+    { "spice": 2, "title": "Cinder, flickering", "body": "I can feel my edges going grey." },
+    { "spice": 2, "title": "Cinder", "body": "Remember day 1? I do. I remember all {streak} of them." },
+    { "spice": 3, "title": "Cinder", "body": "If I go out tonight, I'm haunting your review queue. Every. Single. Card." }
+  ],
+
+  "save_15m": [
+    { "spice": 1, "title": "⚠️ 15 minutes", "body": "One session. That's all I'm asking." },
+    { "spice": 2, "title": "Last chance", "body": "You're reading this, so you have time to open Anki. Do it now." },
+    { "spice": 2, "title": "Cinder", "body": "This is not a drill. This is my last ember." },
+    { "spice": 3, "title": "Cinder", "body": "{streak} days. Gone in 15 minutes. Because of you. No pressure." }
+  ],
+
+  "broken": [
+    { "spice": 1, "title": "Streak: 0", "body": "{streak} days, gone. Want to start a new one? Today counts." },
+    { "spice": 2, "title": "Cinder", "body": "I went out last night. You were asleep. Cool. Cool cool cool." },
+    { "spice": 2, "title": "Cinder (ash)", "body": "I'm ash now. Ash doesn't glow. Think about that." },
+    { "spice": 3, "title": "RIP Cinder", "body": "Funeral is today. Dress code: open Anki and bring me back." }
+  ],
+
+  "lapsed_day2": [
+    { "spice": 1, "title": "Day 2", "body": "{due} cards due. Tomorrow it'll be more. It's not personal, it's math." },
+    { "spice": 2, "title": "Cinder", "body": "Still cold. Still here. Still judging." }
+  ],
+
+  "lapsed_day3": [
+    { "spice": 2, "title": "The Backlog", "body": "Hi, it's your due pile. I'm {due} now. Yesterday I was {due_yesterday}. I'm growing." },
+    { "spice": 3, "title": "Cinder", "body": "Your {deck} deck is packing its bags. I helped." }
+  ],
+
+  "lapsed_day5": [
+    { "spice": 2, "title": "The Backlog", "body": "{due} cards. At this point I need my own postcode." },
+    { "spice": 3, "title": "Cinder", "body": "I've started talking to the other coals. None of them have heard of you either." }
+  ],
+
+  "lapsed_day7": [
+    { "spice": 2, "title": "A week", "body": "Your memory has been unsupervised for 7 days. It's been making poor choices." },
+    { "spice": 3, "title": "The Backlog", "body": "{due} of us now. We've unionised. Our demand is that you show up." }
+  ],
+
+  "final": [
+    { "spice": 2, "title": "Cinder", "body": "These reminders clearly aren't working. I'll stop. Just know I'm still here. Cold." }
+  ],
+
+  "comeback": [
+    { "spice": 1, "title": "You're back?", "body": "I'm not crying. That's smoke." },
+    { "spice": 2, "title": "Cinder", "body": "Oh, so NOW you remember me. Fine. Day 1. Let's go." },
+    { "spice": 2, "title": "The Backlog", "body": "You came back. I was {due_yesterday}. I am... still {due}. Keep going." }
+  ],
+
+  "goal_done": [
+    { "spice": 1, "title": "Goal hit ✅", "body": "I'm glowing. Go live your life." },
+    { "spice": 1, "title": "Cinder", "body": "Fine. That was decent. Don't let it go to your head." },
+    { "spice": 2, "title": "Cinder", "body": "Streak safe. I'll stop bothering you. Until tomorrow." }
+  ],
+
+  "stats": [
+    { "spice": 1, "title": "So close", "body": "{to_best} cards and today beats your record of {best_day}." },
+    { "spice": 2, "title": "Retention: {retention}%", "body": "It dropped. Your memory would like to file a complaint." },
+    { "spice": 2, "title": "Cinder", "body": "Weakest deck this week: {weakest_deck}. It's not going to fix itself." },
+    { "spice": 3, "title": "Weekly report", "body": "{week_cards} cards this week. Last week: {last_week_cards}. Explain yourself." }
+  ],
+
+  "milestones": {
+    "3":   { "title": "Cinder is warm", "body": "3 days. I'm not saying I like you. I'm just warm." },
+    "7":   { "title": "🔥 Cinder → Smoulder", "body": "A whole week. I have an actual flame now. Don't make it weird." },
+    "14":  { "title": "Two weeks", "body": "14 days. Other coals are asking who my person is." },
+    "30":  { "title": "🔥🔥 Cinder → Blaze", "body": "30 days. People are roasting marshmallows on me. I allow it." },
+    "100": { "title": "🔥🔥🔥 Cinder → Inferno", "body": "100 days. I'm visible from space. Probably." },
+    "365": { "title": "🌋 Cinder → Volcano", "body": "365 days. I'm a volcano now. Your forgetting curve should be nervous." }
+  },
+
+  "email": [
+    { "trigger": "save_3h",     "subject": "Your {streak}-day streak has 3 hours to live", "preview": "Cinder is smoking. Not in a cool way." },
+    { "trigger": "broken",      "subject": "Cinder's funeral: details inside", "preview": "Dress code: one review session." },
+    { "trigger": "lapsed_day3", "subject": "We need to talk about your {due} overdue cards", "preview": "From: The Backlog. We're growing." },
+    { "trigger": "lapsed_day7", "subject": "Your memory has been unsupervised for a week", "preview": "Here's what it forgot." },
+    { "trigger": "weekly",      "subject": "Your week with Cinder: {week_cards} cards, {retention}% retention", "preview": "Plus the deck that's quietly falling apart." }
+  ]
+}

@@ -139,12 +139,15 @@ enum CinderLogic {
         return "cinder-\(stage)-\(mood == .new ? "partial" : mood.rawValue)"
     }
 
-    /// When the current study day ends (Anki rolls over at dayStartHour, 4:00 by default).
+    /// Cinder's deadline: midnight. Like Anki, reviews until dayStartHour (4:00) still count,
+    /// so between midnight and 4:00 the countdown shows that quiet grace period instead.
     static func dayEnd(now: Date = .now, dayStartHour: Int = 4) -> Date {
         let cal = Calendar.current
-        var end = cal.date(bySettingHour: dayStartHour, minute: 0, second: 0, of: now)!
-        if end <= now { end = cal.date(byAdding: .day, value: 1, to: end)! }
-        return end
+        let hour = cal.component(.hour, from: now)
+        if hour < dayStartHour {
+            return cal.date(bySettingHour: dayStartHour, minute: 0, second: 0, of: now)!
+        }
+        return cal.startOfDay(for: cal.date(byAdding: .day, value: 1, to: now)!)
     }
 
     static func studyDayString(now: Date = .now, dayStartHour: Int = 4) -> String {

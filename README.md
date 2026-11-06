@@ -25,7 +25,7 @@ The red badge on the app icon shows how many reviews are left until today's goal
 - **Collects** the full review log (`revlog`) from AnkiWeb using Anki's official open-source Python library. Download only: the script never uploads, so it cannot change the real collection.
 - **Analyses** every review: streaks, daily heatmap, weekly volume and retention, retention by hour of day, weekday patterns, answer-button mix, per-deck card maturity, leeches and a 14-day workload forecast.
 - **Explains** the numbers in plain language ("you remember best at 18:00, worst at 23:00").
-- **Nags** through Web Push notifications and email at 19:00, 21:00, 22:00 and 23:00 until the daily goal is met (a number of reviews, or every due card cleared). Half-hearted sessions get their own, ruder messages.
+- **Nags** like Duolingo, through Web Push and email: 63 messages in `collector/messages.json`, with a second character (The Backlog, your overdue pile), a spice level from 1 (cheeky) to 3 (unhinged), and rules for when each fires: about 30 minutes before you usually study, after a half-finished session, rescue pushes 3h, 1h and 15 min before midnight, and a sequence on days 1, 2, 3, 5 and 7 after you skip.
 - **Publishes** a cleaned dataset, `docs/data/reviews.csv`, with one row per review (no card text).
 
 ## Research questions
@@ -84,12 +84,14 @@ Anyone with an AnkiWeb account can run their own copy. There is no shared server
    | `EMAIL_REMINDERS` | `true` | `false` |
    | `DAY_START_HOUR` | `4` | `0` |
 | `DAILY_GOAL` | `30` | `100` |
+| `SPICE_MAX` | `3` | `1` |
+| `NAME` | | `Khrystyna` |
 
 5. **First run:** Actions → *Update stats and nag* → *Run workflow*. Your dashboard appears at `https://<username>.github.io/<repo>/` a minute later.
 6. **Phone:** open that link in Safari → Share → *Add to Home Screen* → open the app → *Enable notifications* → copy the text into the `PUSH_CONFIG` secret. Requires iOS 16.4+. Android Chrome works too.
 7. **Test:** run the workflow again with *Send a test notification* ticked.
 
-Reminder texts live in `collector/remind.py`. Make them as mean as you like.
+Reminder texts live in `collector/messages.json`, the timing logic in `collector/remind.py`.
 
 ## Privacy
 

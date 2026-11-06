@@ -2,9 +2,9 @@ name: Update stats and nag
 
 on:
   schedule:
-    # Wakes up every hour (UTC). collector/should_run.py then checks your local
-    # time and only syncs when it matters, so this works in any time zone.
-    - cron: "17 * * * *"
+    # Wakes up every 15 minutes. collector/should_run.py then checks your local
+    # time and only syncs when a reminder could be due, so this works in any time zone.
+    - cron: "*/15 * * * *"
   workflow_dispatch:
     inputs:
       test_reminder:
@@ -29,6 +29,8 @@ jobs:
       EMAIL_REMINDERS: ${{ vars.EMAIL_REMINDERS }}
       DAY_START_HOUR: ${{ vars.DAY_START_HOUR }}
       DAILY_GOAL: ${{ vars.DAILY_GOAL }}
+      SPICE_MAX: ${{ vars.SPICE_MAX }}
+      NAME: ${{ vars.NAME }}
     steps:
       - uses: actions/checkout@v4
 

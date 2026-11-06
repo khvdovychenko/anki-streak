@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "collector"))
-from settings import DAILY_GOAL, DAY_START_HOUR, TIMEZONE  # noqa: E402
+from settings import DAILY_GOAL, DAY_START_HOUR, REMINDER_SCHEDULE, TIMEZONE  # noqa: E402
 from research import run_all  # noqa: E402
 
 OUT_DIR = ROOT / "docs" / "data"
@@ -235,6 +235,7 @@ def build_stats(reviews, cards, today, crt):
     total_secs = sum(r["secs"] for r in reviews)
     return {
         "goal": goal,
+        "settings": {"reminder_hours": sorted(REMINDER_SCHEDULE), "timezone": TIMEZONE.key},
         "generated_at": now_local().isoformat(timespec="minutes"),
         "today": today.isoformat(),
         "streak": {

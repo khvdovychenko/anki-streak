@@ -1,6 +1,6 @@
 // Service worker: shows push notifications and keeps the app working offline.
-const CACHE = 'anki-streak-v1';
-const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-180.png'];
+const CACHE = 'cinder-v2';
+const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-180.png', 'cinder.js'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)));
@@ -28,9 +28,9 @@ self.addEventListener('fetch', (e) => {
 
 self.addEventListener('push', (e) => {
   let data = {};
-  try { data = e.data.json(); } catch { data = { title: 'Anki Streak', body: e.data ? e.data.text() : 'Time to review your cards' }; }
+  try { data = e.data.json(); } catch { data = { title: 'Cinder', body: e.data ? e.data.text() : 'Time to review your cards' }; }
   e.waitUntil(Promise.all([
-    self.registration.showNotification(data.title || 'Anki Streak', {
+    self.registration.showNotification(data.title || 'Cinder', {
       body: data.body || '',
       icon: 'icon-192.png',
       badge: 'icon-192.png',
@@ -39,7 +39,7 @@ self.addEventListener('push', (e) => {
       data: { url: data.url || './' },
     }),
     // Red badge on the app icon until you study.
-    self.navigator && 'setAppBadge' in self.navigator ? self.navigator.setAppBadge(1).catch(() => {}) : null,
+    self.navigator && 'setAppBadge' in self.navigator ? self.navigator.setAppBadge(data.badge || 1).catch(() => {}) : null,
   ]));
 });
 

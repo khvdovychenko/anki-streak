@@ -21,63 +21,71 @@ STATS = ROOT / "docs" / "data" / "stats.json"
 STATE = ROOT / "data" / "state.json"
 APP_URL = os.environ.get("APP_URL", "")
 
-# The voice is the streak flame itself: needy, dramatic, passive-aggressive.
+# The voice is Cinder, a grumpy lump of coal that lives on your streak.
+# Needy, sarcastic, passive-aggressive. He gets colder as the night goes on.
 # {days} ("12-day"), {streak} (just the number), {due}, {done}, {goal} and {left}
 # get filled in. Edit freely, it's your app.
 MESSAGES = {
     1: [
-        ("Hi, it's your streak 🔥", "Just checking you're alive. You haven't opened Anki today. No pressure. Some pressure."),
-        ("{due} cards are waiting", "They've been sitting there all day. Patiently. Unlike some people."),
-        ("Did you forget about me?", "{days} streak. I'd hate for something to happen to it."),
+        ("Cinder here 🔥", "Just checking you're alive. No reviews today. No pressure. Some pressure."),
+        ("I'm getting cold", "{due} cards are waiting and I'm running on yesterday's fuel. Feed me."),
+        ("Oh, you're busy?", "That's fine. I'll just sit here. Slowly cooling. Alone."),
         ("Friendly reminder 🙂", "This is the nice version. You won't like the next ones."),
     ],
     2: [
-        ("I see you on Instagram 👀", "Plenty of time for that. Zero time for your {due} cards. Interesting."),
-        ("Your streak is shaking", "{days} of work, hanging by a thread. One session. That's all I'm asking."),
-        ("Your vocabulary is fading", "Every hour you wait, a word quietly packs its bags and leaves."),
-        ("Remember when you cared?", "You built a {days} streak. Past you would be so disappointed right now."),
+        ("I see you on Instagram 👀", "Plenty of time for that. Zero time for the coal that loves you."),
+        ("My flame is shrinking", "Your {days} streak is hanging by a thread. One session. That's all I ask."),
+        ("Remember when you cared?", "You built a {days} streak with me. Past you would be so disappointed."),
+        ("Your vocabulary is leaving", "Every hour you wait, a word packs its bags. I'm watching them go."),
     ],
     3: [
-        ("This is an intervention 🚨", "We're all worried. Your {days} streak is dying and you're just letting it happen."),
+        ("This is an intervention 🚨", "I'm turning grey. Your {days} streak is dying and you're letting it happen."),
         ("I'm not angry. I'm disappointed.", "You promised yourself you'd be fluent. Was that a lie?"),
-        ("Netflix will still be there", "Your {days} streak won't. {due} cards. Now."),
-        ("Do you even want this?", "Because right now it really doesn't look like it."),
+        ("Netflix will still be there", "I won't. {due} cards. Now."),
+        ("Is this how it ends?", "Me, cold and grey, while you scroll. Open Anki."),
     ],
     4: [
-        ("Last chance 💀", "Your {days} streak dies at midnight. I'll remember who let it happen."),
-        ("These reminders don't seem to work", "So I'll stop sending them. ...Just kidding. I'll never stop. Open Anki."),
-        ("Fine. Let it burn. 🔥", "{days} of work. Gone. Because you couldn't spare five minutes."),
-        ("I'll just tell everyone", "That you gave up on a {days} streak tonight. Unless you open Anki."),
+        ("Last chance 💀", "I die at midnight. I'll remember who let it happen."),
+        ("These reminders don't seem to work", "So I'll stop sending them. ...Just kidding. I'll haunt you as ash. Open Anki."),
+        ("I can barely glow", "{days} of us. Gone. Because you couldn't spare five minutes."),
+        ("Tell my cards I tried", "I'm fading. You could save me. You just... won't?"),
     ],
 }
 # Started, but the goal isn't met yet.
 PARTIAL = {
     1: [
-        ("That's it? {done}?", "You opened Anki, did {done} cards and left. Bold strategy. {left} to go."),
-        ("Warm-up done. Now study.", "{done} reviews is not a session. It's a cameo. {left} left."),
+        ("That's it? {done}?", "You threw {done} crumbs in the fire and left. I'm still starving. {left} to go."),
+        ("That wasn't a meal", "{done} reviews is a snack. I need {left} more to stay warm."),
     ],
     2: [
-        ("Your cards saw you leave", "{done} out of {goal}. They're asking if they did something wrong."),
-        ("Half-effort detected 🔍", "{done} reviews and done for the day? Your goal says {goal}."),
+        ("You walked away mid-meal", "{done} out of {goal}. I'm flickering here. Come back."),
+        ("Half-effort detected 🔍", "{done} reviews and done for the day? Even ash has higher standards."),
     ],
     3: [
         ("Quitting at {done}?", "Your goal is {goal}. Doing {done} and calling it a day is how fluency dies."),
-        ("We need to talk", "About the {left} cards you abandoned tonight."),
+        ("We need to talk", "About the {left} cards you abandoned. And about me, shivering."),
     ],
     4: [
-        ("Day's ending. You're at {done}.", "{done} of {goal}. Future you will open Anki tomorrow and suffer for this."),
-        ("Disappointing, honestly", "You started. You stopped. {left} cards are still waiting. Finish it."),
+        ("Day's ending. You're at {done}.", "{done} of {goal}. I'll survive, barely. Future you will pay for this."),
+        ("Disappointing, honestly", "You started. You stopped. {left} cards still waiting. Finish it."),
     ],
 }
 SYNC_HINT = " (Already studied? Tap sync in Anki, I can't see it otherwise.)"
 SAVED = [
-    ("Fine. You did it. 🔥", "{days} streak and goal done. Was that so hard? Same time tomorrow."),
-    ("Streak saved 🔥", "See? Wasn't so hard. I'll be watching tomorrow too."),
+    ("Fine. I'm warm. 🔥", "{days} streak, goal done. Was that so hard? Same time tomorrow."),
+    ("Fed and smug", "See? Wasn't so hard. I'll be watching tomorrow too."),
 ]
 LOST = [
-    ("Your streak is gone 🪦", "Yesterday you didn't study. The streak is dead. Start a new one today, and don't do that again."),
-    ("Well. That happened.", "Your streak reset to zero. I'm not saying it's your fault. It's your fault. Day 1 starts now."),
+    ("Cinder burnt out 🪦", "You didn't study yesterday. I'm ash now. One review brings me back. Don't do that again."),
+    ("Well. I'm dead.", "Streak reset to zero. I'm not saying it's your fault. It's your fault. Day 1 starts now."),
 ]
+# Sent once when the streak reaches a new stage (thresholds match docs/cinder.js).
+EVOLUTIONS = {
+    7: ("Cinder evolved: Smoulder 🔥", "7 days! I'm actually warm now. Don't get used to the compliment."),
+    30: ("Cinder evolved: Blaze 🔥🔥", "30 days. Sparks are flying. I'm almost proud of you. Almost."),
+    100: ("Cinder evolved: Inferno 🔥🔥🔥", "100 days. I have a crown of fire. Fear me. Also, thank you."),
+    365: ("Cinder evolved: VOLCANO 🌋", "365 days. I'm literally a volcano. You absolute legend."),
+}
 
 
 def load_state(today_key):
@@ -96,7 +104,7 @@ def save_state(state):
     STATE.write_text(json.dumps(state, indent=1))
 
 
-def send_push(title, body):
+def send_push(title, body, badge=1):
     raw = os.environ.get("PUSH_CONFIG")
     if not raw:
         print("PUSH_CONFIG not set, skipping push")
@@ -106,7 +114,7 @@ def send_push(title, body):
     try:
         webpush(
             subscription_info=cfg["subscription"],
-            data=json.dumps({"title": title, "body": body, "url": APP_URL}),
+            data=json.dumps({"title": title, "body": body, "url": APP_URL, "badge": badge}),
             vapid_private_key=cfg["privateKey"],
             vapid_claims={"sub": "mailto:" + (os.environ.get("GMAIL_USER") or "anki-streak@example.com")},
             ttl=3600,
@@ -124,7 +132,7 @@ def send_email(title, body):
         print("Gmail secrets not set, skipping email")
         return
     msg = EmailMessage()
-    msg["Subject"], msg["From"], msg["To"] = title, f"Anki Streak <{user}>", os.environ.get("EMAIL_TO") or user
+    msg["Subject"], msg["From"], msg["To"] = title, f"Cinder <{user}>", os.environ.get("EMAIL_TO") or user
     msg.set_content(body + (f"\n\nOpen your stats: {APP_URL}" if APP_URL else ""))
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
         s.login(user, pw)
@@ -148,7 +156,7 @@ def notify(options, stats, email=True, hint=""):
     fmt = dict(streak=n, days=days_word(n), due=due, done=g["done"], goal=g["target"], left=left)
     title, body = title.format(**fmt), body.format(**fmt)
     body += hint
-    send_push(title, body)
+    send_push(title, body, badge=left or 1)
     if email:
         send_email(title, body)
 
@@ -176,7 +184,12 @@ def main():
 
     goal_met = (stats.get("goal") or {}).get("met", streak["reviewed_today"])
     if goal_met:
-        if state["sent_levels"] and not state["saved_sent"]:
+        evo = EVOLUTIONS.get(streak["current"])
+        if evo and not state.get("evo_sent"):
+            notify([evo], stats, email=False)
+            state["evo_sent"] = True
+            state["saved_sent"] = True
+        elif state["sent_levels"] and not state["saved_sent"]:
             notify(SAVED, stats, email=False)
             state["saved_sent"] = True
     else:

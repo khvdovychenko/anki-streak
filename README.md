@@ -1,10 +1,24 @@
-# Anki Streak
+# Cinder: an Anki streak that guilt-trips you
 
 A personal learning-analytics pipeline for [Anki](https://apps.ankiweb.net/). It pulls my review history from AnkiWeb every few hours, turns it into a dashboard I can install on my iPhone, and sends Duolingo-style reminders that get more insistent the later it gets without a study session.
 
 ![Dashboard screenshot](assets/screenshot.png)
 
-*Screenshot generated from test data.*
+*Screenshots generated from test data: goal done, goal half-done, streak at risk.*
+
+## Meet Cinder
+
+Cinder is a grumpy lump of coal that lives on your streak. He burns when you hit your daily goal, flickers when you stop halfway, cools and sweats as the evening goes on, and turns to ash when the streak breaks. One review brings him back. All reminders are written in his voice.
+
+He evolves as the streak grows:
+
+| Ash | Spark | Smoulder | Blaze | Inferno | Volcano |
+|---|---|---|---|---|---|
+| 0 days | 1 | 7 | 30 | 100 | 365 |
+
+![Cinder's stages and moods](assets/cinder-stages.png)
+
+The red badge on the app icon shows how many reviews are left until today's goal, and clears when it's done.
 
 ## What it does
 
@@ -35,7 +49,7 @@ GitHub Actions (hourly, gated to your local evening)
   ├─ collector/analyze.py  revlog → docs/data/stats.json + reviews.csv
   └─ collector/remind.py   no reviews today? → Web Push + Gmail
 GitHub Pages
-  └─ docs/                 installable PWA: dashboard, service worker, push subscription
+  └─ docs/                 installable PWA: dashboard, Cinder (docs/cinder.js), service worker, push
 ```
 
 No server and no paid services. Everything runs on GitHub's free tier.

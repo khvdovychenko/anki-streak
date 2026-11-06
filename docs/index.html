@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Anki Streak</title>
+<title>Cinder</title>
 <meta name="description" content="Personal Anki tracker: streak, review analytics and reminders.">
 <meta name="theme-color" content="#1c1712">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Streak">
+<meta name="apple-mobile-web-app-title" content="Cinder">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
+<script src="cinder.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -49,10 +50,14 @@ svg text { font-family: inherit; }
 
 /* hero */
 .hero { text-align: center; padding: 26px 18px 22px; position: relative; overflow: hidden; }
-.flame { width: 92px; height: 112px; margin: 0 auto 4px; display: block; transform-origin: 50% 100%; }
-.hero.alive .flame { animation: flicker 2.4s ease-in-out infinite; }
-.hero.risk .flame { filter: grayscale(.55) opacity(.75); animation: shiver .4s ease-in-out infinite; }
-.hero.dead .flame { filter: grayscale(1) opacity(.35); }
+.cinder-wrap { height: 210px; margin: -44px auto 0; }
+.stage-name { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: -2px 0 6px; }
+.evo { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; margin-top: 4px; }
+.evo div { text-align: center; font-size: 11px; font-weight: 800; color: var(--muted); line-height: 1.25; }
+.evo div.now { color: var(--flame); }
+.evo div.locked svg { filter: grayscale(1) brightness(.6); opacity: .45; }
+.evo b { display: block; color: var(--ink); font-size: 11.5px; }
+.evo div.locked b { color: var(--muted); }
 @keyframes flicker { 0%,100% { transform: scale(1) rotate(0); } 30% { transform: scale(1.04,.97) rotate(-1.5deg); } 60% { transform: scale(.98,1.03) rotate(1.5deg); } }
 @keyframes shiver { 0%,100% { transform: translateX(0); } 50% { transform: translateX(1.5px); } }
 .streak-num { font-size: 76px; font-weight: 900; line-height: .95; letter-spacing: -.03em; }
@@ -73,7 +78,6 @@ svg text { font-family: inherit; }
 .goal-top { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
 .goal-bar { height: 12px; border-radius: 99px; background: var(--line); overflow: hidden; }
 .goal-bar div { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--flame), var(--flame-2)); transition: width .6s ease; }
-.hero.partial .flame { filter: saturate(.7); animation: flicker 1.2s ease-in-out infinite; }
 .hero.partial .status { background: rgba(240,165,49,.16); color: var(--hard); }
 .meta-row { display: flex; justify-content: center; gap: 22px; margin-top: 14px; font-size: 14px; }
 .meta-row b { font-size: 17px; display: block; }
@@ -139,14 +143,8 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
 <div id="loading" class="card" style="margin-top:40px;text-align:center">Loading stats…</div>
 <main id="app" class="hidden">
   <section id="hero" class="card hero">
-    <svg class="flame" viewBox="0 0 92 112" aria-hidden="true">
-      <defs>
-        <linearGradient id="fg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff5a00"/><stop offset="1" stop-color="#ffb02e"/></linearGradient>
-        <linearGradient id="fi" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ffd25a"/><stop offset="1" stop-color="#fff6c9"/></linearGradient>
-      </defs>
-      <path fill="url(#fg)" d="M46 2c6 18 30 30 34 58 4 27-14 50-34 50S8 89 12 64c2-14 10-22 14-32 3 9 3 16 10 20C34 32 38 16 46 2z"/>
-      <path fill="url(#fi)" d="M46 52c4 10 18 18 18 34 0 13-8 22-18 22s-18-9-18-21c0-8 5-13 8-19 2 6 4 9 8 10-1-10 0-18 2-26z"/>
-    </svg>
+    <div id="cinder" class="cinder-wrap"></div>
+    <div class="stage-name" id="stageName"></div>
     <div class="streak-num" id="streakNum">0</div>
     <div class="streak-label" id="streakLabel">day streak</div>
     <div class="status" id="status"></div>
@@ -158,6 +156,9 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
     </div>
     <a class="cta" id="openAnki" href="anki://">Open Anki</a>
   </section>
+
+  <h2>Cinder's evolution</h2>
+  <div class="card"><div class="chart-title" id="evoTitle"></div><div class="chart-sub" id="evoSub"></div><div class="evo" id="evo"></div></div>
 
   <h2>Overview</h2>
   <div class="kpis" id="kpis"></div>
@@ -265,6 +266,7 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
 </main>
 
 <script>
+document.head.insertAdjacentHTML('beforeend', `<style>${CINDER_CSS}</style>`);
 const $ = (id) => document.getElementById(id);
 const nf = new Intl.NumberFormat('en-GB');
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -293,10 +295,50 @@ function render(s) {
   renderWeekly(s); renderHours(s); renderRatings(s); renderForecast(s); renderDecks(s); renderResearch(s);
   const t = new Date(s.generated_at);
   $('updated').textContent = `Updated ${t.toLocaleString('en-GB', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}`;
-  if ('clearAppBadge' in navigator && s.streak.reviewed_today) navigator.clearAppBadge().catch(() => {});
+  if ('setAppBadge' in navigator) {
+    const g = s.goal || {};
+    const left = Math.max((g.target || 0) - (g.done || 0), 0);
+    (g.met ? navigator.clearAppBadge() : navigator.setAppBadge(Math.min(left, g.due_left || left) || 1)).catch(() => {});
+  }
+}
+
+function cinderMood(s) {
+  const st = s.streak, g = s.goal || { met: st.reviewed_today };
+  if (st.reviewed_today) return g.met ? 'lit' : 'partial';
+  if (st.current > 0) {
+    const first = (s.settings && s.settings.reminder_hours[0]) || 19;
+    return new Date().getHours() >= first ? 'dying' : 'fading';
+  }
+  return s.totals.study_days > 0 ? 'dead' : 'new';
+}
+
+const MOOD_LINE = {
+  lit: 'Fed and smug. See you tomorrow.',
+  partial: "Still hungry. That wasn't a meal.",
+  fading: "Getting cold over here.",
+  dying: 'Fading fast. Feed me.',
+  dead: 'Burnt out. One review brings me back.',
+  new: 'Hi. Feed me reviews and I grow.',
+};
+
+function renderCinder(s) {
+  const mood = cinderMood(s), streak = s.streak.current;
+  const stage = mood === 'dead' ? 0 : Math.max(1, stageFor(streak));
+  $('cinder').innerHTML = cinderSVG({ stage, mood, size: 210 });
+  $('stageName').textContent = `Cinder · ${STAGES[stage].name}`;
+  const next = STAGES[stage + 1];
+  $('evoTitle').textContent = MOOD_LINE[mood];
+  $('evoSub').textContent = next
+    ? `${next.from - streak} more ${daysWord(next.from - streak)} to evolve into ${next.name}.`
+    : 'Final form reached. Cinder is now a volcano. Keep it erupting.';
+  $('evo').innerHTML = STAGES.map((st, i) => {
+    const cls = i === stage ? 'now' : i > stage ? 'locked' : '';
+    return `<div class="${cls}">${cinderSVG({ stage: i, mood: i === 0 ? 'dead' : 'lit', size: 52 })}<b>${st.name}</b>${st.from}d</div>`;
+  }).join('');
 }
 
 function renderHero(s) {
+  renderCinder(s);
   const st = s.streak, hero = $('hero');
   $('streakNum').textContent = st.current;
   $('streakLabel').textContent = 'day streak';

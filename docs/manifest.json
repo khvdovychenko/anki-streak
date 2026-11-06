@@ -1,6 +1,6 @@
 {
-  "name": "Anki Streak",
-  "short_name": "Streak",
+  "name": "Cinder: Anki streak",
+  "short_name": "Cinder",
   "description": "Streak, analytics and reminders for Anki",
   "start_url": "./",
   "scope": "./",

@@ -80,7 +80,7 @@ Anyone with an AnkiWeb account can run their own copy. There is no shared server
    | Variable | Default | Example |
    |---|---|---|
    | `TIMEZONE` | `Europe/Dublin` | `America/New_York` |
-   | `REMINDER_HOURS` | `19,21,22,23` | `18,20,21,22` |
+   | `REMINDER_HOURS` | `19` | `20` (hour Cinder starts looking worried in the app) |
    | `EMAIL_REMINDERS` | `true` | `false` |
    | `DAY_START_HOUR` | `4` | `0` |
 | `DAILY_GOAL` | `30` | `100` |

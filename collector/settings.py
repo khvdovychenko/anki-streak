@@ -5,7 +5,8 @@ variables → Actions → Variables, and add any of these:
 
   TIMEZONE         e.g. Europe/Dublin, America/New_York (default Europe/Dublin)
                    Full list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  REMINDER_HOURS   local hours for the 4 escalating reminders (default 19,21,22,23)
+  REMINDER_HOURS   hour Cinder starts looking worried in the app (default 19); reminder
+                   timing itself lives in remind.py and messages.json
   EMAIL_REMINDERS  "false" to get push notifications only (default true)
   DAY_START_HOUR   when a new study day starts, like in Anki (default 4)
   DAILY_GOAL       reviews per day before reminders stop (default 30);

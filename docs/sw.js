@@ -1,5 +1,5 @@
 // Service worker: shows push notifications and keeps the app working offline.
-const CACHE = 'cinder-v2';
+const CACHE = 'cinder-v3';
 const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-180.png', 'cinder.js'];
 
 self.addEventListener('install', (e) => {
@@ -45,10 +45,15 @@ self.addEventListener('push', (e) => {
 
 self.addEventListener('notificationclick', (e) => {
   e.notification.close();
+  // Open the app with ?go=anki; the page then hands straight over to Anki.
+  const base = new URL(e.notification.data.url || './', self.registration.scope);
+  base.searchParams.set('go', 'anki');
   e.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
-      for (const c of list) if ('focus' in c) return c.focus();
-      return self.clients.openWindow(e.notification.data.url || './');
+      for (const c of list) {
+        if ('navigate' in c) return c.navigate(base.href).then((w) => (w || c).focus());
+      }
+      return self.clients.openWindow(base.href);
     })
   );
 });

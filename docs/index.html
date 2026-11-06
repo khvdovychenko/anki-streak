@@ -267,6 +267,11 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
 
 <script>
 document.head.insertAdjacentHTML('beforeend', `<style>${CINDER_CSS}</style>`);
+// Tapped a notification: jump straight into Anki.
+if (new URLSearchParams(location.search).get('go') === 'anki') {
+  history.replaceState(null, '', location.pathname);
+  location.href = 'anki://';
+}
 const $ = (id) => document.getElementById(id);
 const nf = new Intl.NumberFormat('en-GB');
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();

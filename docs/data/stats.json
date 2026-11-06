@@ -1,0 +1,2489 @@
+{
+ "notify": {
+  "due": 0,
+  "deck": null,
+  "weakest_deck": null,
+  "retention_7d": null,
+  "retention_prev_7d": null,
+  "week_cards": 0,
+  "last_week_cards": 0,
+  "best_day": 145,
+  "last_study_day": "2026-10-19",
+  "last_review": "2026-10-19T17:53+01:00",
+  "lost_streak": 1,
+  "usual_start_minute": 838
+ },
+ "goal": {
+  "target": 30,
+  "done": 0,
+  "due_left": 0,
+  "met": false,
+  "cleared_queue": false
+ },
+ "settings": {
+  "reminder_hours": [
+   19,
+   21,
+   22,
+   23
+  ],
+  "timezone": "Europe/Dublin",
+  "day_start_hour": 4
+ },
+ "generated_at": "2026-11-06T20:57+00:00",
+ "today": "2026-11-06",
+ "streak": {
+  "current": 0,
+  "longest": 31,
+  "reviewed_today": false,
+  "at_risk": false,
+  "lost_yesterday": false
+ },
+ "today_stats": {
+  "reviews": 0,
+  "minutes": 0.0
+ },
+ "totals": {
+  "reviews": 1637,
+  "hours": 6.4,
+  "study_days": 40,
+  "first_day": "2026-07-16",
+  "avg_reviews_per_study_day": 41,
+  "consistency_90d": 18,
+  "retention_30d": null
+ },
+ "ratings_30d": {
+  "again": 0,
+  "hard": 0,
+  "good": 4,
+  "easy": 0
+ },
+ "decks": [
+  {
+   "name": "Vocabulaire",
+   "reviews_total": 4,
+   "reviews_30d": 4,
+   "retention_30d": null,
+   "mature_retention_30d": null,
+   "avg_seconds": 20.1,
+   "cards": {
+    "new": 646,
+    "learning": 4,
+    "young": 0,
+    "mature": 0,
+    "suspended": 0,
+    "leeches": 0
+   }
+  },
+  {
+   "name": "Deleted cards",
+   "reviews_total": 1633,
+   "reviews_30d": 0,
+   "retention_30d": null,
+   "mature_retention_30d": null,
+   "avg_seconds": 14.1,
+   "cards": {
+    "new": 0,
+    "learning": 0,
+    "young": 0,
+    "mature": 0,
+    "suspended": 0,
+    "leeches": 0
+   }
+  }
+ ],
+ "hours": [
+  {
+   "hour": 0,
+   "reviews": 3,
+   "retention": 100.0
+  },
+  {
+   "hour": 1,
+   "reviews": 0,
+   "retention": null
+  },
+  {
+   "hour": 2,
+   "reviews": 0,
+   "retention": null
+  },
+  {
+   "hour": 3,
+   "reviews": 0,
+   "retention": null
+  },
+  {
+   "hour": 4,
+   "reviews": 90,
+   "retention": 81.1
+  },
+  {
+   "hour": 5,
+   "reviews": 0,
+   "retention": null
+  },
+  {
+   "hour": 6,
+   "reviews": 6,
+   "retention": 100.0
+  },
+  {
+   "hour": 7,
+   "reviews": 7,
+   "retention": 80.0
+  },
+  {
+   "hour": 8,
+   "reviews": 27,
+   "retention": 87.5
+  },
+  {
+   "hour": 9,
+   "reviews": 91,
+   "retention": 91.7
+  },
+  {
+   "hour": 10,
+   "reviews": 199,
+   "retention": 81.5
+  },
+  {
+   "hour": 11,
+   "reviews": 25,
+   "retention": 90.9
+  },
+  {
+   "hour": 12,
+   "reviews": 38,
+   "retention": 93.3
+  },
+  {
+   "hour": 13,
+   "reviews": 90,
+   "retention": 93.0
+  },
+  {
+   "hour": 14,
+   "reviews": 86,
+   "retention": 76.8
+  },
+  {
+   "hour": 15,
+   "reviews": 40,
+   "retention": 69.2
+  },
+  {
+   "hour": 16,
+   "reviews": 4,
+   "retention": 100.0
+  },
+  {
+   "hour": 17,
+   "reviews": 136,
+   "retention": 76.2
+  },
+  {
+   "hour": 18,
+   "reviews": 84,
+   "retention": 81.6
+  },
+  {
+   "hour": 19,
+   "reviews": 162,
+   "retention": 83.3
+  },
+  {
+   "hour": 20,
+   "reviews": 133,
+   "retention": 83.3
+  },
+  {
+   "hour": 21,
+   "reviews": 205,
+   "retention": 80.9
+  },
+  {
+   "hour": 22,
+   "reviews": 137,
+   "retention": 77.6
+  },
+  {
+   "hour": 23,
+   "reviews": 74,
+   "retention": 68.2
+  }
+ ],
+ "weekdays": [
+  {
+   "weekday": 0,
+   "reviews": 148,
+   "study_days": 6
+  },
+  {
+   "weekday": 1,
+   "reviews": 228,
+   "study_days": 7
+  },
+  {
+   "weekday": 2,
+   "reviews": 213,
+   "study_days": 6
+  },
+  {
+   "weekday": 3,
+   "reviews": 275,
+   "study_days": 6
+  },
+  {
+   "weekday": 4,
+   "reviews": 218,
+   "study_days": 5
+  },
+  {
+   "weekday": 5,
+   "reviews": 334,
+   "study_days": 6
+  },
+  {
+   "weekday": 6,
+   "reviews": 221,
+   "study_days": 4
+  }
+ ],
+ "weekly": [
+  {
+   "week": "2026-05-11",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-05-18",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-05-25",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-06-01",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-06-08",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-06-15",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-06-22",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-06-29",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-07-06",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-07-13",
+   "reviews": 196,
+   "minutes": 59,
+   "retention": 94.7,
+   "new_cards": 94
+  },
+  {
+   "week": "2026-07-20",
+   "reviews": 236,
+   "minutes": 64,
+   "retention": 85.3,
+   "new_cards": 65
+  },
+  {
+   "week": "2026-07-27",
+   "reviews": 386,
+   "minutes": 85,
+   "retention": 82.2,
+   "new_cards": 122
+  },
+  {
+   "week": "2026-08-03",
+   "reviews": 421,
+   "minutes": 93,
+   "retention": 82.2,
+   "new_cards": 99
+  },
+  {
+   "week": "2026-08-10",
+   "reviews": 294,
+   "minutes": 58,
+   "retention": 79.0,
+   "new_cards": 61
+  },
+  {
+   "week": "2026-08-17",
+   "reviews": 67,
+   "minutes": 14,
+   "retention": 76.6,
+   "new_cards": 10
+  },
+  {
+   "week": "2026-08-24",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-08-31",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-09-07",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-09-14",
+   "reviews": 2,
+   "minutes": 1,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-09-21",
+   "reviews": 15,
+   "minutes": 5,
+   "retention": 71.4,
+   "new_cards": 1
+  },
+  {
+   "week": "2026-09-28",
+   "reviews": 16,
+   "minutes": 5,
+   "retention": 63.6,
+   "new_cards": 1
+  },
+  {
+   "week": "2026-10-05",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-10-12",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-10-19",
+   "reviews": 4,
+   "minutes": 1,
+   "retention": null,
+   "new_cards": 4
+  },
+  {
+   "week": "2026-10-26",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  },
+  {
+   "week": "2026-11-02",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
+  }
+ ],
+ "heatmap": [
+  {
+   "date": "2025-11-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-19",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-11-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-19",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2025-12-31",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-19",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-01-31",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-19",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-02-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-19",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-03-31",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-19",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-04-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-19",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-05-31",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-19",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-06-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-07-16",
+   "reviews": 39,
+   "minutes": 17.1
+  },
+  {
+   "date": "2026-07-17",
+   "reviews": 54,
+   "minutes": 14.7
+  },
+  {
+   "date": "2026-07-18",
+   "reviews": 58,
+   "minutes": 15.0
+  },
+  {
+   "date": "2026-07-19",
+   "reviews": 45,
+   "minutes": 11.9
+  },
+  {
+   "date": "2026-07-20",
+   "reviews": 3,
+   "minutes": 0.7
+  },
+  {
+   "date": "2026-07-21",
+   "reviews": 8,
+   "minutes": 0.9
+  },
+  {
+   "date": "2026-07-22",
+   "reviews": 54,
+   "minutes": 18.3
+  },
+  {
+   "date": "2026-07-23",
+   "reviews": 68,
+   "minutes": 16.9
+  },
+  {
+   "date": "2026-07-24",
+   "reviews": 25,
+   "minutes": 6.0
+  },
+  {
+   "date": "2026-07-25",
+   "reviews": 66,
+   "minutes": 17.3
+  },
+  {
+   "date": "2026-07-26",
+   "reviews": 12,
+   "minutes": 3.6
+  },
+  {
+   "date": "2026-07-27",
+   "reviews": 69,
+   "minutes": 17.2
+  },
+  {
+   "date": "2026-07-28",
+   "reviews": 40,
+   "minutes": 7.5
+  },
+  {
+   "date": "2026-07-29",
+   "reviews": 58,
+   "minutes": 10.1
+  },
+  {
+   "date": "2026-07-30",
+   "reviews": 28,
+   "minutes": 6.7
+  },
+  {
+   "date": "2026-07-31",
+   "reviews": 70,
+   "minutes": 16.8
+  },
+  {
+   "date": "2026-08-01",
+   "reviews": 47,
+   "minutes": 8.9
+  },
+  {
+   "date": "2026-08-02",
+   "reviews": 74,
+   "minutes": 17.6
+  },
+  {
+   "date": "2026-08-03",
+   "reviews": 49,
+   "minutes": 10.2
+  },
+  {
+   "date": "2026-08-04",
+   "reviews": 86,
+   "minutes": 17.0
+  },
+  {
+   "date": "2026-08-05",
+   "reviews": 29,
+   "minutes": 7.2
+  },
+  {
+   "date": "2026-08-06",
+   "reviews": 96,
+   "minutes": 20.6
+  },
+  {
+   "date": "2026-08-07",
+   "reviews": 55,
+   "minutes": 11.7
+  },
+  {
+   "date": "2026-08-08",
+   "reviews": 16,
+   "minutes": 6.3
+  },
+  {
+   "date": "2026-08-09",
+   "reviews": 90,
+   "minutes": 19.9
+  },
+  {
+   "date": "2026-08-10",
+   "reviews": 4,
+   "minutes": 1.8
+  },
+  {
+   "date": "2026-08-11",
+   "reviews": 70,
+   "minutes": 10.1
+  },
+  {
+   "date": "2026-08-12",
+   "reviews": 53,
+   "minutes": 9.3
+  },
+  {
+   "date": "2026-08-13",
+   "reviews": 8,
+   "minutes": 2.0
+  },
+  {
+   "date": "2026-08-14",
+   "reviews": 14,
+   "minutes": 3.3
+  },
+  {
+   "date": "2026-08-15",
+   "reviews": 145,
+   "minutes": 31.1
+  },
+  {
+   "date": "2026-08-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-17",
+   "reviews": 19,
+   "minutes": 3.0
+  },
+  {
+   "date": "2026-08-18",
+   "reviews": 3,
+   "minutes": 0.4
+  },
+  {
+   "date": "2026-08-19",
+   "reviews": 9,
+   "minutes": 2.1
+  },
+  {
+   "date": "2026-08-20",
+   "reviews": 36,
+   "minutes": 8.4
+  },
+  {
+   "date": "2026-08-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-08-31",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-19",
+   "reviews": 2,
+   "minutes": 0.6
+  },
+  {
+   "date": "2026-09-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-22",
+   "reviews": 5,
+   "minutes": 1.3
+  },
+  {
+   "date": "2026-09-23",
+   "reviews": 10,
+   "minutes": 4.1
+  },
+  {
+   "date": "2026-09-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-09-29",
+   "reviews": 16,
+   "minutes": 4.8
+  },
+  {
+   "date": "2026-09-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-06",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-07",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-08",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-09",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-10",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-11",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-12",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-13",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-14",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-15",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-16",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-18",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-19",
+   "reviews": 4,
+   "minutes": 1.3
+  },
+  {
+   "date": "2026-10-20",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-21",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-22",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-23",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-24",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-25",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-26",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-27",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-28",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-29",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-30",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-10-31",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-11-01",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-11-02",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-11-03",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-11-04",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-11-05",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-11-06",
+   "reviews": 0,
+   "minutes": 0.0
+  }
+ ],
+ "forecast": [
+  {
+   "date": "2026-11-06",
+   "due": 0
+  },
+  {
+   "date": "2026-11-07",
+   "due": 0
+  },
+  {
+   "date": "2026-11-08",
+   "due": 0
+  },
+  {
+   "date": "2026-11-09",
+   "due": 0
+  },
+  {
+   "date": "2026-11-10",
+   "due": 0
+  },
+  {
+   "date": "2026-11-11",
+   "due": 0
+  },
+  {
+   "date": "2026-11-12",
+   "due": 0
+  },
+  {
+   "date": "2026-11-13",
+   "due": 0
+  },
+  {
+   "date": "2026-11-14",
+   "due": 0
+  },
+  {
+   "date": "2026-11-15",
+   "due": 0
+  },
+  {
+   "date": "2026-11-16",
+   "due": 0
+  },
+  {
+   "date": "2026-11-17",
+   "due": 0
+  },
+  {
+   "date": "2026-11-18",
+   "due": 0
+  },
+  {
+   "date": "2026-11-19",
+   "due": 0
+  }
+ ],
+ "research": {
+  "overdue": {
+   "buckets": [
+    {
+     "label": "on time",
+     "n": 473,
+     "rate": 84.6,
+     "lo": 81.0,
+     "hi": 87.5,
+     "enough": true
+    },
+    {
+     "label": "×1.15–1.5",
+     "n": 175,
+     "rate": 81.1,
+     "lo": 74.7,
+     "hi": 86.2,
+     "enough": true
+    },
+    {
+     "label": "×1.5–2",
+     "n": 50,
+     "rate": 68.0,
+     "lo": 54.2,
+     "hi": 79.2,
+     "enough": true
+    },
+    {
+     "label": "×2–3",
+     "n": 23,
+     "rate": 65.2,
+     "lo": 44.9,
+     "hi": 81.2,
+     "enough": false
+    },
+    {
+     "label": "×3+",
+     "n": 16,
+     "rate": 62.5,
+     "lo": 38.6,
+     "hi": 81.5,
+     "enough": false
+    }
+   ],
+   "n": 737,
+   "finding": {
+    "base_label": "on time",
+    "base": 84.6,
+    "worst_label": "×1.5–2",
+    "worst": 68.0,
+    "drop_pp": 16.6,
+    "significant": true
+   }
+  },
+  "fatigue": {
+   "buckets": [
+    {
+     "label": "1–25",
+     "n": 473,
+     "rate": 80.8,
+     "lo": 77.0,
+     "hi": 84.1,
+     "enough": true
+    },
+    {
+     "label": "26–50",
+     "n": 202,
+     "rate": 82.2,
+     "lo": 76.3,
+     "hi": 86.8,
+     "enough": true
+    },
+    {
+     "label": "51–100",
+     "n": 62,
+     "rate": 85.5,
+     "lo": 74.7,
+     "hi": 92.2,
+     "enough": true
+    },
+    {
+     "label": "101–150",
+     "n": 0,
+     "rate": null,
+     "lo": null,
+     "hi": null,
+     "enough": false
+    },
+    {
+     "label": "150+",
+     "n": 0,
+     "rate": null,
+     "lo": null,
+     "hi": null,
+     "enough": false
+    }
+   ],
+   "n": 737,
+   "finding": {
+    "base_label": "1–25",
+    "base": 80.8,
+    "worst_label": "26–50",
+    "worst": 82.2,
+    "drop_pp": -1.4,
+    "significant": false
+   }
+  },
+  "hesitation": {
+   "buckets": [
+    {
+     "label": "<4 s",
+     "n": 23,
+     "rate": 13.0,
+     "lo": 4.5,
+     "hi": 32.1,
+     "enough": false
+    },
+    {
+     "label": "4–8 s",
+     "n": 60,
+     "rate": 6.7,
+     "lo": 2.6,
+     "hi": 15.9,
+     "enough": true
+    },
+    {
+     "label": "8–15 s",
+     "n": 76,
+     "rate": 10.5,
+     "lo": 5.4,
+     "hi": 19.4,
+     "enough": true
+    },
+    {
+     "label": "15+ s",
+     "n": 80,
+     "rate": 7.5,
+     "lo": 3.5,
+     "hi": 15.4,
+     "enough": true
+    }
+   ],
+   "n": 239,
+   "finding": {
+    "fast_label": "4–8 s",
+    "slow_label": "15+ s",
+    "fast": 6.7,
+    "slow": 7.5,
+    "ratio": 1.1,
+    "significant": false
+   }
+  },
+  "price": {
+   "decks": [
+    {
+     "deck": "Deleted cards",
+     "n": 292,
+     "median_minutes": 0.7,
+     "median_reviews": 3.0,
+     "median_days": 9.0,
+     "words_per_hour": 70.3
+    }
+   ]
+  },
+  "min_n": 40
+ }
+}

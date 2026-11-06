@@ -1,15 +1,30 @@
-"""Personal settings. Change these to fit your routine."""
+"""Personal settings.
+
+Change them without touching code: on GitHub open Settings → Secrets and
+variables → Actions → Variables, and add any of these:
+
+  TIMEZONE         e.g. Europe/Dublin, America/New_York (default Europe/Dublin)
+                   Full list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  REMINDER_HOURS   local hours for the 4 escalating reminders (default 19,21,22,23)
+  EMAIL_REMINDERS  "false" to get push notifications only (default true)
+  DAY_START_HOUR   when a new study day starts, like in Anki (default 4)
+"""
+import os
 from zoneinfo import ZoneInfo
 
-# Your time zone. Use a name from https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-TIMEZONE = ZoneInfo("Europe/Dublin")
 
-# Like Anki itself, a new "day" starts at 4:00, so reviewing at 1 a.m. still
-# counts for the previous evening.
-DAY_START_HOUR = 4
+def _env(name, default):
+    value = os.environ.get(name, "").strip()
+    return value or default
 
-# Escalating reminders: local hour -> level. Level 0 means "not yet".
-REMINDER_SCHEDULE = {19: 1, 21: 2, 22: 3, 23: 4}
 
-# Also send each reminder by email (needs the Gmail secrets).
-EMAIL_REMINDERS = True
+TIMEZONE = ZoneInfo(_env("TIMEZONE", "Europe/Dublin"))
+
+# A new "day" starts at 4:00, so reviewing at 1 a.m. still counts for the previous evening.
+DAY_START_HOUR = int(_env("DAY_START_HOUR", "4"))
+
+# Escalating reminders: local hour -> level 1..4.
+_hours = [int(h) for h in _env("REMINDER_HOURS", "19,21,22,23").split(",")][:4]
+REMINDER_SCHEDULE = {h: level for level, h in enumerate(sorted(_hours), start=1)}
+
+EMAIL_REMINDERS = _env("EMAIL_REMINDERS", "true").lower() != "false"

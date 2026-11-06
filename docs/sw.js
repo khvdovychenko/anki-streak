@@ -28,7 +28,7 @@ self.addEventListener('fetch', (e) => {
 
 self.addEventListener('push', (e) => {
   let data = {};
-  try { data = e.data.json(); } catch { data = { title: 'Anki Streak', body: e.data ? e.data.text() : 'Час повторити картки' }; }
+  try { data = e.data.json(); } catch { data = { title: 'Anki Streak', body: e.data ? e.data.text() : 'Time to review your cards' }; }
   e.waitUntil(Promise.all([
     self.registration.showNotification(data.title || 'Anki Streak', {
       body: data.body || '',

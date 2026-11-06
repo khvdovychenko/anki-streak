@@ -2,9 +2,9 @@ name: Update stats and nag
 
 on:
   schedule:
-    # Times are UTC. remind.py works in Dublin time, so these cover the evening
-    # both in winter (UTC+0) and summer (UTC+1).
-    - cron: "17 7,11,15,17,18,19,20,21,22,23 * * *"
+    # Wakes up every hour (UTC). collector/should_run.py then checks your local
+    # time and only syncs when it matters, so this works in any time zone.
+    - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       test_reminder:
@@ -22,26 +22,42 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      # Optional repository variables (Settings → Secrets and variables → Actions → Variables)
+      TIMEZONE: ${{ vars.TIMEZONE }}
+      REMINDER_HOURS: ${{ vars.REMINDER_HOURS }}
+      EMAIL_REMINDERS: ${{ vars.EMAIL_REMINDERS }}
+      DAY_START_HOUR: ${{ vars.DAY_START_HOUR }}
     steps:
       - uses: actions/checkout@v4
 
+      - name: Is it time?
+        id: gate
+        run: python3 collector/should_run.py
+
       - uses: actions/setup-python@v5
+        if: steps.gate.outputs.run == 'true'
         with:
           python-version: "3.12"
           cache: pip
 
-      - run: pip install -r requirements.txt
+      - name: Install
+        if: steps.gate.outputs.run == 'true'
+        run: pip install -r requirements.txt
 
       - name: Download collection from AnkiWeb
+        if: steps.gate.outputs.run == 'true'
         env:
           ANKI_USERNAME: ${{ secrets.ANKI_USERNAME }}
           ANKI_PASSWORD: ${{ secrets.ANKI_PASSWORD }}
         run: python collector/sync.py
 
       - name: Build analytics
+        if: steps.gate.outputs.run == 'true'
         run: python collector/analyze.py
 
       - name: Send reminders
+        if: steps.gate.outputs.run == 'true'
         env:
           PUSH_CONFIG: ${{ secrets.PUSH_CONFIG }}
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
@@ -52,6 +68,7 @@ jobs:
         run: python collector/remind.py
 
       - name: Save results
+        if: steps.gate.outputs.run == 'true'
         run: |
           rm -rf data/anki
           git config user.name "anki-streak-bot"

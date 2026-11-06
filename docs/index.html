@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="uk">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Anki Streak</title>
-<meta name="description" content="Особистий трекер Анкі: стрік, аналітика повторень і нагадування.">
+<meta name="description" content="Personal Anki tracker: streak, review analytics and reminders.">
 <meta name="theme-color" content="#1c1712">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -130,7 +130,7 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
 </head>
 <body>
 
-<div id="loading" class="card" style="margin-top:40px;text-align:center">Завантажую статистику…</div>
+<div id="loading" class="card" style="margin-top:40px;text-align:center">Loading stats…</div>
 <main id="app" class="hidden">
   <section id="hero" class="card hero">
     <svg class="flame" viewBox="0 0 92 112" aria-hidden="true">
@@ -142,23 +142,23 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
       <path fill="url(#fi)" d="M46 52c4 10 18 18 18 34 0 13-8 22-18 22s-18-9-18-21c0-8 5-13 8-19 2 6 4 9 8 10-1-10 0-18 2-26z"/>
     </svg>
     <div class="streak-num" id="streakNum">0</div>
-    <div class="streak-label" id="streakLabel">днів поспіль</div>
+    <div class="streak-label" id="streakLabel">day streak</div>
     <div class="status" id="status"></div>
     <div class="meta-row">
-      <div><b id="todayReviews">0</b><span class="muted">сьогодні</span></div>
-      <div><b id="todayMin">0</b><span class="muted">хвилин</span></div>
-      <div><b id="longest">0</b><span class="muted">рекорд</span></div>
+      <div><b id="todayReviews">0</b><span class="muted">today</span></div>
+      <div><b id="todayMin">0</b><span class="muted">minutes</span></div>
+      <div><b id="longest">0</b><span class="muted">best</span></div>
     </div>
-    <a class="cta" id="openAnki" href="anki://">Відкрити Анкі</a>
+    <a class="cta" id="openAnki" href="anki://">Open Anki</a>
   </section>
 
-  <h2>Підсумки</h2>
+  <h2>Overview</h2>
   <div class="kpis" id="kpis"></div>
 
-  <h2>Що кажуть дані</h2>
+  <h2>What the data says</h2>
   <div class="card"><ul class="insights" id="insights"></ul></div>
 
-  <h2>Рік повторень</h2>
+  <h2>Your year</h2>
   <div class="card chart">
     <div class="chart-title" id="heatTitle"></div>
     <div class="chart-sub" id="heatSub"></div>
@@ -166,114 +166,108 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
     <div class="legend" id="heatLegend"></div>
   </div>
 
-  <h2>Динаміка</h2>
+  <h2>Trends</h2>
   <div class="card chart">
-    <div class="chart-title">Повторення по тижнях</div>
-    <div class="chart-sub">Стовпці: кількість повторень. Лінія: retention, частка відповідей не «Again».</div>
+    <div class="chart-title">Reviews per week</div>
+    <div class="chart-sub">Bars: reviews. Line: retention, the share of review answers that were not "Again".</div>
     <div id="weekly"></div>
-    <div class="legend"><span><i style="background:var(--flame)"></i>повторення</span><span><i style="background:var(--good)"></i>retention</span></div>
+    <div class="legend"><span><i style="background:var(--flame)"></i>reviews</span><span><i style="background:var(--good)"></i>retention</span></div>
   </div>
 
   <div class="card chart">
-    <div class="chart-title">Коли ти вчишся</div>
-    <div class="chart-sub" id="hoursSub">Повторення за годиною доби, усі дані.</div>
+    <div class="chart-title">When you study</div>
+    <div class="chart-sub" id="hoursSub">Reviews by hour of day, all time.</div>
     <div id="hours"></div>
   </div>
 
   <div class="card chart">
-    <div class="chart-title">Твої відповіді за 30 днів</div>
+    <div class="chart-title">Your answers, last 30 days</div>
     <div class="chart-sub">Again, Hard, Good, Easy</div>
     <div id="ratings"></div>
   </div>
 
   <div class="card chart" id="forecastCard">
-    <div class="chart-title">Прогноз на 2 тижні</div>
-    <div class="chart-sub">Скільки повторень чекає щодня</div>
+    <div class="chart-title">Next 2 weeks</div>
+    <div class="chart-sub">Reviews due each day</div>
     <div id="forecast"></div>
   </div>
 
   <section id="research">
-    <h2>Дослідження</h2>
+    <h2>Research</h2>
     <div class="card chart" id="rOverdue">
-      <div class="chart-title">Ціна запізнення</div>
+      <div class="chart-title">The cost of a late review</div>
       <div id="rOverdueTag"></div>
       <div class="finding" id="rOverdueFinding"></div>
       <div id="rOverdueChart"></div>
-      <div class="method">Частка правильних відповідей залежно від того, у скільки разів пізніше за графік Анкі ти повторила картку. Лінії над стовпцями: 95% довірчий інтервал. Блідим позначено групи, де менше <span class="minN"></span> відповідей.</div>
+      <div class="method">Share of correct answers by how much later than Anki scheduled the card was reviewed. Whiskers show the 95% confidence interval. Faded bars have fewer than <span class="minN"></span> answers.</div>
     </div>
     <div class="card chart" id="rFatigue">
-      <div class="chart-title">Втома в сесії</div>
+      <div class="chart-title">Session fatigue</div>
       <div id="rFatigueTag"></div>
       <div class="finding" id="rFatigueFinding"></div>
       <div id="rFatigueChart"></div>
-      <div class="method">Сесія: повторення без пауз довших за 30 хвилин. Показано точність на картках повторення залежно від номера картки в сесії.</div>
+      <div class="method">A session is a run of reviews with no break longer than 30 minutes. Accuracy on review cards by the card's position in the session.</div>
     </div>
     <div class="card chart" id="rHes">
-      <div class="chart-title">Вагання передбачає забування?</div>
+      <div class="chart-title">Does hesitation predict forgetting?</div>
       <div id="rHesTag"></div>
       <div class="finding" id="rHesFinding"></div>
       <div id="rHesChart"></div>
-      <div class="method">Беремо лише правильні відповіді і дивимось, як часто ця ж картка наступного разу отримала «Again», залежно від того, скільки секунд ти думала. Анкі цього не враховує: «Good» за 2 секунди і за 12 для неї однакові.</div>
+      <div class="method">Correct answers only: how often the same card was failed at its next review, by answer time. Anki ignores this: a "Good" after 2 seconds and after 12 seconds count the same.</div>
     </div>
     <div class="card" id="rPrice">
-      <div class="chart-title">Скільки коштує одне слово</div>
-      <div class="chart-sub">Медіана від першого показу картки до моменту, коли її інтервал уперше досяг 21 дня.</div>
+      <div class="chart-title">The price of one card</div>
+      <div class="chart-sub">Median from a card's first showing until its interval first reaches 21 days.</div>
       <div class="price-grid" id="rPriceGrid"></div>
     </div>
   </section>
 
-  <h2>Колоди</h2>
+  <h2>Decks</h2>
   <div id="decks"></div>
 
-  <h2>Сповіщення</h2>
+  <h2>Notifications</h2>
   <div class="card" id="setup">
     <div id="notInstalled" class="hidden">
-      <div class="chart-title">Спершу встанови додаток</div>
+      <div class="chart-title">Install the app first</div>
       <ol class="steps small">
-        <li>Відкрий цю сторінку в <b>Safari</b></li>
-        <li>Натисни «Поділитися» ⬆️</li>
-        <li>Обери <b>«На екран Додому»</b></li>
-        <li>Відкрий додаток з іконки і повернись сюди</li>
+        <li>Open this page in <b>Safari</b></li>
+        <li>Tap Share ⬆️</li>
+        <li>Choose <b>Add to Home Screen</b></li>
+        <li>Open the app from its icon and come back here</li>
       </ol>
     </div>
     <div id="installed">
-      <div class="chart-title">Пуші з нагадуваннями</div>
-      <p class="small muted" id="pushState">Сповіщення ще не ввімкнені.</p>
-      <button class="cta" id="enablePush">Увімкнути сповіщення</button>
+      <div class="chart-title">Reminder notifications</div>
+      <p class="small muted" id="pushState">Notifications are off.</p>
+      <button class="cta" id="enablePush">Enable notifications</button>
       <div id="pushResult" class="hidden">
-        <p class="small"><b>Останній крок.</b> Скопіюй цей текст і встав його в GitHub: репозиторій → Settings → Secrets and variables → Actions → New repository secret. Назва: <b>PUSH_CONFIG</b>.</p>
+        <p class="small"><b>Last step.</b> Copy this text and add it on GitHub: your repository → Settings → Secrets and variables → Actions → New repository secret. Name: <b>PUSH_CONFIG</b>.</p>
         <textarea id="pushConfig" readonly></textarea>
-        <button class="cta ghost" id="copyConfig">Скопіювати</button>
-        <p class="small muted">Тут є секретний ключ. Не публікуй його ніде, крім секрету GitHub.</p>
+        <button class="cta ghost" id="copyConfig">Copy</button>
+        <p class="small muted">This contains a private key. Only paste it into the GitHub secret.</p>
       </div>
-      <button class="cta ghost" id="testLocal">Перевірити сповіщення на цьому телефоні</button>
+      <button class="cta ghost" id="testLocal">Test a notification on this phone</button>
     </div>
   </div>
 
   <footer>
     <div id="updated"></div>
-    <div><a href="data/reviews.csv" download>Завантажити всі дані (CSV)</a></div>
-    <div>Дані з AnkiWeb, оновлюються автоматично. Текст карток не зберігається.</div>
+    <div><a href="data/reviews.csv" download>Download all data (CSV)</a></div>
+    <div>Data from AnkiWeb, updated automatically. Card text is never stored.</div>
   </footer>
 </main>
 
 <script>
 const $ = (id) => document.getElementById(id);
-const nf = new Intl.NumberFormat('uk-UA');
+const nf = new Intl.NumberFormat('en-GB');
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 
-function plural(n, one, few, many) {
-  const m10 = n % 10, m100 = n % 100;
-  if (m10 === 1 && m100 !== 11) return one;
-  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
-  return many;
-}
-const daysWord = (n) => plural(n, 'день', 'дні', 'днів');
-const pct = (v) => v == null ? '—' : `${String(v).replace('.', ',')}%`;
+const daysWord = (n) => (n === 1 ? 'day' : 'days');
+const pct = (v) => v == null ? '—' : `${v}%`;
 const svg = (w, h, inner) => `<svg viewBox="0 0 ${w} ${h}" role="img">${inner}</svg>`;
-const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
-const DAYS_LONG = ['понеділок', 'вівторок', 'середа', 'четвер', 'пʼятниця', 'субота', 'неділя'];
-const MONTHS = ['січ', 'лют', 'бер', 'кві', 'тра', 'чер', 'лип', 'сер', 'вер', 'жов', 'лис', 'гру'];
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const DAYS_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 async function load() {
   try {
@@ -281,7 +275,7 @@ async function load() {
     if (!res.ok) throw new Error(res.status);
     render(await res.json());
   } catch (e) {
-    $('loading').innerHTML = '<span class="err">Даних ще нема.</span><br><span class="small muted">Вони зʼявляться після першого запуску на GitHub.</span>';
+    $('loading').innerHTML = '<span class="err">No data yet.</span><br><span class="small muted">It will appear after the first run on GitHub.</span>';
   }
 }
 
@@ -291,38 +285,38 @@ function render(s) {
   renderHero(s); renderKpis(s); renderInsights(s); renderHeatmap(s);
   renderWeekly(s); renderHours(s); renderRatings(s); renderForecast(s); renderDecks(s); renderResearch(s);
   const t = new Date(s.generated_at);
-  $('updated').textContent = `Оновлено ${t.toLocaleString('uk-UA', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}`;
+  $('updated').textContent = `Updated ${t.toLocaleString('en-GB', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}`;
   if ('clearAppBadge' in navigator && s.streak.reviewed_today) navigator.clearAppBadge().catch(() => {});
 }
 
 function renderHero(s) {
   const st = s.streak, hero = $('hero');
   $('streakNum').textContent = st.current;
-  $('streakLabel').textContent = `${daysWord(st.current)} поспіль`;
+  $('streakLabel').textContent = 'day streak';
   $('todayReviews').textContent = nf.format(s.today_stats.reviews);
   $('todayMin').textContent = nf.format(Math.round(s.today_stats.minutes));
   $('longest').textContent = st.longest;
   if (st.reviewed_today) {
     hero.className = 'card hero alive';
-    $('status').textContent = '✓ Сьогодні зараховано';
+    $('status').textContent = '✓ Today is done';
     $('openAnki').classList.add('ghost');
-    $('openAnki').textContent = 'Ще трохи повторити';
+    $('openAnki').textContent = 'Review a bit more';
   } else if (st.at_risk) {
     hero.className = 'card hero risk';
-    $('status').textContent = '⚠️ Стрік під загрозою';
+    $('status').textContent = '⚠️ Streak at risk';
   } else {
     hero.className = 'card hero dead';
-    $('status').textContent = 'Почни новий стрік сьогодні';
+    $('status').textContent = 'Start a new streak today';
   }
 }
 
 function renderKpis(s) {
   const t = s.totals;
   const items = [
-    [nf.format(t.reviews), 'повторень усього'],
-    [nf.format(Math.round(t.hours)), 'годин навчання'],
-    [pct(t.retention_30d), 'retention, 30 днів'],
-    [`${t.consistency_90d}%`, 'днів з навчанням, 90 днів'],
+    [nf.format(t.reviews), 'reviews in total'],
+    [nf.format(Math.round(t.hours)), 'hours studied'],
+    [pct(t.retention_30d), 'retention, 30 days'],
+    [`${t.consistency_90d}%`, 'of the last 90 days studied'],
   ];
   $('kpis').innerHTML = items.map(([v, l]) => `<div class="card kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
 }
@@ -334,7 +328,7 @@ function renderInsights(s) {
     const best = enough.reduce((a, b) => (b.retention > a.retention ? b : a));
     const worst = enough.reduce((a, b) => (b.retention < a.retention ? b : a));
     if (best.retention - worst.retention >= 2) {
-      out.push(['🧠', `Найкраще памʼятаєш о ${best.hour}:00 (${pct(best.retention)}), найгірше о ${worst.hour}:00 (${pct(worst.retention)}).`]);
+      out.push(['🧠', `You remember best at ${best.hour}:00 (${pct(best.retention)}) and worst at ${worst.hour}:00 (${pct(worst.retention)}).`]);
     }
   }
   const wd = s.weekdays.filter((d) => d.study_days > 0);
@@ -342,25 +336,25 @@ function renderInsights(s) {
     const top = wd.reduce((a, b) => (b.reviews / b.study_days > a.reviews / a.study_days ? b : a));
     const allWeeks = Math.max(...s.weekdays.map((d) => d.study_days));
     const skip = s.weekdays.reduce((a, b) => (b.study_days < a.study_days ? b : a));
-    out.push(['📅', `Найпродуктивніший день: ${DAYS_LONG[top.weekday]}, в середньому ${Math.round(top.reviews / top.study_days)} повторень.`]);
-    if (allWeeks - skip.study_days >= 3) out.push(['😴', `Найчастіше пропускаєш: ${DAYS_LONG[skip.weekday]}.`]);
+    out.push(['📅', `Most productive day: ${DAYS_LONG[top.weekday]}, ${Math.round(top.reviews / top.study_days)} reviews on average.`]);
+    if (allWeeks - skip.study_days >= 3) out.push(['😴', `The day you skip most: ${DAYS_LONG[skip.weekday]}.`]);
   }
   const w = s.weekly.filter((x) => x.retention != null);
   if (w.length >= 8) {
     const avg = (arr) => arr.reduce((a, b) => a + b.retention, 0) / arr.length;
     const now = avg(w.slice(-4)), before = avg(w.slice(-8, -4));
     const d = now - before;
-    if (Math.abs(d) >= 1) out.push([d > 0 ? '📈' : '📉', `Retention за останній місяць ${d > 0 ? 'зріс' : 'впав'} на ${Math.abs(d).toFixed(1).replace('.', ',')} п.п. порівняно з попереднім.`]);
-    else out.push(['⚖️', 'Retention стабільний: останній місяць на рівні попереднього.']);
+    if (Math.abs(d) >= 1) out.push([d > 0 ? '📈' : '📉', `Retention ${d > 0 ? 'rose' : 'fell'} by ${Math.abs(d).toFixed(1)} points over the last month compared with the month before.`]);
+    else out.push(['⚖️', 'Retention is stable: the last month matches the one before.']);
   }
   if (s.totals.study_days) {
     const mins = Math.round(s.totals.hours * 60 / s.totals.study_days);
-    out.push(['⏱️', `У день навчання ти в середньому проводиш в Анкі ${mins} хв і робиш ${s.totals.avg_reviews_per_study_day} повторень.`]);
+    out.push(['⏱️', `On a study day you spend ${mins} min in Anki and do ${s.totals.avg_reviews_per_study_day} reviews on average.`]);
   }
-  if (s.forecast && s.forecast[1]) out.push(['📬', `Завтра чекає ${nf.format(s.forecast[1].due)} повторень.`]);
+  if (s.forecast && s.forecast[1]) out.push(['📬', `${nf.format(s.forecast[1].due)} reviews are due tomorrow.`]);
   const leeches = s.decks.reduce((a, d) => a + d.cards.leeches, 0);
-  if (leeches) out.push(['🧟', `${leeches} карток ти забула 8+ разів. Їх варто переписати або розбити.`]);
-  $('insights').innerHTML = out.map(([i, t]) => `<li data-i="${i}">${t}</li>`).join('') || '<li data-i="🌱">Мало даних для висновків. Повтори картки кілька днів.</li>';
+  if (leeches) out.push(['🧟', `${leeches} cards were forgotten 8+ times. Consider rewriting or splitting them.`]);
+  $('insights').innerHTML = out.map(([i, t]) => `<li data-i="${i}">${t}</li>`).join('') || '<li data-i="🌱">Not enough data yet. Review for a few days.</li>';
 }
 
 function renderHeatmap(s) {
@@ -383,7 +377,7 @@ function renderHeatmap(s) {
       const m = date.getMonth();
       if (m !== lastMonth && date.getDate() <= 7) { g += `<text x="${x}" y="9" font-size="8.5" fill="${css('--muted')}" font-weight="700">${MONTHS[m]}</text>`; lastMonth = m; }
     }
-    const lab = `${date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'short' })}: ${d.reviews} повт., ${d.minutes} хв`;
+    const lab = `${date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}: ${d.reviews} reviews, ${d.minutes} min`;
     g += `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="2.5" fill="var(--heat${level(d.reviews)})"><title>${lab}</title></rect>`;
   });
   [0, 2, 4].forEach((r) => { g += `<text x="0" y="${top + r * (cell + gap) + 8.5}" font-size="8" fill="${css('--muted')}" font-weight="700">${DAYS[r]}</text>`; });
@@ -391,9 +385,9 @@ function renderHeatmap(s) {
   $('heatmap').innerHTML = `<div style="min-width:${Math.max(560, 0)}px">${svg(w, top + 7 * (cell + gap), g)}</div>`;
   $('heatmap').scrollLeft = 9999;
   const active = days.filter((d) => d.reviews).length;
-  $('heatTitle').textContent = `${active} ${daysWord(active)} з навчанням за рік`;
-  $('heatSub').textContent = 'Кожна клітинка це день. Темніше означає більше повторень.';
-  $('heatLegend').innerHTML = `<span>менше</span>${[0, 1, 2, 3, 4].map((l) => `<span><i style="background:var(--heat${l});margin:0"></i></span>`).join('')}<span>більше</span>`;
+  $('heatTitle').textContent = `${active} study ${daysWord(active)} in the last year`;
+  $('heatSub').textContent = 'Each square is a day. Darker means more reviews.';
+  $('heatLegend').innerHTML = `<span>less</span>${[0, 1, 2, 3, 4].map((l) => `<span><i style="background:var(--heat${l});margin:0"></i></span>`).join('')}<span>more</span>`;
 }
 
 function renderWeekly(s) {
@@ -412,7 +406,7 @@ function renderWeekly(s) {
   });
   data.forEach((d, i) => {
     const h = ih * d.reviews / maxR, x = pad.l + i * bw;
-    g += `<rect x="${x + bw * .15}" y="${pad.t + ih - h}" width="${bw * .7}" height="${h}" rx="2" fill="var(--flame)" opacity=".85"><title>Тиждень з ${d.week}: ${d.reviews} повт., ${d.minutes} хв, retention ${pct(d.retention)}</title></rect>`;
+    g += `<rect x="${x + bw * .15}" y="${pad.t + ih - h}" width="${bw * .7}" height="${h}" rx="2" fill="var(--flame)" opacity=".85"><title>Week of ${d.week}: ${d.reviews} reviews, ${d.minutes} min, retention ${pct(d.retention)}</title></rect>`;
     if (i % 6 === 0) {
       const dt = new Date(d.week + 'T12:00:00');
       g += `<text x="${x + bw / 2}" y="${H - 6}" font-size="8" text-anchor="middle" fill="${css('--muted')}">${dt.getDate()} ${MONTHS[dt.getMonth()]}</text>`;
@@ -436,11 +430,11 @@ function renderHours(s) {
   data.forEach((d) => {
     const h = Math.max(d.reviews ? 2 : 0, ih * d.reviews / max), x = pad.l + d.hour * bw;
     const lateNight = d.hour >= 23 || d.hour < 5;
-    g += `<rect x="${x + 1}" y="${pad.t + ih - h}" width="${bw - 2}" height="${h}" rx="2" fill="${d.hour === peak.hour ? 'var(--flame)' : lateNight ? 'var(--heat2)' : 'var(--heat1)'}"><title>${d.hour}:00: ${d.reviews} повт., retention ${pct(d.retention)}</title></rect>`;
+    g += `<rect x="${x + 1}" y="${pad.t + ih - h}" width="${bw - 2}" height="${h}" rx="2" fill="${d.hour === peak.hour ? 'var(--flame)' : lateNight ? 'var(--heat2)' : 'var(--heat1)'}"><title>${d.hour}:00: ${d.reviews} reviews, retention ${pct(d.retention)}</title></rect>`;
     if (d.hour % 3 === 0) g += `<text x="${x + bw / 2}" y="${H - 6}" font-size="8" text-anchor="middle" fill="${css('--muted')}">${d.hour}</text>`;
   });
   $('hours').innerHTML = svg(W, H, g);
-  if (peak.reviews) $('hoursSub').textContent = `Найчастіше ти вчишся о ${peak.hour}:00. Наведи або натисни на стовпець, щоб побачити retention.`;
+  if (peak.reviews) $('hoursSub').textContent = `You study most at ${peak.hour}:00. Tap a bar to see its retention.`;
 }
 
 function renderRatings(s) {
@@ -460,21 +454,21 @@ function renderForecast(s) {
     const h = ih * d.due / max, x = pad.l + i * bw, dt = new Date(d.date + 'T12:00:00');
     g += `<rect x="${x + 2}" y="${pad.t + ih - h}" width="${bw - 4}" height="${h}" rx="3" fill="${i === 0 ? 'var(--flame)' : 'var(--heat1)'}"/>`;
     g += `<text x="${x + bw / 2}" y="${pad.t + ih - h - 3}" font-size="7.5" text-anchor="middle" fill="${css('--muted')}" font-weight="700">${d.due}</text>`;
-    g += `<text x="${x + bw / 2}" y="${H - 6}" font-size="8" text-anchor="middle" fill="${css('--muted')}">${i === 0 ? 'сьог.' : DAYS[(dt.getDay() + 6) % 7]}</text>`;
+    g += `<text x="${x + bw / 2}" y="${H - 6}" font-size="8" text-anchor="middle" fill="${css('--muted')}">${i === 0 ? 'today' : DAYS[(dt.getDay() + 6) % 7]}</text>`;
   });
   $('forecast').innerHTML = svg(W, H, g);
 }
 
 function renderDecks(s) {
-  const states = [['new', 'нові', '--easy'], ['learning', 'вивчаються', '--hard'], ['young', 'молоді', '--heat2'], ['mature', 'зрілі', '--good'], ['suspended', 'призупинені', '--muted']];
+  const states = [['new', 'new', '--easy'], ['learning', 'learning', '--hard'], ['young', 'young', '--heat2'], ['mature', 'mature', '--good'], ['suspended', 'suspended', '--muted']];
   $('decks').innerHTML = s.decks.filter((d) => d.reviews_total || Object.values(d.cards).some(Boolean)).map((d) => {
     const total = states.reduce((a, [k]) => a + d.cards[k], 0) || 1;
     return `<div class="card">
-      <div class="deck-head"><div class="deck-name">${escapeHtml(d.name)}</div><div class="small muted">${nf.format(total)} карток</div></div>
+      <div class="deck-head"><div class="deck-name">${escapeHtml(d.name)}</div><div class="small muted">${nf.format(total)} cards</div></div>
       <div class="deck-stats">
         <div><b>${pct(d.retention_30d)}</b><span>retention</span></div>
-        <div><b>${nf.format(d.reviews_30d)}</b><span>повторень, 30 дн.</span></div>
-        <div><b>${d.avg_seconds == null ? '—' : String(d.avg_seconds).replace('.', ',') + ' с'}</b><span>на картку</span></div>
+        <div><b>${nf.format(d.reviews_30d)}</b><span>reviews, 30 days</span></div>
+        <div><b>${d.avg_seconds == null ? '—' : d.avg_seconds + ' s'}</b><span>per card</span></div>
       </div>
       <div class="stack">${states.map(([k, , c]) => `<div style="width:${100 * d.cards[k] / total}%;background:var(${c})"></div>`).join('')}</div>
       <div class="legend">${states.filter(([k]) => d.cards[k]).map(([k, n, c]) => `<span><i style="background:var(${c})"></i>${n} ${nf.format(d.cards[k])}</span>`).join('')}</div>
@@ -483,7 +477,7 @@ function renderDecks(s) {
 }
 
 /* ---------- research ---------- */
-const p1 = (v) => String(v).replace('.', ',');
+const p1 = (v) => String(v);
 
 function ciChart(buckets, { color = 'var(--flame)', zeroBase = false } = {}) {
   const W = 340, H = 160, pad = { l: 30, r: 6, t: 16, b: 34 };
@@ -502,7 +496,7 @@ function ciChart(buckets, { color = 'var(--flame)', zeroBase = false } = {}) {
     const cx = pad.l + i * bw + bw / 2;
     if (b.rate != null) {
       const op = b.enough ? 1 : .3;
-      g += `<rect x="${cx - bw * .3}" y="${y(b.rate)}" width="${bw * .6}" height="${y(bot) - y(b.rate)}" rx="4" fill="${color}" opacity="${.85 * op}"><title>${b.label}: ${p1(b.rate)}% (95% ДІ ${p1(b.lo)}–${p1(b.hi)}), n=${b.n}</title></rect>`;
+      g += `<rect x="${cx - bw * .3}" y="${y(b.rate)}" width="${bw * .6}" height="${y(bot) - y(b.rate)}" rx="4" fill="${color}" opacity="${.85 * op}"><title>${b.label}: ${p1(b.rate)}% (95% CI ${p1(b.lo)}–${p1(b.hi)}), n=${b.n}</title></rect>`;
       g += `<g stroke="var(--ink)" stroke-width="1.3" opacity="${.7 * op}"><line x1="${cx}" x2="${cx}" y1="${y(b.hi)}" y2="${y(b.lo)}"/><line x1="${cx - 5}" x2="${cx + 5}" y1="${y(b.hi)}" y2="${y(b.hi)}"/><line x1="${cx - 5}" x2="${cx + 5}" y1="${y(b.lo)}" y2="${y(b.lo)}"/></g>`;
       g += `<text x="${cx}" y="${y(b.hi) - 4}" font-size="8.5" text-anchor="middle" font-weight="800" fill="${css('--ink')}" opacity="${op}">${Math.round(b.rate)}%</text>`;
     }
@@ -514,14 +508,14 @@ function ciChart(buckets, { color = 'var(--flame)', zeroBase = false } = {}) {
 
 function tag(id, sig) {
   $(id).innerHTML = sig == null ? '' : sig
-    ? '<span class="tag sig">Статистично значуще</span>'
-    : '<span class="tag ns">Різниця в межах похибки</span>';
+    ? '<span class="tag sig">Statistically significant</span>'
+    : '<span class="tag ns">Within the margin of error</span>';
 }
 
 function finding(id, html) {
   const el = $(id);
   el.className = html ? 'finding' : 'finding null';
-  el.innerHTML = html || 'Поки замало даних. Висновок зʼявиться, коли назбирається більше повторень.';
+  el.innerHTML = html || 'Not enough data yet. A finding will appear once more reviews come in.';
 }
 
 function renderResearch(s) {
@@ -532,30 +526,30 @@ function renderResearch(s) {
   const o = r.overdue.finding;
   tag('rOverdueTag', o && o.significant);
   finding('rOverdueFinding', o && (o.significant
-    ? `Коли повторюєш картку <em>${o.worst_label}</em> пізніше, згадуєш її в <em>${p1(o.worst)}%</em> випадків замість ${p1(o.base)}%. Мінус ${p1(o.drop_pp)} п.п.`
-    : `Навіть запізнившись (${o.worst_label}), ти згадуєш ${p1(o.worst)}% карток проти ${p1(o.base)}% вчасно. Суттєвої ціни пропусків поки не видно.`));
+    ? `Review a card <em>${o.worst_label}</em> later than scheduled and you recall it <em>${p1(o.worst)}%</em> of the time instead of ${p1(o.base)}%. That's ${p1(o.drop_pp)} points lost.`
+    : `Even when late (${o.worst_label}) you recall ${p1(o.worst)}% of cards, against ${p1(o.base)}% on time. No real cost of skipping so far.`));
   $('rOverdueChart').innerHTML = ciChart(r.overdue.buckets);
 
   const f = r.fatigue.finding;
   tag('rFatigueTag', f && f.significant);
   finding('rFatigueFinding', f && (f.significant
-    ? `На картках <em>№${f.worst_label}</em> у сесії точність <em>${p1(f.worst)}%</em>, а на перших 25 ${p1(f.base)}%. Довгі сесії коштують ${p1(f.drop_pp)} п.п.`
-    : `Довгі сесії тебе не виснажують: на картках №${f.worst_label} точність ${p1(f.worst)}%, на перших 25 ${p1(f.base)}%.`));
+    ? `Accuracy on cards <em>#${f.worst_label}</em> of a session is <em>${p1(f.worst)}%</em>, against ${p1(f.base)}% on the first 25. Long sessions cost ${p1(f.drop_pp)} points.`
+    : `Long sessions don't wear you out: ${p1(f.worst)}% accuracy on cards #${f.worst_label}, ${p1(f.base)}% on the first 25.`));
   $('rFatigueChart').innerHTML = ciChart(r.fatigue.buckets);
 
   const h = r.hesitation.finding;
   tag('rHesTag', h && h.significant);
   finding('rHesFinding', h && (h.significant
-    ? `Якщо ти правильно відповіла, але думала <em>${h.slow_label}</em>, наступного разу забуваєш у <em>${p1(h.ratio)} раза</em> частіше (${p1(h.slow)}% проти ${p1(h.fast)}%).`
-    : `Час відповіді не передбачає забування: після швидких правильних відповідей ти забуваєш ${p1(h.fast)}% карток, після повільних ${p1(h.slow)}%.`));
+    ? `Correct answers that took <em>${h.slow_label}</em> are forgotten <em>${p1(h.ratio)}× as often</em> at the next review (${p1(h.slow)}% vs ${p1(h.fast)}%).`
+    : `Answer time doesn't predict forgetting: ${p1(h.fast)}% of fast correct answers are failed next time, ${p1(h.slow)}% of slow ones.`));
   $('rHesChart').innerHTML = ciChart(r.hesitation.buckets, { color: 'var(--bad)', zeroBase: true });
 
   const decks = r.price.decks;
   if (!decks.length) { $('rPrice').classList.add('hidden'); return; }
   $('rPriceGrid').innerHTML = decks.map((d) => `<div class="price">
       <div class="d">${escapeHtml(d.deck)}</div>
-      <div class="big">${d.median_minutes < 1 ? Math.round(d.median_minutes * 60) + ' с' : p1(d.median_minutes) + ' хв'}</div>
-      <div class="s">${d.median_reviews} повторень за ${d.median_days} ${daysWord(d.median_days)}<br>≈ ${p1(d.words_per_hour)} слів за годину навчання<br>n=${nf.format(d.n)}</div>
+      <div class="big">${d.median_minutes < 1 ? Math.round(d.median_minutes * 60) + ' s' : p1(d.median_minutes) + ' min'}</div>
+      <div class="s">${d.median_reviews} reviews over ${d.median_days} ${daysWord(d.median_days)}<br>≈ ${p1(d.words_per_hour)} cards learned per hour<br>n=${nf.format(d.n)}</div>
     </div>`).join('');
 }
 
@@ -571,7 +565,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then(async (reg) => {
     swReg = reg;
     const sub = reg.pushManager && await reg.pushManager.getSubscription();
-    if (sub) $('pushState').textContent = 'Сповіщення ввімкнені на цьому телефоні ✓ Якщо змінювала телефон, натисни кнопку ще раз.';
+    if (sub) $('pushState').textContent = 'Notifications are on for this phone ✓ New phone? Tap the button again.';
   }).catch(() => {});
 }
 
@@ -579,9 +573,9 @@ const b64url = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replac
 
 $('enablePush').onclick = async () => {
   try {
-    if (!('PushManager' in window)) throw new Error('Цей браузер не підтримує пуші. На iPhone потрібен iOS 16.4+ і додаток з екрана Додому.');
+    if (!('PushManager' in window)) throw new Error('This browser does not support push. On iPhone you need iOS 16.4+ and the app opened from the Home Screen.');
     const perm = await Notification.requestPermission();
-    if (perm !== 'granted') throw new Error('Сповіщення заборонені. Дозволь їх у Параметрах → Сповіщення → Streak.');
+    if (perm !== 'granted') throw new Error('Notifications are blocked. Allow them in Settings → Notifications → Streak.');
     const reg = swReg || await navigator.serviceWorker.ready;
     const old = await reg.pushManager.getSubscription();
     if (old) await old.unsubscribe();
@@ -593,22 +587,22 @@ $('enablePush').onclick = async () => {
     const config = { publicKey: b64url(pub), privateKey: priv.d, subscription: sub.toJSON() };
     $('pushConfig').value = JSON.stringify(config);
     $('pushResult').classList.remove('hidden');
-    $('pushState').textContent = 'Телефон підписаний ✓';
+    $('pushState').textContent = 'This phone is subscribed ✓';
   } catch (e) {
     $('pushState').innerHTML = `<span class="err">${e.message}</span>`;
   }
 };
 
 $('copyConfig').onclick = async () => {
-  try { await navigator.clipboard.writeText($('pushConfig').value); $('copyConfig').textContent = 'Скопійовано ✓'; }
-  catch { $('pushConfig').select(); document.execCommand('copy'); $('copyConfig').textContent = 'Скопійовано ✓'; }
+  try { await navigator.clipboard.writeText($('pushConfig').value); $('copyConfig').textContent = 'Copied ✓'; }
+  catch { $('pushConfig').select(); document.execCommand('copy'); $('copyConfig').textContent = 'Copied ✓'; }
 };
 
 $('testLocal').onclick = async () => {
   try {
     if (Notification.permission !== 'granted') await Notification.requestPermission();
     const reg = swReg || await navigator.serviceWorker.ready;
-    await reg.showNotification('Це втручання 🚨', { body: 'Перевірка звʼязку. Справжні нагадування будуть злішими.', icon: 'icon-192.png' });
+    await reg.showNotification('This is an intervention 🚨', { body: 'Just testing. Real reminders will be meaner.', icon: 'icon-192.png' });
   } catch (e) { $('pushState').innerHTML = `<span class="err">${e.message}</span>`; }
 };
 

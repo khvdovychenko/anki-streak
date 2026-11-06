@@ -62,7 +62,7 @@ def overdue_cost(reviews):
             elapsed = (cur["ts"] - prev["ts"]).total_seconds() / 86400
             rows.append({"ratio": elapsed / cur["last_ivl"], "ok": cur["rating"] > 1})
     edges = [0, 1.15, 1.5, 2, 3, float("inf")]
-    labels = ["вчасно", "×1,15–1,5", "×1,5–2", "×2–3", "×3+"]
+    labels = ["on time", "×1.15–1.5", "×1.5–2", "×2–3", "×3+"]
     buckets = bucketize(rows, edges, labels, lambda r: r["ratio"], lambda r: r["ok"])
     return {"buckets": buckets, "n": len(rows), "finding": _drop_finding(buckets, "late")}
 
@@ -91,7 +91,7 @@ def hesitation(reviews):
             if cur["type"] == 1 and cur["rating"] > 1 and nxt["type"] == 1:
                 rows.append({"secs": cur["secs"], "fail": nxt["rating"] == 1})
     edges = [0, 4, 8, 15, float("inf")]
-    labels = ["<4 с", "4–8 с", "8–15 с", "15+ с"]
+    labels = ["<4 s", "4–8 s", "8–15 s", "15+ s"]
     buckets = bucketize(rows, edges, labels, lambda r: r["secs"], lambda r: r["fail"])
     ok = [b for b in buckets if b["enough"]]
     finding = None

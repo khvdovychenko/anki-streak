@@ -21,31 +21,31 @@ STATS = ROOT / "docs" / "data" / "stats.json"
 STATE = ROOT / "data" / "state.json"
 APP_URL = os.environ.get("APP_URL", "")
 
-# {days} ("12 днів"), {streak} (just the number) and {due} get filled in. Edit freely, it's your app.
+# {days} ("12-day"), {streak} (just the number) and {due} get filled in. Edit freely, it's your app.
 MESSAGES = {
     1: [
-        ("Картки чекають 🔥", "Стрік {days}. П'ять хвилин, і всі щасливі."),
-        ("Маленьке нагадування", "Сьогодні ще жодного повторення. {due} карток чекають на тебе."),
-        ("Ти ж не забула?", "Стрік {days} сам себе не продовжить."),
+        ("Your cards miss you 🔥", "{days} streak. Five minutes and everyone's happy."),
+        ("Friendly reminder", "Not a single review today. {due} cards are waiting for you."),
+        ("You didn't forget, right?", "Your {days} streak won't extend itself."),
     ],
     2: [
-        ("Стрік нервує 😬", "Стрік {days} тримається на чесному слові. Відкрий Анкі."),
-        ("Ми помітили", "Сьогодні тиша. Французькі слова вже забувають, як ти виглядаєш."),
-        ("Це вже не жарт", "Ще трохи, і стрік {days} згорить. Одна сесія. Зараз."),
+        ("Your streak is nervous 😬", "Your {days} streak is hanging by a thread. Open Anki."),
+        ("We noticed", "It's quiet today. Your vocabulary is starting to forget what you look like."),
+        ("This isn't a joke anymore", "A little longer and your {days} streak is gone. One session. Now."),
     ],
     3: [
-        ("Це втручання 🚨", "Твій стрік {days} зникне до ранку. Анкі. Негайно."),
-        ("Ти серйозно?", "Netflix почекає. Картки ні. {due} повторень, вперед."),
-        ("Остання розмова по-доброму", "Далі буде менш ввічливо. Відкрий Анкі."),
+        ("This is an intervention 🚨", "Your {days} streak disappears by morning. Anki. Now."),
+        ("Seriously?", "Netflix can wait. Your cards can't. {due} reviews, go."),
+        ("Last polite message", "It gets less polite from here. Open Anki."),
     ],
     4: [
-        ("Останній шанс 💀", "До кінця дня лічені години. {days}. Ти справді це віддаси?"),
-        ("Схоже, нагадування не працюють", "Ми перестанемо писати... Ні, не перестанемо. Анкі. Зараз."),
-        ("Гаразд, ми ображені", "Стрік {days} зараз згорить, і винна будеш ти."),
+        ("Last chance 💀", "Only a few hours left today. A {days} streak. Are you really giving it up?"),
+        ("These reminders don't seem to work", "We'll stop messaging you... Just kidding. Anki. Now."),
+        ("Fine. We're hurt.", "Your {days} streak is about to burn, and it's on you."),
     ],
 }
-SAVED = [("Стрік врятовано 🔥", "{days} поспіль. Отак би одразу.")]
-LOST = [("Стрік згорів 🪦", "Вчора без повторень, стрік обнулився. Почни новий сьогодні.")]
+SAVED = [("Streak saved 🔥", "{days} streak. Was that so hard?")]
+LOST = [("Your streak is gone 🪦", "No reviews yesterday, so the streak reset. Start a new one today.")]
 
 
 def load_state(today_key):
@@ -93,7 +93,7 @@ def send_email(title, body):
         return
     msg = EmailMessage()
     msg["Subject"], msg["From"], msg["To"] = title, f"Anki Streak <{user}>", os.environ.get("EMAIL_TO") or user
-    msg.set_content(body + (f"\n\nВідкрити: {APP_URL}" if APP_URL else ""))
+    msg.set_content(body + (f"\n\nOpen your stats: {APP_URL}" if APP_URL else ""))
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as s:
         s.login(user, pw)
         s.send_message(msg)
@@ -101,17 +101,13 @@ def send_email(title, body):
 
 
 def days_word(n):
-    """Ukrainian plural: 1 день, 2 дні, 5 днів."""
-    if n % 10 == 1 and n % 100 != 11:
-        return f"{n} день"
-    if n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14):
-        return f"{n} дні"
-    return f"{n} днів"
+    """Used before 'streak': '1-day', '12-day'."""
+    return f"{n}-day"
 
 
 def notify(options, stats, email=True):
     title, body = random.choice(options)
-    due = next((d["due"] for d in (stats.get("forecast") or [])[:1]), "Твої")
+    due = next((d["due"] for d in (stats.get("forecast") or [])[:1]), "Your")
     n = stats["streak"]["current"]
     body = body.format(streak=n, days=days_word(n), due=due)
     send_push(title, body)

@@ -2,7 +2,8 @@
  "recent": [
   "save_1h:3",
   "comeback:0",
-  "save_3h:3"
+  "save_3h:3",
+  "save_15m:0"
  ],
  "milestones": [],
  "lapse_sent": {
@@ -13,7 +14,9 @@
  "sent": [
   "test",
   "comeback",
-  "save_3h"
+  "save_3h",
+  "save_1h",
+  "save_15m"
  ],
  "nonsave": 0,
  "lapsed": false,

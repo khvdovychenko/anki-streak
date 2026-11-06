@@ -11,7 +11,7 @@ A personal learning-analytics pipeline for [Anki](https://apps.ankiweb.net/). It
 - **Collects** the full review log (`revlog`) from AnkiWeb using Anki's official open-source Python library. Download only: the script never uploads, so it cannot change the real collection.
 - **Analyses** every review: streaks, daily heatmap, weekly volume and retention, retention by hour of day, weekday patterns, answer-button mix, per-deck card maturity, leeches and a 14-day workload forecast.
 - **Explains** the numbers in plain language ("you remember best at 18:00, worst at 23:00").
-- **Nags** through Web Push notifications and email at 19:00, 21:00, 22:00 and 23:00 if no reviews were logged that day, and celebrates when the streak is saved.
+- **Nags** through Web Push notifications and email at 19:00, 21:00, 22:00 and 23:00 until the daily goal is met (a number of reviews, or every due card cleared). Half-hearted sessions get their own, ruder messages.
 - **Publishes** a cleaned dataset, `docs/data/reviews.csv`, with one row per review (no card text).
 
 ## Research questions
@@ -69,6 +69,7 @@ Anyone with an AnkiWeb account can run their own copy. There is no shared server
    | `REMINDER_HOURS` | `19,21,22,23` | `18,20,21,22` |
    | `EMAIL_REMINDERS` | `true` | `false` |
    | `DAY_START_HOUR` | `4` | `0` |
+| `DAILY_GOAL` | `30` | `100` |
 
 5. **First run:** Actions → *Update stats and nag* → *Run workflow*. Your dashboard appears at `https://<username>.github.io/<repo>/` a minute later.
 6. **Phone:** open that link in Safari → Share → *Add to Home Screen* → open the app → *Enable notifications* → copy the text into the `PUSH_CONFIG` secret. Requires iOS 16.4+. Android Chrome works too.

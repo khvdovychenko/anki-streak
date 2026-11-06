@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "collector"))
-from settings import DAY_START_HOUR, TIMEZONE  # noqa: E402
+from settings import DAILY_GOAL, DAY_START_HOUR, TIMEZONE  # noqa: E402
 from research import run_all  # noqa: E402
 
 OUT_DIR = ROOT / "docs" / "data"
@@ -221,8 +221,20 @@ def build_stats(reviews, cards, today, crt):
                     due_counts[offset] += 1
         forecast = [{"date": (today + timedelta(days=i)).isoformat(), "due": due_counts.get(i, 0)} for i in range(14)]
 
+    # --- daily goal ------------------------------------------------------------
+    done_today = per_day.get(today, 0)
+    due_left = forecast[0]["due"] if forecast else None
+    goal = {
+        "target": DAILY_GOAL,
+        "done": done_today,
+        "due_left": due_left,
+        "met": done_today >= DAILY_GOAL or (done_today > 0 and due_left == 0),
+        "cleared_queue": done_today > 0 and due_left == 0,
+    }
+
     total_secs = sum(r["secs"] for r in reviews)
     return {
+        "goal": goal,
         "generated_at": now_local().isoformat(timespec="minutes"),
         "today": today.isoformat(),
         "streak": {

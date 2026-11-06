@@ -44,7 +44,19 @@ MESSAGES = {
         ("Fine. We're hurt.", "Your {days} streak is about to burn, and it's on you."),
     ],
 }
-SAVED = [("Streak saved 🔥", "{days} streak. Was that so hard?")]
+# Started, but the goal isn't met yet. {done}, {goal} and {left} get filled in.
+PARTIAL = {
+    1: [("Nice start, not done", "{done} of {goal} reviews. Keep going, you're almost warmed up."),
+        ("That's it?", "{done} reviews and you left? {left} more to go.")],
+    2: [("We saw that 👀", "{done} reviews is a warm-up, not a session. {left} to go."),
+        ("Half-hearted", "Your cards noticed you stopped at {done}. Finish the job.")],
+    3: [("Seriously, {done}?", "Your goal is {goal}. Two minutes of effort doesn't count."),
+        ("Come back", "{left} reviews between you and a clean conscience.")],
+    4: [("Last call 💀", "Day's almost over and you're stuck at {done} of {goal}."),
+        ("We expected more", "{done} reviews. Your future self is disappointed. {left} to go.")],
+}
+SYNC_HINT = " Already studied? Tap sync in Anki so we can see it."
+SAVED = [("Goal done 🔥", "{days} streak and today's goal is in the bag. Was that so hard?")]
 LOST = [("Your streak is gone 🪦", "No reviews yesterday, so the streak reset. Start a new one today.")]
 
 
@@ -105,11 +117,17 @@ def days_word(n):
     return f"{n}-day"
 
 
-def notify(options, stats, email=True):
+def notify(options, stats, email=True, hint=""):
     title, body = random.choice(options)
     due = next((d["due"] for d in (stats.get("forecast") or [])[:1]), "Your")
     n = stats["streak"]["current"]
-    body = body.format(streak=n, days=days_word(n), due=due)
+    g = stats.get("goal") or {"target": 0, "done": 0}
+    left = max(g["target"] - g["done"], 0)
+    if g.get("due_left") is not None:
+        left = min(left, g["due_left"]) or left
+    fmt = dict(streak=n, days=days_word(n), due=due, done=g["done"], goal=g["target"], left=left)
+    title, body = title.format(**fmt), body.format(**fmt)
+    body += hint
     send_push(title, body)
     if email:
         send_email(title, body)
@@ -136,14 +154,18 @@ def main():
         notify(LOST, stats, email=False)
         state["lost_sent_for"] = today_key
 
-    if streak["reviewed_today"]:
+    goal_met = (stats.get("goal") or {}).get("met", streak["reviewed_today"])
+    if goal_met:
         if state["sent_levels"] and not state["saved_sent"]:
             notify(SAVED, stats, email=False)
             state["saved_sent"] = True
     else:
         level = max((lvl for h, lvl in REMINDER_SCHEDULE.items() if now.hour >= h), default=0)
         if level and level not in state["sent_levels"]:
-            notify(MESSAGES[level], stats)
+            if streak["reviewed_today"]:
+                notify(PARTIAL[level], stats)
+            else:
+                notify(MESSAGES[level], stats, hint=SYNC_HINT)
             state["sent_levels"].append(level)
 
     save_state(state)

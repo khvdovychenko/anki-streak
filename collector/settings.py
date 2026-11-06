@@ -8,6 +8,8 @@ variables → Actions → Variables, and add any of these:
   REMINDER_HOURS   local hours for the 4 escalating reminders (default 19,21,22,23)
   EMAIL_REMINDERS  "false" to get push notifications only (default true)
   DAY_START_HOUR   when a new study day starts, like in Anki (default 4)
+  DAILY_GOAL       reviews per day before reminders stop (default 30);
+                   clearing everything due today also counts as done
 """
 import os
 from zoneinfo import ZoneInfo
@@ -26,5 +28,9 @@ DAY_START_HOUR = int(_env("DAY_START_HOUR", "4"))
 # Escalating reminders: local hour -> level 1..4.
 _hours = [int(h) for h in _env("REMINDER_HOURS", "19,21,22,23").split(",")][:4]
 REMINDER_SCHEDULE = {h: level for level, h in enumerate(sorted(_hours), start=1)}
+
+# Reminders stop only when today's goal is met: this many reviews,
+# or every card due today is done, whichever comes first.
+DAILY_GOAL = int(_env("DAILY_GOAL", "30"))
 
 EMAIL_REMINDERS = _env("EMAIL_REMINDERS", "true").lower() != "false"

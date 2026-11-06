@@ -69,6 +69,12 @@ svg text { font-family: inherit; }
 }
 .cta:active { transform: translateY(3px); box-shadow: 0 1px 0 #c95a0b; }
 .cta.ghost { background: var(--flame-soft); color: var(--flame); box-shadow: none; }
+.goal { margin: 16px auto 0; max-width: 300px; text-align: left; }
+.goal-top { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
+.goal-bar { height: 12px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.goal-bar div { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--flame), var(--flame-2)); transition: width .6s ease; }
+.hero.partial .flame { filter: saturate(.7); animation: flicker 1.2s ease-in-out infinite; }
+.hero.partial .status { background: rgba(240,165,49,.16); color: var(--hard); }
 .meta-row { display: flex; justify-content: center; gap: 22px; margin-top: 14px; font-size: 14px; }
 .meta-row b { font-size: 17px; display: block; }
 
@@ -144,6 +150,7 @@ footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 2
     <div class="streak-num" id="streakNum">0</div>
     <div class="streak-label" id="streakLabel">day streak</div>
     <div class="status" id="status"></div>
+    <div class="goal" id="goal"><div class="goal-top"><span>Today's goal</span><span id="goalText"></span></div><div class="goal-bar"><div id="goalFill"></div></div></div>
     <div class="meta-row">
       <div><b id="todayReviews">0</b><span class="muted">today</span></div>
       <div><b id="todayMin">0</b><span class="muted">minutes</span></div>
@@ -296,9 +303,17 @@ function renderHero(s) {
   $('todayReviews').textContent = nf.format(s.today_stats.reviews);
   $('todayMin').textContent = nf.format(Math.round(s.today_stats.minutes));
   $('longest').textContent = st.longest;
-  if (st.reviewed_today) {
+  const g = s.goal || { target: 0, done: s.today_stats.reviews, met: st.reviewed_today };
+  $('goalText').textContent = g.cleared_queue ? 'all due cards done' : `${nf.format(g.done)} / ${nf.format(g.target)}`;
+  $('goalFill').style.width = `${g.met ? 100 : Math.min(100, 100 * g.done / Math.max(1, g.target))}%`;
+  if (st.reviewed_today && !g.met) {
+    hero.className = 'card hero partial';
+    const left = Math.max(g.target - g.done, 0);
+    $('status').textContent = `${nf.format(left)} more to reach today's goal`;
+    $('openAnki').textContent = 'Keep going';
+  } else if (st.reviewed_today) {
     hero.className = 'card hero alive';
-    $('status').textContent = '✓ Today is done';
+    $('status').textContent = '✓ Goal done for today';
     $('openAnki').classList.add('ghost');
     $('openAnki').textContent = 'Review a bit more';
   } else if (st.at_risk) {

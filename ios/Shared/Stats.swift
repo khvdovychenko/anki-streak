@@ -31,6 +31,11 @@ struct Stats: Codable {
     }
     struct Totals: Codable {
         var study_days: Int
+        var reviews: Int?
+        var hours: Double?
+        var consistency_90d: Int?
+        var retention_30d: Double?
+        var avg_reviews_per_study_day: Int?
     }
     struct Settings: Codable {
         var reminder_hours: [Int]
@@ -44,6 +49,15 @@ struct Stats: Codable {
     var goal: Goal?
     var totals: Totals
     var settings: Settings?
+    // Dashboard sections (see Shared/Dashboard.swift)
+    var heatmap: [HeatDay]?
+    var weekly: [Week]?
+    var hours: [HourStat]?
+    var weekdays: [WeekdayStat]?
+    var ratings_30d: Ratings?
+    var forecast: [ForecastDay]?
+    var decks: [Deck]?
+    var research: Research?
 
     static func fetch() async throws -> Stats {
         if Config.isDemo { return demo() }

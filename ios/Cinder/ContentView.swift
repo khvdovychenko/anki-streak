@@ -40,6 +40,7 @@ struct ContentView: View {
                     hero(s)
                         .id(Config.isDemo ? demoScenario.rawValue : "live")
                     evolution(s)
+                    DashboardView(s: s)
                     controls
                 } else if let error {
                     Text(error).foregroundStyle(.secondary).padding(.top, 80).multilineTextAlignment(.center)
@@ -199,9 +200,9 @@ struct ContentView: View {
             Divider()
             Button { showStats = true } label: {
                 HStack {
-                    Text("Full analytics & research").font(.subheadline.weight(.bold))
+                    Text("Open the web version").font(.subheadline.weight(.bold))
                     Spacer()
-                    Image(systemName: "chart.bar.xaxis")
+                    Image(systemName: "safari")
                 }
             }
             .padding(.vertical, 14)

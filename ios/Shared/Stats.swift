@@ -3,7 +3,7 @@ import ActivityKit
 
 /// Where the GitHub workflow publishes the stats. Set this to your own Pages URL.
 enum Config {
-    static let siteURL = URL(string: "https://YOUR-GITHUB-NAME.github.io/YOUR-REPO/")!
+    static let siteURL = URL(string: "https://khvdovychenko.github.io/anki-streak/")!
     static var statsURL: URL { siteURL.appendingPathComponent("data/stats.json") }
     static let ankiURL = URL(string: "anki://")!
     /// Until the real site is set, the app and widget show bundled demo data.

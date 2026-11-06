@@ -235,7 +235,7 @@ def build_stats(reviews, cards, today, crt):
     total_secs = sum(r["secs"] for r in reviews)
     return {
         "goal": goal,
-        "settings": {"reminder_hours": sorted(REMINDER_SCHEDULE), "timezone": TIMEZONE.key},
+        "settings": {"reminder_hours": sorted(REMINDER_SCHEDULE), "timezone": TIMEZONE.key, "day_start_hour": DAY_START_HOUR},
         "generated_at": now_local().isoformat(timespec="minutes"),
         "today": today.isoformat(),
         "streak": {

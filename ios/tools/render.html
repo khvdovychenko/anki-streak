@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:transparent;overflow:hidden}</style>
+<script src="cinder.js"></script><div id="i"></div>
+<script>const q=new URLSearchParams(location.search);const s=+q.get('s'),m=q.get('m'),z=+(q.get('z')||360);
+document.head.insertAdjacentHTML('beforeend','<style>'+CINDER_CSS+'.cinder *{animation:none!important}</style>');
+if(q.get('icon')){document.body.style.background='#1c1712';document.getElementById('i').innerHTML='<div style="width:1024px;height:1024px;overflow:hidden;position:relative"><div style="position:absolute;left:-63px;top:-175px">'+cinderSVG({stage:3,mood:'lit',size:1150})+'</div></div>';}
+else document.getElementById('i').innerHTML=cinderSVG({stage:s,mood:m,size:z});</script>

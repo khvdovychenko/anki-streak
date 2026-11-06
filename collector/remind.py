@@ -21,43 +21,63 @@ STATS = ROOT / "docs" / "data" / "stats.json"
 STATE = ROOT / "data" / "state.json"
 APP_URL = os.environ.get("APP_URL", "")
 
-# {days} ("12-day"), {streak} (just the number) and {due} get filled in. Edit freely, it's your app.
+# The voice is the streak flame itself: needy, dramatic, passive-aggressive.
+# {days} ("12-day"), {streak} (just the number), {due}, {done}, {goal} and {left}
+# get filled in. Edit freely, it's your app.
 MESSAGES = {
     1: [
-        ("Your cards miss you 🔥", "{days} streak. Five minutes and everyone's happy."),
-        ("Friendly reminder", "Not a single review today. {due} cards are waiting for you."),
-        ("You didn't forget, right?", "Your {days} streak won't extend itself."),
+        ("Hi, it's your streak 🔥", "Just checking you're alive. You haven't opened Anki today. No pressure. Some pressure."),
+        ("{due} cards are waiting", "They've been sitting there all day. Patiently. Unlike some people."),
+        ("Did you forget about me?", "{days} streak. I'd hate for something to happen to it."),
+        ("Friendly reminder 🙂", "This is the nice version. You won't like the next ones."),
     ],
     2: [
-        ("Your streak is nervous 😬", "Your {days} streak is hanging by a thread. Open Anki."),
-        ("We noticed", "It's quiet today. Your vocabulary is starting to forget what you look like."),
-        ("This isn't a joke anymore", "A little longer and your {days} streak is gone. One session. Now."),
+        ("I see you on Instagram 👀", "Plenty of time for that. Zero time for your {due} cards. Interesting."),
+        ("Your streak is shaking", "{days} of work, hanging by a thread. One session. That's all I'm asking."),
+        ("Your vocabulary is fading", "Every hour you wait, a word quietly packs its bags and leaves."),
+        ("Remember when you cared?", "You built a {days} streak. Past you would be so disappointed right now."),
     ],
     3: [
-        ("This is an intervention 🚨", "Your {days} streak disappears by morning. Anki. Now."),
-        ("Seriously?", "Netflix can wait. Your cards can't. {due} reviews, go."),
-        ("Last polite message", "It gets less polite from here. Open Anki."),
+        ("This is an intervention 🚨", "We're all worried. Your {days} streak is dying and you're just letting it happen."),
+        ("I'm not angry. I'm disappointed.", "You promised yourself you'd be fluent. Was that a lie?"),
+        ("Netflix will still be there", "Your {days} streak won't. {due} cards. Now."),
+        ("Do you even want this?", "Because right now it really doesn't look like it."),
     ],
     4: [
-        ("Last chance 💀", "Only a few hours left today. A {days} streak. Are you really giving it up?"),
-        ("These reminders don't seem to work", "We'll stop messaging you... Just kidding. Anki. Now."),
-        ("Fine. We're hurt.", "Your {days} streak is about to burn, and it's on you."),
+        ("Last chance 💀", "Your {days} streak dies at midnight. I'll remember who let it happen."),
+        ("These reminders don't seem to work", "So I'll stop sending them. ...Just kidding. I'll never stop. Open Anki."),
+        ("Fine. Let it burn. 🔥", "{days} of work. Gone. Because you couldn't spare five minutes."),
+        ("I'll just tell everyone", "That you gave up on a {days} streak tonight. Unless you open Anki."),
     ],
 }
-# Started, but the goal isn't met yet. {done}, {goal} and {left} get filled in.
+# Started, but the goal isn't met yet.
 PARTIAL = {
-    1: [("Nice start, not done", "{done} of {goal} reviews. Keep going, you're almost warmed up."),
-        ("That's it?", "{done} reviews and you left? {left} more to go.")],
-    2: [("We saw that 👀", "{done} reviews is a warm-up, not a session. {left} to go."),
-        ("Half-hearted", "Your cards noticed you stopped at {done}. Finish the job.")],
-    3: [("Seriously, {done}?", "Your goal is {goal}. Two minutes of effort doesn't count."),
-        ("Come back", "{left} reviews between you and a clean conscience.")],
-    4: [("Last call 💀", "Day's almost over and you're stuck at {done} of {goal}."),
-        ("We expected more", "{done} reviews. Your future self is disappointed. {left} to go.")],
+    1: [
+        ("That's it? {done}?", "You opened Anki, did {done} cards and left. Bold strategy. {left} to go."),
+        ("Warm-up done. Now study.", "{done} reviews is not a session. It's a cameo. {left} left."),
+    ],
+    2: [
+        ("Your cards saw you leave", "{done} out of {goal}. They're asking if they did something wrong."),
+        ("Half-effort detected 🔍", "{done} reviews and done for the day? Your goal says {goal}."),
+    ],
+    3: [
+        ("Quitting at {done}?", "Your goal is {goal}. Doing {done} and calling it a day is how fluency dies."),
+        ("We need to talk", "About the {left} cards you abandoned tonight."),
+    ],
+    4: [
+        ("Day's ending. You're at {done}.", "{done} of {goal}. Future you will open Anki tomorrow and suffer for this."),
+        ("Disappointing, honestly", "You started. You stopped. {left} cards are still waiting. Finish it."),
+    ],
 }
-SYNC_HINT = " Already studied? Tap sync in Anki so we can see it."
-SAVED = [("Goal done 🔥", "{days} streak and today's goal is in the bag. Was that so hard?")]
-LOST = [("Your streak is gone 🪦", "No reviews yesterday, so the streak reset. Start a new one today.")]
+SYNC_HINT = " (Already studied? Tap sync in Anki, I can't see it otherwise.)"
+SAVED = [
+    ("Fine. You did it. 🔥", "{days} streak and goal done. Was that so hard? Same time tomorrow."),
+    ("Streak saved 🔥", "See? Wasn't so hard. I'll be watching tomorrow too."),
+]
+LOST = [
+    ("Your streak is gone 🪦", "Yesterday you didn't study. The streak is dead. Start a new one today, and don't do that again."),
+    ("Well. That happened.", "Your streak reset to zero. I'm not saying it's your fault. It's your fault. Day 1 starts now."),
+]
 
 
 def load_state(today_key):

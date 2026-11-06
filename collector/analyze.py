@@ -80,7 +80,7 @@ def compute(collection_path: Path, today=None):
         reviews.append({
             "ts": ts,
             "day": anki_day(ts),
-            "deck": card_deck.get(cid, "Deleted cards"),
+            "deck": card_deck.get(cid, "Deleted decks"),
             "cid": cid,
             "rating": ease,
             "type": rtype,
@@ -227,6 +227,10 @@ def build_stats(reviews, cards, today, crt):
     # --- daily goal ------------------------------------------------------------
     done_today = per_day.get(today, 0)
     due_left = forecast[0]["due"] if forecast else None
+    # Clearing the queue only counts as "done" when there are no new cards waiting either.
+    new_waiting = sum(1 for deck, ctype, queue, ivl, due, lapses in cards if queue == 0)
+    if due_left is not None and new_waiting:
+        due_left = None
     goal = {
         "target": DAILY_GOAL,
         "done": done_today,

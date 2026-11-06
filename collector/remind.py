@@ -176,6 +176,12 @@ def decide(stats, state, now):
     met = goal.get("met", streak["reviewed_today"])
     minutes = now.hour * 60 + now.minute
     last_study = date.fromisoformat(notify["last_study_day"]) if notify.get("last_study_day") else None
+    # Cinder only counts skipped days since he started watching, so installing him
+    # after a long break starts a fresh nag cycle instead of silence.
+    watching_since = date.fromisoformat(state.setdefault("watching_since", stats["today"]))
+    adjusted = bool(last_study and last_study < watching_since - timedelta(days=1))
+    if adjusted:
+        last_study = watching_since - timedelta(days=1)
 
     # --- studied today --------------------------------------------------------
     if streak["reviewed_today"]:
@@ -206,7 +212,7 @@ def decide(stats, state, now):
             trigger = LAPSE_TRIGGERS.get(lapse_day)
             if trigger and lapse_day not in already and now.hour >= MORNING_HOUR:
                 override = notify.get("lost_streak") if trigger == "broken" else None
-                if trigger != "broken" or (override or 0) > 0:
+                if trigger != "broken" or ((override or 0) > 1 and not adjusted):
                     fire(trigger, stats, state, streak_override=override)
                 already.append(lapse_day)
             if lapse_day > 8:

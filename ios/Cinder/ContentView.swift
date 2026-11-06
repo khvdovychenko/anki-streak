@@ -66,8 +66,8 @@ struct ContentView: View {
         let done = fresh ? s.goalDone : 0
         let progress = s.goalMet && fresh ? 1 : min(Double(done) / Double(max(s.goalTarget, 1)), 1)
         return VStack(spacing: 6) {
-            CinderImage(stage: stage, mood: mood)
-                .frame(width: 200, height: 200)
+            CinderView(stage: stage, mood: mood)
+                .frame(width: 230, height: 230)
                 .offset(y: hop ? -10 : 0)
                 .onAppear {
                     guard mood == .lit else { return }

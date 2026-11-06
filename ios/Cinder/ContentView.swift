@@ -14,6 +14,11 @@ struct ContentView: View {
     @Environment(\.scenePhase) private var phase
     @State private var hop = false
     @State private var demoScenario: DemoScenario = .partial
+    @State private var refreshing: String?
+    @State private var refreshError: String?
+    @State private var showKeySheet = false
+    @State private var keyDraft = ""
+    @State private var hasKey = TokenStore.token != nil
 
     var body: some View {
         ScrollView {
@@ -48,6 +53,7 @@ struct ContentView: View {
         .refreshable { await load() }
         .task { await load() }
         .onChange(of: phase) { _, p in if p == .active { Task { await load() } } }
+        .sheet(isPresented: $showKeySheet) { keySheet }
         .sheet(isPresented: $showStats) {
             if Config.isDemo {
                 Text("Full analytics appear here once the GitHub site is live.").padding().presentationDetents([.medium])
@@ -111,8 +117,18 @@ struct ContentView: View {
             }
             .buttonStyle(.borderedProminent).tint(flame).padding(.top, 10)
 
-            Text("Studied already? Tap sync in Anki, then pull down here to refresh.")
-                .font(.caption).foregroundStyle(.secondary).multilineTextAlignment(.center).padding(.top, 4)
+            Button { refreshNow() } label: {
+                HStack(spacing: 8) {
+                    if refreshing != nil { ProgressView().tint(flame) } else { Image(systemName: "arrow.clockwise") }
+                    Text(refreshing ?? "I just studied, check now")
+                }
+                .font(.subheadline.weight(.bold)).frame(maxWidth: .infinity).padding(.vertical, 11)
+            }
+            .buttonStyle(.bordered).tint(flame).disabled(refreshing != nil || Config.isDemo)
+
+            Text(refreshError ?? "Tap sync in Anki first, then check here.")
+                .font(.caption).foregroundStyle(refreshError == nil ? Color.secondary : Color.red)
+                .multilineTextAlignment(.center).padding(.top, 2)
         }
         .padding(18)
         .frame(maxWidth: .infinity)
@@ -171,6 +187,16 @@ struct ContentView: View {
             }
             .padding(.vertical, 12)
             Divider()
+            Button { keyDraft = ""; showKeySheet = true } label: {
+                HStack {
+                    Text("GitHub key for “check now”").font(.subheadline.weight(.bold))
+                    Spacer()
+                    Text(hasKey ? "Saved" : "Not set").font(.caption).foregroundStyle(.secondary)
+                    Image(systemName: "key")
+                }
+            }
+            .padding(.vertical, 14)
+            Divider()
             Button { showStats = true } label: {
                 HStack {
                     Text("Full analytics & research").font(.subheadline.weight(.bold))
@@ -184,11 +210,76 @@ struct ContentView: View {
         .background(card, in: RoundedRectangle(cornerRadius: 22))
     }
 
+    // MARK: refresh
+
+    private func refreshNow() {
+        refreshError = nil
+        guard hasKey else { showKeySheet = true; return }
+        refreshing = "Asking GitHub…"
+        Task {
+            do {
+                let fresh = try await Refresh.run(after: stats?.generated_at) { msg in
+                    Task { @MainActor in refreshing = msg }
+                }
+                stats = fresh
+                hop = false
+                await LiveActivityManager.sync(with: fresh, autoStart: autoCountdown)
+                WidgetCenter.shared.reloadAllTimelines()
+            } catch {
+                refreshError = error.localizedDescription
+            }
+            refreshing = nil
+        }
+    }
+
+    private var keySheet: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    SecureField("github_pat_…", text: $keyDraft)
+                        .textInputAutocapitalization(.never).autocorrectionDisabled()
+                } header: {
+                    Text("Paste your GitHub key")
+                } footer: {
+                    Text("Create it on github.com → Settings → Developer settings → Fine-grained tokens. Repository: anki-streak only. Permissions: Actions read and write, Contents read-only. It is stored in your iPhone's Keychain and only sent to GitHub.")
+                }
+                if hasKey {
+                    Section {
+                        Button("Remove saved key", role: .destructive) {
+                            TokenStore.save(""); hasKey = false; showKeySheet = false
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Check now")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { showKeySheet = false } }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        TokenStore.save(keyDraft)
+                        hasKey = TokenStore.token != nil
+                        showKeySheet = false
+                    }
+                    .disabled(keyDraft.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+            }
+        }
+        .presentationDetents([.medium])
+    }
+
     // MARK: data
 
     private func load() async {
         do {
-            let s = Config.isDemo ? Stats.demo(scenario: demoScenario) : try await Stats.fetch()
+            let s: Stats
+            if Config.isDemo {
+                s = Stats.demo(scenario: demoScenario)
+            } else if let token = TokenStore.token, let fresh = try? await Refresh.fetchFromRepo(token: token) {
+                s = fresh
+            } else {
+                s = try await Stats.fetch()
+            }
             stats = s
             error = nil
             await LiveActivityManager.sync(with: s, autoStart: autoCountdown)

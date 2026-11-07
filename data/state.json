@@ -3,7 +3,8 @@
   "save_1h:3",
   "comeback:0",
   "save_3h:3",
-  "save_15m:0"
+  "save_15m:0",
+  "routine:3"
  ],
  "milestones": [],
  "lapse_sent": {
@@ -11,8 +12,10 @@
  },
  "due_yesterday": 0,
  "day": "2026-11-07",
- "sent": [],
- "nonsave": 0,
+ "sent": [
+  "routine"
+ ],
+ "nonsave": 1,
  "lapsed": false,
  "due_today": 0,
  "watching_since": "2026-11-06"

@@ -30,7 +30,7 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-07T12:21+00:00",
+ "generated_at": "2026-11-07T13:26+00:00",
  "today": "2026-11-07",
  "streak": {
   "current": 1,
@@ -67,7 +67,7 @@
    "mature_retention_30d": null,
    "avg_seconds": 13.1,
    "cards": {
-    "new": 639,
+    "new": 1041,
     "learning": 3,
     "young": 5,
     "mature": 3,

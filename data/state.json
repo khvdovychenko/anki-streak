@@ -1,10 +1,10 @@
 {
  "recent": [
-  "comeback:0",
   "save_3h:3",
   "save_15m:0",
   "routine:3",
-  "save_3h:1"
+  "save_3h:1",
+  "goal_done:2"
  ],
  "milestones": [],
  "lapse_sent": {
@@ -14,7 +14,8 @@
  "day": "2026-11-07",
  "sent": [
   "routine",
-  "save_3h"
+  "save_3h",
+  "goal_done"
  ],
  "nonsave": 1,
  "lapsed": false,

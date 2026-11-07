@@ -5,19 +5,19 @@
   "weakest_deck": null,
   "retention_7d": null,
   "retention_prev_7d": null,
-  "week_cards": 43,
+  "week_cards": 49,
   "last_week_cards": 0,
   "best_day": 145,
   "last_study_day": "2026-11-07",
-  "last_review": "2026-11-07T21:17+00:00",
+  "last_review": "2026-11-07T21:19+00:00",
   "lost_streak": 2,
   "usual_start_minute": 854
  },
  "goal": {
   "target": 30,
-  "done": 29,
+  "done": 35,
   "due_left": null,
-  "met": false,
+  "met": true,
   "cleared_queue": false
  },
  "settings": {
@@ -30,7 +30,7 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-07T21:18+00:00",
+ "generated_at": "2026-11-07T21:20+00:00",
  "today": "2026-11-07",
  "streak": {
   "current": 2,
@@ -40,11 +40,11 @@
   "lost_yesterday": false
  },
  "today_stats": {
-  "reviews": 29,
-  "minutes": 5.4
+  "reviews": 35,
+  "minutes": 6.1
  },
  "totals": {
-  "reviews": 1680,
+  "reviews": 1686,
   "hours": 6.5,
   "study_days": 42,
   "first_day": "2026-07-16",
@@ -53,23 +53,23 @@
   "retention_30d": null
  },
  "ratings_30d": {
-  "again": 8,
+  "again": 11,
   "hard": 0,
   "good": 14,
-  "easy": 25
+  "easy": 28
  },
  "decks": [
   {
    "name": "Vocabulaire",
-   "reviews_total": 46,
-   "reviews_30d": 46,
+   "reviews_total": 52,
+   "reviews_30d": 52,
    "retention_30d": null,
    "mature_retention_30d": null,
-   "avg_seconds": 11.9,
+   "avg_seconds": 11.3,
    "cards": {
     "new": 1024,
-    "learning": 3,
-    "young": 22,
+    "learning": 0,
+    "young": 25,
     "mature": 3,
     "suspended": 0,
     "leeches": 0
@@ -200,7 +200,7 @@
   },
   {
    "hour": 21,
-   "reviews": 242,
+   "reviews": 248,
    "retention": 80.9
   },
   {
@@ -242,7 +242,7 @@
   },
   {
    "weekday": 5,
-   "reviews": 363,
+   "reviews": 369,
    "study_days": 7
   },
   {
@@ -429,8 +429,8 @@
   },
   {
    "week": "2026-11-02",
-   "reviews": 43,
-   "minutes": 8,
+   "reviews": 49,
+   "minutes": 9,
    "retention": null,
    "new_cards": 24
   }
@@ -2258,8 +2258,8 @@
   },
   {
    "date": "2026-11-07",
-   "reviews": 29,
-   "minutes": 5.4
+   "reviews": 35,
+   "minutes": 6.1
   }
  ],
  "forecast": [
@@ -2269,7 +2269,7 @@
   },
   {
    "date": "2026-11-08",
-   "due": 3
+   "due": 6
   },
   {
    "date": "2026-11-09",

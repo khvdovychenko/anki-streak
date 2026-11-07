@@ -9,15 +9,9 @@
  "lapse_sent": {
   "2026-10-19": []
  },
- "due_yesterday": null,
- "day": "2026-11-06",
- "sent": [
-  "test",
-  "comeback",
-  "save_3h",
-  "save_1h",
-  "save_15m"
- ],
+ "due_yesterday": 0,
+ "day": "2026-11-07",
+ "sent": [],
  "nonsave": 0,
  "lapsed": false,
  "due_today": 0,

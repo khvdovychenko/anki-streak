@@ -238,8 +238,15 @@ def decide(stats, state, now):
 def weekly(stats, state, now):
     if now.weekday() == 6 and now.hour >= 12 and state.get("weekly_sent") != stats["today"]:
         n = stats.get("notify") or {}
+        this_week, last_week = n.get("week_cards") or 0, n.get("last_week_cards") or 0
+        # A better week always gets (grumpy) praise; a worse one may get told off.
+        trend = "week_up" if this_week > last_week else "week_down" if this_week < last_week else None
 
         def available(m):
+            if trend == "week_up":
+                return m.get("when") == "week_up"
+            if m.get("when"):
+                return m["when"] == trend
             text = m["body"] + m["title"]
             if "{weakest_deck}" in text:
                 return bool(n.get("weakest_deck"))

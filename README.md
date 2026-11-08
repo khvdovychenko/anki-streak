@@ -25,7 +25,7 @@ The red badge on the app icon shows how many reviews are left until today's goal
 - **Collects** the full review log (`revlog`) from AnkiWeb using Anki's official open-source Python library. Download only: the script never uploads, so it cannot change the real collection.
 - **Analyses** every review: streaks, daily heatmap, weekly volume and retention, retention by hour of day, weekday patterns, answer-button mix, per-deck card maturity, leeches and a 14-day workload forecast.
 - **Explains** the numbers in plain language ("you remember best at 18:00, worst at 23:00").
-- **Nags** like Duolingo, through Web Push and email: 63 messages in `collector/messages.json`, with a second character (The Backlog, your overdue pile), a spice level from 1 (cheeky) to 3 (unhinged), and rules for when each fires: about 30 minutes before you usually study, after a half-finished session, rescue pushes 3h, 1h and 15 min before midnight, and a sequence on days 1, 2, 3, 5 and 7 after you skip.
+- **Nags** like Duolingo, through Web Push and email: 69 messages in `collector/messages.json`, with a second character (The Backlog, your overdue pile), a spice level from 1 (cheeky) to 3 (unhinged), and rules for when each fires: about 30 minutes before you usually study, after a half-finished session, rescue pushes 3h, 1h and 15 min before midnight, and a sequence on days 1, 2, 3, 5 and 7 after you skip.
 - **Publishes** a cleaned dataset, `docs/data/reviews.csv`, with one row per review (no card text).
 
 ## Research questions

@@ -122,7 +122,13 @@
     { "spice": 1, "title": "So close", "body": "{to_best} cards and today beats your record of {best_day}." },
     { "spice": 2, "title": "Retention: {retention}%", "body": "It dropped. Your memory would like to file a complaint." },
     { "spice": 2, "title": "Cinder", "body": "Weakest deck this week: {weakest_deck}. It's not going to fix itself." },
-    { "spice": 3, "title": "Weekly report", "body": "{week_cards} cards this week. Last week: {last_week_cards}. Explain yourself." }
+    { "spice": 2, "when": "week_down", "title": "Weekly report", "body": "{week_cards} cards this week. Last week you did {last_week_cards}. We both know you can do better." },
+    { "spice": 3, "when": "week_down", "title": "Weekly report", "body": "{week_cards} cards this week. Last week: {last_week_cards}. Explain yourself." },
+    { "spice": 1, "when": "week_up", "title": "Weekly report", "body": "{week_cards} cards this week, {last_week_cards} last week. Look at you." },
+    { "spice": 1, "when": "week_up", "title": "Cinder", "body": "Up from {last_week_cards} to {week_cards} cards. I'm warmer. Don't mention it." },
+    { "spice": 2, "when": "week_up", "title": "Weekly report", "body": "{week_cards} cards. Last week: {last_week_cards}. Who are you and what did you do with my slacker?" },
+    { "spice": 2, "when": "week_up", "title": "Cinder", "body": "{week_cards} cards, up from {last_week_cards}. I'd hug you, but I'm on fire." },
+    { "spice": 3, "when": "week_up", "title": "Weekly report", "body": "{week_cards} vs {last_week_cards}. I'm not proud of you. I'm just slightly less disappointed." }
   ],
 
   "milestones": {
@@ -139,6 +145,6 @@
     { "trigger": "broken",      "subject": "Cinder's funeral: details inside", "preview": "Dress code: one review session." },
     { "trigger": "lapsed_day3", "subject": "We need to talk about your {due} overdue cards", "preview": "From: The Backlog. We're growing." },
     { "trigger": "lapsed_day7", "subject": "Your memory has been unsupervised for a week", "preview": "Here's what it forgot." },
-    { "trigger": "weekly",      "subject": "Your week with Cinder: {week_cards} cards, {retention}% retention", "preview": "Plus the deck that's quietly falling apart." }
+    { "trigger": "weekly",      "subject": "Your week with Cinder: {week_cards} cards (last week: {last_week_cards})", "preview": "Cinder's verdict on your week." }
   ]
 }

@@ -1,10 +1,10 @@
 {
  "recent": [
-  "routine:3",
   "save_3h:1",
   "goal_done:2",
   "stats:3",
-  "partial:3"
+  "partial:3",
+  "save_3h:2"
  ],
  "milestones": [
   3
@@ -17,7 +17,8 @@
  "sent": [
   "weekly",
   "milestone",
-  "partial"
+  "partial",
+  "save_3h"
  ],
  "nonsave": 1,
  "lapsed": false,

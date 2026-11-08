@@ -1,10 +1,10 @@
 {
  "recent": [
-  "save_15m:0",
   "routine:3",
   "save_3h:1",
   "goal_done:2",
-  "stats:3"
+  "stats:3",
+  "partial:3"
  ],
  "milestones": [
   3
@@ -16,9 +16,10 @@
  "day": "2026-11-08",
  "sent": [
   "weekly",
-  "milestone"
+  "milestone",
+  "partial"
  ],
- "nonsave": 0,
+ "nonsave": 1,
  "lapsed": false,
  "due_today": 6,
  "watching_since": "2026-11-06",

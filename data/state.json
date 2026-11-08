@@ -1,10 +1,10 @@
 {
  "recent": [
-  "save_3h:1",
   "goal_done:2",
   "stats:3",
   "partial:3",
-  "save_3h:2"
+  "save_3h:2",
+  "save_1h:2"
  ],
  "milestones": [
   3
@@ -18,7 +18,8 @@
   "weekly",
   "milestone",
   "partial",
-  "save_3h"
+  "save_3h",
+  "save_1h"
  ],
  "nonsave": 1,
  "lapsed": false,

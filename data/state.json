@@ -6,14 +6,17 @@
   "goal_done:2",
   "stats:3"
  ],
- "milestones": [],
+ "milestones": [
+  3
+ ],
  "lapse_sent": {
   "2026-10-19": []
  },
  "due_yesterday": 0,
  "day": "2026-11-08",
  "sent": [
-  "weekly"
+  "weekly",
+  "milestone"
  ],
  "nonsave": 0,
  "lapsed": false,

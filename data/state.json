@@ -11,14 +11,10 @@
   "2026-10-19": []
  },
  "due_yesterday": 0,
- "day": "2026-11-07",
- "sent": [
-  "routine",
-  "save_3h",
-  "goal_done"
- ],
- "nonsave": 1,
+ "day": "2026-11-08",
+ "sent": [],
+ "nonsave": 0,
  "lapsed": false,
- "due_today": 0,
+ "due_today": 6,
  "watching_since": "2026-11-06"
 }

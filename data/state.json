@@ -1,10 +1,10 @@
 {
  "recent": [
-  "stats:3",
   "partial:3",
   "save_3h:2",
   "save_1h:2",
-  "routine:9"
+  "routine:9",
+  "save_1h:1"
  ],
  "milestones": [
   3
@@ -15,7 +15,9 @@
  "due_yesterday": 6,
  "day": "2026-11-09",
  "sent": [
-  "routine"
+  "routine",
+  "save_3h",
+  "save_1h"
  ],
  "nonsave": 1,
  "lapsed": false,

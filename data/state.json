@@ -12,18 +12,12 @@
  "lapse_sent": {
   "2026-10-19": []
  },
- "due_yesterday": 0,
- "day": "2026-11-08",
- "sent": [
-  "weekly",
-  "milestone",
-  "partial",
-  "save_3h",
-  "save_1h"
- ],
- "nonsave": 1,
+ "due_yesterday": 6,
+ "day": "2026-11-09",
+ "sent": [],
+ "nonsave": 0,
  "lapsed": false,
- "due_today": 6,
+ "due_today": 13,
  "watching_since": "2026-11-06",
  "weekly_sent": "2026-11-08"
 }

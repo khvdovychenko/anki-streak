@@ -1,6 +1,6 @@
 {
  "notify": {
-  "due": 13,
+  "due": 18,
   "deck": "Vocabulaire",
   "weakest_deck": null,
   "retention_7d": null,
@@ -30,14 +30,14 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-09T23:23+00:00",
- "today": "2026-11-09",
+ "generated_at": "2026-11-10T13:53+00:00",
+ "today": "2026-11-10",
  "streak": {
-  "current": 3,
+  "current": 0,
   "longest": 31,
   "reviewed_today": false,
-  "at_risk": true,
-  "lost_yesterday": false
+  "at_risk": false,
+  "lost_yesterday": true
  },
  "today_stats": {
   "reviews": 0,
@@ -49,7 +49,7 @@
   "study_days": 43,
   "first_day": "2026-07-16",
   "avg_reviews_per_study_day": 39,
-  "consistency_90d": 18,
+  "consistency_90d": 17,
   "retention_30d": null
  },
  "ratings_30d": {
@@ -436,11 +436,6 @@
   }
  ],
  "heatmap": [
-  {
-   "date": "2025-11-10",
-   "reviews": 0,
-   "minutes": 0.0
-  },
   {
    "date": "2025-11-11",
    "reviews": 0,
@@ -2260,16 +2255,17 @@
    "date": "2026-11-09",
    "reviews": 0,
    "minutes": 0.0
+  },
+  {
+   "date": "2026-11-10",
+   "reviews": 0,
+   "minutes": 0.0
   }
  ],
  "forecast": [
   {
-   "date": "2026-11-09",
-   "due": 13
-  },
-  {
    "date": "2026-11-10",
-   "due": 5
+   "due": 18
   },
   {
    "date": "2026-11-11",
@@ -2317,6 +2313,10 @@
   },
   {
    "date": "2026-11-22",
+   "due": 0
+  },
+  {
+   "date": "2026-11-23",
    "due": 0
   }
  ],

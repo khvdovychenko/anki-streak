@@ -1,10 +1,10 @@
 {
  "recent": [
-  "save_1h:2",
   "routine:9",
   "save_1h:1",
   "broken:2",
-  "routine:7"
+  "routine:7",
+  "lapsed_day2:0"
  ],
  "milestones": [
   3
@@ -12,18 +12,18 @@
  "lapse_sent": {
   "2026-10-19": [],
   "2026-11-08": [
-   1
+   1,
+   2
   ]
  },
- "due_yesterday": 13,
- "day": "2026-11-10",
+ "due_yesterday": 18,
+ "day": "2026-11-11",
  "sent": [
-  "broken",
-  "routine"
+  "lapsed_day2"
  ],
- "nonsave": 1,
+ "nonsave": 0,
  "lapsed": true,
- "due_today": 18,
+ "due_today": 21,
  "watching_since": "2026-11-06",
  "weekly_sent": "2026-11-08"
 }

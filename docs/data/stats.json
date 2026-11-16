@@ -30,8 +30,8 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-15T13:58+00:00",
- "today": "2026-11-15",
+ "generated_at": "2026-11-16T21:15+00:00",
+ "today": "2026-11-16",
  "streak": {
   "current": 0,
   "longest": 31,
@@ -49,7 +49,7 @@
   "study_days": 43,
   "first_day": "2026-07-16",
   "avg_reviews_per_study_day": 39,
-  "consistency_90d": 12,
+  "consistency_90d": 11,
   "retention_30d": null
  },
  "ratings_30d": {
@@ -253,13 +253,6 @@
  ],
  "weekly": [
   {
-   "week": "2026-05-18",
-   "reviews": 0,
-   "minutes": 0,
-   "retention": null,
-   "new_cards": 0
-  },
-  {
    "week": "2026-05-25",
    "reviews": 0,
    "minutes": 0,
@@ -433,14 +426,16 @@
    "minutes": 0,
    "retention": null,
    "new_cards": 0
+  },
+  {
+   "week": "2026-11-16",
+   "reviews": 0,
+   "minutes": 0,
+   "retention": null,
+   "new_cards": 0
   }
  ],
  "heatmap": [
-  {
-   "date": "2025-11-16",
-   "reviews": 0,
-   "minutes": 0.0
-  },
   {
    "date": "2025-11-17",
    "reviews": 0,
@@ -2260,16 +2255,17 @@
    "date": "2026-11-15",
    "reviews": 0,
    "minutes": 0.0
+  },
+  {
+   "date": "2026-11-16",
+   "reviews": 0,
+   "minutes": 0.0
   }
  ],
  "forecast": [
   {
-   "date": "2026-11-15",
-   "due": 28
-  },
-  {
    "date": "2026-11-16",
-   "due": 0
+   "due": 28
   },
   {
    "date": "2026-11-17",
@@ -2317,6 +2313,10 @@
   },
   {
    "date": "2026-11-28",
+   "due": 0
+  },
+  {
+   "date": "2026-11-29",
    "due": 0
   }
  ],

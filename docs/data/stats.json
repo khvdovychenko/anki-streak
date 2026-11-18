@@ -30,8 +30,8 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-16T21:15+00:00",
- "today": "2026-11-16",
+ "generated_at": "2026-11-18T12:10+00:00",
+ "today": "2026-11-18",
  "streak": {
   "current": 0,
   "longest": 31,
@@ -49,20 +49,20 @@
   "study_days": 43,
   "first_day": "2026-07-16",
   "avg_reviews_per_study_day": 39,
-  "consistency_90d": 11,
+  "consistency_90d": 9,
   "retention_30d": null
  },
  "ratings_30d": {
   "again": 11,
   "hard": 0,
-  "good": 15,
+  "good": 11,
   "easy": 31
  },
  "decks": [
   {
    "name": "Vocabulaire",
    "reviews_total": 56,
-   "reviews_30d": 56,
+   "reviews_30d": 52,
    "retention_30d": null,
    "mature_retention_30d": null,
    "avg_seconds": 10.9,
@@ -436,16 +436,6 @@
   }
  ],
  "heatmap": [
-  {
-   "date": "2025-11-17",
-   "reviews": 0,
-   "minutes": 0.0
-  },
-  {
-   "date": "2025-11-18",
-   "reviews": 0,
-   "minutes": 0.0
-  },
   {
    "date": "2025-11-19",
    "reviews": 0,
@@ -2260,20 +2250,22 @@
    "date": "2026-11-16",
    "reviews": 0,
    "minutes": 0.0
+  },
+  {
+   "date": "2026-11-17",
+   "reviews": 0,
+   "minutes": 0.0
+  },
+  {
+   "date": "2026-11-18",
+   "reviews": 0,
+   "minutes": 0.0
   }
  ],
  "forecast": [
   {
-   "date": "2026-11-16",
-   "due": 28
-  },
-  {
-   "date": "2026-11-17",
-   "due": 0
-  },
-  {
    "date": "2026-11-18",
-   "due": 0
+   "due": 28
   },
   {
    "date": "2026-11-19",
@@ -2317,6 +2309,14 @@
   },
   {
    "date": "2026-11-29",
+   "due": 0
+  },
+  {
+   "date": "2026-11-30",
+   "due": 0
+  },
+  {
+   "date": "2026-12-01",
    "due": 0
   }
  ],

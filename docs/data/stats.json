@@ -30,8 +30,8 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-18T12:10+00:00",
- "today": "2026-11-18",
+ "generated_at": "2026-11-19T10:24+00:00",
+ "today": "2026-11-19",
  "streak": {
   "current": 0,
   "longest": 31,
@@ -436,11 +436,6 @@
   }
  ],
  "heatmap": [
-  {
-   "date": "2025-11-19",
-   "reviews": 0,
-   "minutes": 0.0
-  },
   {
    "date": "2025-11-20",
    "reviews": 0,
@@ -2260,16 +2255,17 @@
    "date": "2026-11-18",
    "reviews": 0,
    "minutes": 0.0
+  },
+  {
+   "date": "2026-11-19",
+   "reviews": 0,
+   "minutes": 0.0
   }
  ],
  "forecast": [
   {
-   "date": "2026-11-18",
-   "due": 28
-  },
-  {
    "date": "2026-11-19",
-   "due": 0
+   "due": 28
   },
   {
    "date": "2026-11-20",
@@ -2317,6 +2313,10 @@
   },
   {
    "date": "2026-12-01",
+   "due": 0
+  },
+  {
+   "date": "2026-12-02",
    "due": 0
   }
  ],

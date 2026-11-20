@@ -6,7 +6,7 @@
   "retention_7d": null,
   "retention_prev_7d": null,
   "week_cards": 0,
-  "last_week_cards": 53,
+  "last_week_cards": 39,
   "best_day": 145,
   "last_study_day": "2026-11-08",
   "last_review": "2026-11-08T13:43+00:00",
@@ -30,8 +30,8 @@
   "timezone": "Europe/Dublin",
   "day_start_hour": 4
  },
- "generated_at": "2026-11-19T19:07+00:00",
- "today": "2026-11-19",
+ "generated_at": "2026-11-20T23:25+00:00",
+ "today": "2026-11-20",
  "streak": {
   "current": 0,
   "longest": 31,
@@ -436,11 +436,6 @@
   }
  ],
  "heatmap": [
-  {
-   "date": "2025-11-20",
-   "reviews": 0,
-   "minutes": 0.0
-  },
   {
    "date": "2025-11-21",
    "reviews": 0,
@@ -2260,16 +2255,17 @@
    "date": "2026-11-19",
    "reviews": 0,
    "minutes": 0.0
+  },
+  {
+   "date": "2026-11-20",
+   "reviews": 0,
+   "minutes": 0.0
   }
  ],
  "forecast": [
   {
-   "date": "2026-11-19",
-   "due": 28
-  },
-  {
    "date": "2026-11-20",
-   "due": 0
+   "due": 28
   },
   {
    "date": "2026-11-21",
@@ -2317,6 +2313,10 @@
   },
   {
    "date": "2026-12-02",
+   "due": 0
+  },
+  {
+   "date": "2026-12-03",
    "due": 0
   }
  ],
